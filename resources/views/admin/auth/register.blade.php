@@ -23,13 +23,14 @@
                         <div class="text-center text-muted mb-4">
                             <small>Or sign up with credentials</small>
                         </div>
-                        <form role="form">
+                        <form method="POST" action="{{ route('admin.register.store')}}" >
+                            @csrf
                             <div class="form-group">
                                 <div class="input-group input-group-merge input-group-alternative mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Name" type="text">
+                                    <input class="form-control" placeholder="Username" type="text" id="user_name" name="user_name">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -37,7 +38,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Email" type="email">
+                                    <input class="form-control" placeholder="Email" type="email" id="email" name="email">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -45,7 +46,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Password" type="password">
+                                    <input class="form-control" placeholder="Password" type="password" name="password" id="password">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -53,13 +54,22 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Confirm password" type="password">
+                                    <input class="form-control" placeholder="Confirm password" type="password" name="password_confirm" id="password_confirm">
                                 </div>
                             </div>
+
                             <div class="text-center">
-                                <button type="button" class="btn btn-primary mt-4">Create account</button>
+                                <input type="submit" class="btn btn-primary mt-4" value="Create account">
                             </div>
                         </form>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <a href="#" class="text-light"><small>Forgot password?</small></a>
+                    </div>
+                    <div class="col-6 text-right">
+                        <a href="{{ route('admin.auth.login') }}" class="text-light"><small>Already have an account? Login!</small></a>
                     </div>
                 </div>
             </div>
