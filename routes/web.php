@@ -26,6 +26,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('login', 'Auth\Admin\LoginController@loginAdmin')->name('auth.loginAdmin');
     Route::get('logout', 'Auth\Admin\LoginController@logout')->name('auth.logout');
 
+    Route::get('profile', 'Admin\AdminManagerController@show')->name('profile');
+    Route::get('profile/edit', 'Admin\AdminManagerController@edit')->name('profile.edit');
+    Route::post('profile/update', 'Admin\AdminManagerController@update')->name('profile.update');
+
 //    Route::get('students/', 'Admin\StudentController@index')->name('students');
 //    Route::get('students/create', 'Admin\StudentController@create')->name('students.create');
 //    Route::get('students/{id}/edit', 'Admin\StudentController@edit')->where('id', '[0-9]+')->name('students.edit');
