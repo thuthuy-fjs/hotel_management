@@ -29,6 +29,15 @@
                             </div>
                         </div>
                     </div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="card-body">
                         <form action="{{ route('admin.profile.update') }}" method="post">
                             @csrf
@@ -71,7 +80,7 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-address">Ảnh</label>
                                             <input id="image" name="image" class="form-control" placeholder="Address"
-                                                   value="{{$admin->location}}" type="text">
+                                                   value="{{$admin->image}}" type="text">
                                             <input id="password" name="password" class="form-control" placeholder=""
                                                    value="{{$admin->password}}" type="password" hidden>
                                         </div>

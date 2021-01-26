@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\RegisterRequest;
 use App\Models\Admin\AdminModel;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -26,15 +27,9 @@ class RegisterController extends Controller
         return view('admin.auth.register');
     }
 
-    public function store(Request $request)
+    public function store(RegisterRequest $request)
     {
-        $this->validate($request, array(
-            'user_name' => 'required|max:255',
-            'email' => 'required|email',
-            'password' => 'required|min:8',
-            'password_confirm' => 'required|same:password',
-        ));
-
+        $validated = $request->validated();
         $adminModel = new AdminModel();
         $adminModel->user_name = $request->user_name;
         $adminModel->email = $request->email;

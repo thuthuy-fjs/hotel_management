@@ -30,13 +30,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('profile/edit', 'Admin\AdminManagerController@edit')->name('profile.edit');
     Route::post('profile/update', 'Admin\AdminManagerController@update')->name('profile.update');
 
-//    Route::get('students/', 'Admin\StudentController@index')->name('students');
-//    Route::get('students/create', 'Admin\StudentController@create')->name('students.create');
-//    Route::get('students/{id}/edit', 'Admin\StudentController@edit')->where('id', '[0-9]+')->name('students.edit');
-//    Route::get('students/{id}/delete', 'Admin\StudentController@delete')->where('id', '[0-9]+')->name('students.delete');
-//
-//    Route::post('students', 'Admin\StudentController@store')->name('students.store');
-//    Route::post('students/{id}', 'Admin\StudentController@update')->where('id', '[0-9]+')->name('students.update');
-//    Route::post('students/{id}/delete', 'Admin\StudentController@destroy')->where('id', '[0-9]+')->name('students.destroy');
+    Route::get('country', 'Admin\CountryController@index')->name('country');
+    Route::get('province', 'Admin\ProvinceController@index')->name('province');
 
+    Route::get('hotel/', 'Admin\HotelController@index')->name('hotel');
+    Route::get('hotel/list_provinces', 'Admin\HotelController@getProvinces')->name('hotel.list_provinces');
+    Route::get('hotel/create', 'Admin\HotelController@create')->name('hotel.create');
+    Route::get('hotel/edit/{id}', 'Admin\HotelController@edit')->where('id', '[0-9]+')->name('hotel.edit');
+    Route::get('hotel/delete/{id}', 'Admin\HotelController@delete')->where('id', '[0-9]+')->name('hotel.delete');
+
+    Route::post('hotel', 'Admin\HotelController@store')->name('hotel.store');
+    Route::post('hotel/{id}', 'Admin\HotelController@update')->where('id', '[0-9]+')->name('hotel.update');
+    Route::post('hotel/delete/{id}', 'Admin\HotelController@destroy')->where('id', '[0-9]+')->name('hotel.destroy');
 });

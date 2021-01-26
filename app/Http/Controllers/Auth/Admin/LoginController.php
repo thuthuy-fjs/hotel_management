@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\LoginRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,14 +23,9 @@ class LoginController extends Controller
         return view('admin.auth.login');
     }
 
-    public function loginAdmin(Request $request)
+    public function loginAdmin(LoginRequest $request)
     {
-
-        $this->validate($request, array(
-            'email' => 'required|email',
-            'password' => 'required|min:6'
-        ));
-
+        $validated = $request->validated();
         if (Auth::guard('admin')->attempt(
             ['email' => $request->email, 'password' => $request->password], $request->remember
         )) {

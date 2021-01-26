@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\AdminModel;
+use App\Http\Requests\Admin\AdminRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AdminManagerController extends Controller
 {
@@ -26,18 +27,9 @@ class AdminManagerController extends Controller
         return view('admin.contents.profile.edit', ['admin' => $admin]);
     }
 
-    public function update(Request $request)
+    public function update(AdminRequest $request)
     {
-//        $this->validate($request, array(
-//            'first_name' => 'required',
-//            'last_name' => 'required',
-//            'user_name' => 'required',
-//            'email' => 'required|email',
-//            'password' => 'min:8',
-//            'phone' => 'required',
-//            'location' => 'required',
-//            'image' => 'required',
-//        ));
+        $validated = $request->validated();
         $input = $request->all();
         $admin = Auth::user();
         $admin->first_name = $input['first_name'];

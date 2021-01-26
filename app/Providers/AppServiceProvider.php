@@ -13,7 +13,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(
+            \App\Repositories\Admin\HotelRepositoryInterface::class,
+            \App\Repositories\Admin\HotelRepository::class
+        );
+        $this->app->bind(
+            \App\Repositories\Admin\ProvinceRepositoryInterface::class,
+            \App\Repositories\Admin\ProvinceRepository::class
+        );
     }
 
     /**

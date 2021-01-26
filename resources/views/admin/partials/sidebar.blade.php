@@ -13,7 +13,7 @@
                 <!-- Nav items -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link active" href="examples/dashboard.html">
+                        <a class="nav-link active" href="{{route('admin.dashboard')}}">
                             <i class="ni ni-tv-2 text-primary"></i>
                             <span class="nav-link-text">Dashboard</span>
                         </a>
@@ -27,29 +27,29 @@
                 </h6>
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link" href="examples/icons.html">
+                        <a class="nav-link" href="{{route('admin.country')}}">
                             <i class="ni ni-planet text-orange"></i>
                             <span class="nav-link-text">Quốc gia</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="examples/map.html">
+                        <a class="nav-link" href="{{route('admin.province')}}">
                             <i class="ni ni-pin-3 text-primary"></i>
                             <span class="nav-link-text">Tỉnh/Thành phố</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="examples/profile.html">
+                        <a class="nav-link" href="{{route('admin.hotel')}}">
                             <i class="ni ni-building text-yellow"></i>
                             <span class="nav-link-text">Khách sạn</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="#collapse1" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                        <a class="nav-link tab-navigation" href="#collapse1" data-toggle="tab" data-target="#collapse1" aria-expanded="true" aria-controls="collapse">
                             <i class="ni ni-shop text-default"></i>
                             <span class="nav-link-text">Phòng</span>
                         </a>
-                        <div id="collapse1" class="collapse">
+                        <div id="collapse1" class="tab-content">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
                                     <a class="nav-link" href="pages/ui-features/buttons.html">Phòng</a>

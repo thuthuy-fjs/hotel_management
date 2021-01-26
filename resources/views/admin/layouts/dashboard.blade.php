@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 @include('admin.partials.head')
-
 <body>
 <!-- Sidenav -->
 @include('admin.partials.sidebar')
@@ -13,8 +12,8 @@
     @yield('content')
     {{--@include('admin.partials.footer')--}}
 </div>
-<!-- Argon Scripts -->
-<!-- Core -->
 @include('admin.partials.main-js')
+@yield('js')
 </body>
+
 </html>
