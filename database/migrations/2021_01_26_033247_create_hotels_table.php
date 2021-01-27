@@ -23,7 +23,7 @@ class CreateHotelsTable extends Migration
             $table->string('hotel_website')->nullable();
             $table->string('hotel_image');
             $table->string('description')->nullable();
-            $table->integer('is_active');
+            $table->integer('is_active')->default(1);
             $table->foreign('province_id')->references('id')->on('provinces');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();

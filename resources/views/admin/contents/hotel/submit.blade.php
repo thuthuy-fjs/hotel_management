@@ -47,9 +47,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-control-label" for="country_id">Quốc gia</label><br>
-                                            <select id="country" name="country" class="selectpicker"
-                                                    data-style="btn-neutral"
-                                                    data-live-search="true">
+                                            <select id="country" name="country" class="form-control btn-sm btn-neutral">
                                                 <option value="" selected disabled>Quốc gia</option>
                                                 @foreach($countries as $country)
                                                     <option value="{{$country->id}}">{{$country->country_name}}</option>
@@ -60,23 +58,20 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="province_id">Tỉnh/Thành
-                                                phố</label><br>
-                                            <select id="province" name="province" class="selectpicker"
-                                                    data-style="btn-neutral"
-                                                    data-live-search="true">
+                                            <label class="form-control-label" for="province_id">Tỉnh/Thành phố</label><br>
+                                            <select id="province_id" name="province_id" class="form-control btn-sm btn-neutral">
                                                 <option value="" selected disabled>Tỉnh/Thành phố</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="category_id">Loại chỗ
-                                                nghỉ</label><br>
-                                            <select id="category_id" name="category_id" class="selectpicker"
-                                                    data-style="btn-neutral"
-                                                    data-live-search="true">
-                                                <option>Tom Foolery</option>
+                                            <label class="form-control-label" for="category_id">Loại chỗ nghỉ</label><br>
+                                            <select id="category_id" name="category_id" class="form-control btn-sm btn-neutral">
+                                                <option value="" selected disabled>Loại chỗ nghỉ</option>
+                                                @foreach($categories as $category)
+                                                    <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -156,20 +151,20 @@
                     url: "{{route('admin.hotel.list_provinces')}}?country_id=" + country_id,
                     success: function (res) {
                         if (res) {
-                            $('#province').html('');
-                            $('#province').append('<option value="" selected disabled>Tỉnh/Thành phố</option>');
+                            $('#province_id').html('');
+                            $('#province_id').append('<option value="" selected disabled>Tỉnh/Thành phố</option>');
                             $.each(res, function (key, value) {
                                 console.log(value.province_name);
-                                $('#province').append('<option value="' + value.id + '">' + value.province_name + '</option>');
+                                $('#province_id').append('<option value="' + value.id + '">' + value.province_name + '</option>');
                             });
 
                         } else {
-                            $('#province').html('');
+                            $('#province_id').html('');
                         }
                     }
                 });
             } else {
-                $('#province').html('');
+                $('#province_id').html('');
                 $('#city').html('');
             }
         });

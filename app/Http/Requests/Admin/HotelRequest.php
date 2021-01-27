@@ -30,7 +30,6 @@ class HotelRequest extends FormRequest
             'hotel_phone' => 'required',
             'hotel_email' => 'required|email',
             'hotel_image' => 'required',
-            'is_active' => 'required',
         ];
     }
 

@@ -45,14 +45,16 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link tab-navigation" href="#collapse1" data-toggle="tab" data-target="#collapse1" aria-expanded="true" aria-controls="collapse">
+                        <a class="nav-link nav-pills nav-fill flex-column flex-md-row" href="#collapse1"
+                           data-toggle="collapse" data-target="#collapse1" aria-expanded="true"
+                           aria-controls="collapse">
                             <i class="ni ni-shop text-default"></i>
                             <span class="nav-link-text">Phòng</span>
                         </a>
-                        <div id="collapse1" class="tab-content">
+                        <div id="collapse1" class="collapse">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="pages/ui-features/buttons.html">Phòng</a>
+                                    <a class="nav-link" href="{{route('admin.room.type')}}">Loại phòng nghỉ</a>
                                 </li>
                             </ul>
                         </div>
@@ -67,19 +69,25 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html" target="_blank">
+                        <a class="nav-link"
+                           href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html"
+                           target="_blank">
                             <i class="ni ni-spaceship"></i>
                             <span class="nav-link-text">Getting started</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html" target="_blank">
+                        <a class="nav-link"
+                           href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html"
+                           target="_blank">
                             <i class="ni ni-palette"></i>
                             <span class="nav-link-text">Foundation</span>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html" target="_blank">
+                        <a class="nav-link"
+                           href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html"
+                           target="_blank">
                             <i class="ni ni-ui-04"></i>
                             <span class="nav-link-text">Components</span>
                         </a>

@@ -39,21 +39,21 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <form action="{{ route('admin.hotel.store') }}" method="post">
+                        <form action="{{ route('admin.hotel.update', $hotel->id) }}" method="post">
                             @csrf
                             <h6 class="heading-small text-muted mb-4">Thông tin</h6>
                             <div class="pl-lg-4">
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
-                                            <input type="text" id="hotel_name" name="hotel_name" class="form-control"
+                                            <input type="text" id="province_id" name="province_id" class="form-control"
                                                    placeholder="Hotel name" value="{{$hotel->province_id}}" hidden>
-                                            <label class="form-control-label" for="category_id">Loại chỗ
-                                                nghỉ</label><br>
-                                            <select id="category_id" name="category_id" class="selectpicker"
-                                                    data-style="btn-neutral"
-                                                    data-live-search="true">
-                                                <option>Tom Foolery</option>
+                                            <label class="form-control-label" for="category_id">Loại chỗ nghỉ</label><br>
+                                            <select id="category_id" name="category_id" class="form-control btn-sm btn-neutral">
+                                                <option value="" selected disabled>Loại chỗ nghỉ</option>
+                                                @foreach($categories as $category)
+                                                    <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-control-label" for="hotel_image">Ảnh</label>
-                                            <input id="hotel_image" name="hotel_image" class="form-control"
+                                            <input id="hotel_image" name="hotel_image" class="form-control" value="{{$hotel->hotel_image}}"
                                                    placeholder="Address" type="text">
                                         </div>
                                     </div>
