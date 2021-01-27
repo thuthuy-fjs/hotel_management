@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\LoginRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,20 +18,16 @@ class LoginController extends Controller
         $this->middleware('guest:admin')->except('logout');
     }
 
-    public function login() {
+    public function login()
+    {
         return view('admin.auth.login');
     }
 
-    public function loginAdmin(Request $request) {
-
-        $this->validate($request, array(
-            'email' => 'required|email',
-            'password' => 'required|min:6'
-        ));
-
-
+    public function loginAdmin(LoginRequest $request)
+    {
+        $validated = $request->validated();
         if (Auth::guard('admin')->attempt(
-            ['email' => $request->email, 'password' => $request->password],  $request->remember
+            ['email' => $request->email, 'password' => $request->password], $request->remember
         )) {
             return redirect()->intended(route('admin.dashboard'));
         }
@@ -38,7 +35,8 @@ class LoginController extends Controller
         return redirect()->back()->withInput($request->only('email', 'remember'));
     }
 
-    public function logout() {
+    public function logout()
+    {
         Auth::guard('admin')->logout();
 
         return redirect()->route('admin.auth.login');
