@@ -20,7 +20,7 @@
                             <select id="province" name="province" class="btn btn-sm btn-neutral">
                                 <option value="" selected disabled>Tỉnh/Thành phố</option>
                             </select>
-                            <input type="submit" class="btn btn-sm btn-neutral" value="Chọn">
+                            <input type="submit" class="btn btn-sm btn-neutral" value="Tìm kiếm">
                         </form>
                     </div>
                     <div class="col-lg-6 text-right">

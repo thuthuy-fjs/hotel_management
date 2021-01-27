@@ -23,4 +23,9 @@ class HotelModel extends Model
         }
         return $query;
     }
+
+    public function rooms(){
+        return $this->hasMany('App\Models\Admin\RoomModel', 'hotel_id');
+    }
+
 }
