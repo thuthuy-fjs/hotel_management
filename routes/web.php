@@ -49,6 +49,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('room/type', 'Admin\RoomTypeController@index')->name('room.type');
 
     Route::get('room/list', 'Admin\RoomController@index')->name('room.list');
+    Route::get('room/show/{id}', 'Admin\RoomController@show')->name('room.show');
     Route::get('room/list_rooms', 'Admin\RoomController@getRoomInHotel')->name('room.list_rooms');
     Route::get('room/search', 'Admin\RoomController@search')->name('room.search');
     Route::get('room/create', 'Admin\RoomController@create')->name('room.create');

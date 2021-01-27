@@ -16,6 +16,7 @@ class RoomController extends Controller
     protected $roomRepo;
     protected $hotelRepo;
     protected $roomtypeRepo;
+
     public function __construct(RoomRepository $roomRepo, HotelRepository $hotelRepo, RoomTypeRepository $roomtypeRepo)
     {
         $this->middleware('auth:admin');
@@ -24,10 +25,17 @@ class RoomController extends Controller
         $this->roomtypeRepo = $roomtypeRepo;
     }
 
-    public function index(){
+    public function index()
+    {
         $rooms = $this->roomRepo->getAll();
         $hotels = $this->hotelRepo->getAll();
         return view('admin.contents.room.index', ['rooms' => $rooms], ['hotels' => $hotels]);
+    }
+
+    public function show($id)
+    {
+        $room = $this->roomRepo->find($id);
+        return view('admin.contents.room.show', ['room' => $room]);
     }
 
     public function getRoomInHotel(Request $request)
@@ -35,7 +43,7 @@ class RoomController extends Controller
         $hotels = $this->hotelRepo->getAll();
         $hotel = $this->hotelRepo->find($request->hotel);
         $rooms = $hotel->rooms;
-        return view('admin.contents.room.index',['hotels' => $hotels], ['rooms' => $rooms]);
+        return view('admin.contents.room.index', ['hotels' => $hotels], ['rooms' => $rooms]);
 
     }
 
@@ -50,7 +58,7 @@ class RoomController extends Controller
     {
         $types = $this->roomtypeRepo->getAll();
         $hotel = $this->hotelRepo->find($id);
-        return view('admin.contents.room.edit',['types' => $types], ['hotel' => $hotel]);
+        return view('admin.contents.room.edit', ['types' => $types], ['hotel' => $hotel]);
     }
 
     public function store(RoomRequest $request)

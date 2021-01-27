@@ -132,10 +132,12 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                <a class="dropdown-item" href="{{route('admin.room.show', $room->id)}}">Show</a>
                                                 <a class="dropdown-item"
                                                    href="{{route('admin.room.edit', $room->id)}}">Edit</a>
                                                 <a class="dropdown-item" data-toggle="modal"
                                                    data-target="#modal{{$room->id}}">Delete</a>
+
                                             </div>
                                         </div>
 
