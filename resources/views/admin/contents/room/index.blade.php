@@ -103,6 +103,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Tên khách sạn</th>
                                 <th scope="col">Loại phòng nghỉ</th>
+                                <th scope="col">Số phòng</th>
                                 <th scope="col">Giá tiền</th>
                                 <th scope="col"></th>
                             </tr>
@@ -114,13 +115,15 @@
                                         {{$room->id}}
                                     </td>
                                     <td>
-                                        {{$room->hotel_id}}
+                                        {{$room->hotel->hotel_name}}
                                     </td>
 
                                     <td>
-                                        {{$room->room_type_id}}
+                                        {{$room->roomType->room_type}}
                                     </td>
-
+                                    <td>
+                                        {{$room->room_name}}
+                                    </td>
                                     <td>
                                         {{$room->room_price}}
                                     </td>
@@ -150,15 +153,14 @@
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="modal{{$room->id}}Label">Xóa khách
-                                                        sạn {{$room->room_name}}</h5>
+                                                    <h5 class="modal-title" id="modal{{$room->id}}Label">Xóa phòng {{$room->room_name}}</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Bạn có chắc chắn xóa khách sạn {{$room->room_name}} ?
+                                                    Bạn có chắc chắn xóa phòng {{$room->room_name}} ?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"

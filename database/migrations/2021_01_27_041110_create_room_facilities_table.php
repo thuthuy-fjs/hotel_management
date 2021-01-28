@@ -14,11 +14,7 @@ class CreateRoomFacilitiesTable extends Migration
     public function up()
     {
         Schema::create('room_facilities', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('room_id')->unsigned();
-            $table->string('room_facility');
-            $table->foreign('room_id')->references('id')->on('room')->onDelete('cascade');
-            $table->timestamps();
+            
         });
     }
 

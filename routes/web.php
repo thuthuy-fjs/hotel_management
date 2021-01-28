@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', 'AdminController@index')->name('dashboard');
     Route::get('/dashboard', 'AdminController@index')->name('dashboard');
@@ -60,5 +64,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('room/{id}', 'Admin\RoomController@update')->where('id', '[0-9]+')->name('room.update');
     Route::post('room/delete/{id}', 'Admin\RoomController@destroy')->where('id', '[0-9]+')->name('room.destroy');
     Route::post('room/import', 'Admin\RoomController@import')->name('room.import');
-    
+
+    Route::get('room/image/create', 'Admin\RoomImageController@create')->name('room.image.create');
 });

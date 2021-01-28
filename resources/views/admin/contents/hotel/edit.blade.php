@@ -48,12 +48,18 @@
                                         <div class="form-group">
                                             <input type="text" id="province_id" name="province_id" class="form-control"
                                                    placeholder="Hotel name" value="{{$hotel->province_id}}" hidden>
-                                            <label class="form-control-label" for="category_id">Loại chỗ nghỉ</label><br>
-                                            <select id="category_id" name="category_id" class="form-control btn-sm btn-neutral">
-                                                <option value="" selected disabled>Loại chỗ nghỉ</option>
+                                            <label class="form-control-label" for="category_id">Loại chỗ
+                                                nghỉ</label><br>
+                                            <select id="category_id" name="category_id"
+                                                    class="form-control btn-sm btn-neutral">
+                                                <option value="{{$hotel->category->id}}"
+                                                        selected>{{$hotel->category->category_name}}</option>
                                                 @foreach($categories as $category)
-                                                    <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                                    @if($hotel->category->id !== $category->id)
+                                                        <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                                    @endif
                                                 @endforeach
+
                                             </select>
                                         </div>
                                     </div>
@@ -70,7 +76,8 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="hotel_phone">Điện thoại</label>
                                             <input type="text" id="hotel_phone" name="hotel_phone" class="form-control"
-                                                   placeholder="Phone" pattern="09|03|07|08|05)+([0-9]{8}" value="{{$hotel->hotel_phone}}">
+                                                   placeholder="Phone" pattern="09|03|07|08|05)+([0-9]{8}"
+                                                   value="{{$hotel->hotel_phone}}">
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +94,8 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="hotel_website">Website</label>
                                             <input type="text" id="hotel_website" name="hotel_website"
-                                                   class="form-control" placeholder="Website" value="{{$hotel->hotel_website}}">
+                                                   class="form-control" placeholder="Website"
+                                                   value="{{$hotel->hotel_website}}">
                                         </div>
                                     </div>
                                 </div>
@@ -95,8 +103,18 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-control-label" for="hotel_image">Ảnh</label>
-                                            <input id="hotel_image" name="hotel_image" class="form-control" value="{{$hotel->hotel_image}}"
-                                                   placeholder="Address" type="text">
+                                            <div style="margin: 10px 0px">
+                                                <span class="input-group-btn">
+                                                 <a id="lfm" data-input="thumbnail" data-preview="holder"
+                                                    class="btn btn-neutral lfm-btn">
+                                                   <i class="fa fa-picture-o"></i> Choose
+                                                 </a>
+                                               </span>
+                                            </div>
+
+                                            <input id="thumbnail" class="form-control" type="text" value="{{$hotel->hotel_image}}"
+                                                   name="hotel_image">
+                                            <img id="holder" src="{{asset($hotel->hotel_image)}}" style="margin-top:15px;max-height:150px;max-width:150px">
                                         </div>
                                     </div>
                                 </div>
@@ -105,8 +123,10 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-control-label" for="description">Mô tả</label>
-                                            <input id="description" name="description" class="form-control"
-                                                   placeholder="Description" type="text" value="{{$hotel->description}}">
+                                            <textarea id="description" name="description" class="form-control mytinymce"
+                                                      rows="4" cols="50">
+                                            {{$hotel->description}}
+                                            </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -149,5 +169,69 @@
                 $('#city').html('');
             }
         });
+    </script>
+
+    <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.lfm-btn').filemanager('image', {'prefix': 'http://localhost:8080/hotel_management/public/laravel-filemanager'});
+
+
+            $('#plus-image').on('click', function (e) {
+                e.preventDefault();
+
+                var lfm_count = parseInt($('.lfm-btn').length);
+                var next = lfm_count + 1;
+
+                var html = '';
+
+                for (var i = 0; i < 1000; i++) {
+
+                    if ($('#lfm' + next).length < 1) {
+
+                        html += '<div class="form-group">\n' +
+                            '                    <label for="focusedinput" class="col-sm-2 control-label">Images</label>\n' +
+                            '                    <div class="col-sm-8">\n' +
+                            '                        <span class="input-group-btn">\n' +
+                            '                         <a id="lfm' + next + '" data-input="thumbnail' + next + '" data-preview="holder' + next + '" class="lfm-btn btn btn-primary">\n' +
+                            '                           <i class="fa fa-picture-o"></i> Choose\n' +
+                            '                         </a>\n' +
+                            '                            <a class="btn btn-warning remove-image">\n' +
+                            '                           <i class="fa fa-remove"></i> Xóa\n' +
+                            '                         </a>\n' +
+                            '                       </span>\n' +
+                            '                        <input id="thumbnail' + next + '" type="text" name="images[]" value="" class="form-control1" id="focusedinput" placeholder="Default Input">\n' +
+                            '                        <img id="holder' + next + '" style="margin-top:15px;max-height:100px;">\n' +
+                            '                    </div>\n' +
+                            '                </div>';
+
+
+                        break;
+                    } else {
+                        next++;
+                    }
+
+
+                }
+
+                var box = $(this).closest('.form-group');
+
+                $(html).insertBefore(box);
+
+                $('.lfm-btn').filemanager('image', {'prefix': 'http://localhost:8080/shop_online/shop-online/public/laravel-filemanager'});
+
+            });
+
+
+            $(body).on('click', '.remove-image', function (e) {
+                e.preventDefault();
+
+                $(this).closest('.form-group').remove();
+
+            });
+
+
+        });
+
     </script>
 @endsection

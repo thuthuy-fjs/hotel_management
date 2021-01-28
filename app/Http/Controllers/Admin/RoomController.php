@@ -67,7 +67,7 @@ class RoomController extends Controller
         $data = $request->all();
         $hotel = $this->hotelRepo->create($data);
 
-        return redirect()->route('admin.hotel');
+        return redirect()->route('admin.room.image.create');
     }
 
     public function update(RoomRequest $request, $id)
