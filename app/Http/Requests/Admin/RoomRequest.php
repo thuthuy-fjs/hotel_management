@@ -26,7 +26,9 @@ class RoomRequest extends FormRequest
         return [
             'hotel_id' => 'required',
             'room_type_id' => 'required',
+            'room_name' => 'required',
             'room_price' => 'required',
+            'room_images' => 'required',
         ];
     }
 }

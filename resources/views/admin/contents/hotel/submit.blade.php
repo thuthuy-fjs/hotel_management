@@ -137,7 +137,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-offset-2">
+                            <div class="col-sm-12 text-right">
                                 <button type="submit" class="btn btn-success">Save</button>
                             </div>
                         </form>

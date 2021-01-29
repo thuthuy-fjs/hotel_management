@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\RoomRequest;
+use App\Models\Admin\FacilityModel;
+use App\Models\Admin\RoomFacilityModel;
 use App\Models\Admin\RoomModel;
 use App\Repositories\Admin\HotelRepository;
 use App\Repositories\Admin\RoomRepository;
@@ -51,38 +53,53 @@ class RoomController extends Controller
     {
         $hotels = $this->hotelRepo->getAll();
         $types = $this->roomtypeRepo->getAll();
-        return view('admin.contents.room.submit', ['hotels' => $hotels], ['types' => $types]);
+        return view('admin.contents.room.submit')->with('hotels', $hotels)->with('types', $types);
     }
 
     public function edit($id)
     {
         $types = $this->roomtypeRepo->getAll();
-        $hotel = $this->hotelRepo->find($id);
-        return view('admin.contents.room.edit', ['types' => $types], ['hotel' => $hotel]);
+        $room = $this->roomRepo->find($id);
+        return view('admin.contents.room.edit')->with('room', $room)->with('types', $types);
     }
 
     public function store(RoomRequest $request)
     {
         $validated = $request->validated();
-        $data = $request->all();
-        $hotel = $this->hotelRepo->create($data);
+        $input = $request->all();
 
-        return redirect()->route('admin.room.image.create');
+        $room = new RoomModel();
+        $room->hotel_id = $input['hotel_id'];
+        $room->room_type_id = $input['room_type_id'];
+        $room->room_name = $input['room_name'];
+        $room->room_price = $input['room_price'];
+        $room->room_images = json_encode($input['room_images']);
+        $room->save();
+        $facilities = FacilityModel::all();
+
+        return view('admin.contents.room_facility.submit', ['room' => $room], ['facilities' => $facilities]);
     }
 
     public function update(RoomRequest $request, $id)
     {
         $validated = $request->validated();
-        $data = $request->all();
-        $hotel = $this->hotelRepo->update($id, $data);
+        $input = $request->all();
 
-        return redirect()->route('admin.hotel');
+        $room = RoomModel::find($id);
+        $room->hotel_id = $input['hotel_id'];
+        $room->room_type_id = $input['room_type_id'];
+        $room->room_name = $input['room_name'];
+        $room->room_price = $input['room_price'];
+        $room->room_images = json_encode($input['room_images']);
+        $room->save();
+
+        return view('admin.contents.room_facility.submit', ['room' => $room]);
     }
 
     public function destroy($id)
     {
-        $this->hotelRepo->delete($id);
-        return redirect()->route('admin.hotel');
+        $this->roomRepo->delete($id);
+        return redirect()->route('admin.room.list');
     }
 
     public function search(Request $request)

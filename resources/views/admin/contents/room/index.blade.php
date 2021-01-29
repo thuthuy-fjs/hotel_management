@@ -119,7 +119,7 @@
                                     </td>
 
                                     <td>
-                                        {{$room->roomType->room_type}}
+                                        {{$room->type->room_type}}
                                     </td>
                                     <td>
                                         {{$room->room_name}}
@@ -135,7 +135,7 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <a class="dropdown-item" href="{{route('admin.room.show', $room->id)}}">Show</a>
+                                                {{--<a class="dropdown-item" href="{{route('admin.room.show', $room->id)}}">Show</a>--}}
                                                 <a class="dropdown-item"
                                                    href="{{route('admin.room.edit', $room->id)}}">Edit</a>
                                                 <a class="dropdown-item" data-toggle="modal"
@@ -160,7 +160,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Bạn có chắc chắn xóa phòng {{$room->room_name}} ?
+                                                    Bạn có chắc chắn xóa phòng {{$room->room_name}} khách sạn {{$room->hotel->hotel_name}} ?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
