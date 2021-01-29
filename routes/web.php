@@ -11,13 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
+
+/**
+ * Homepage route
+ */
+
+Route::get('/', 'Frontend\HomepageController@index')->name('home');
+
+/**
+ * Admin route
+ */
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', 'AdminController@index')->name('dashboard');

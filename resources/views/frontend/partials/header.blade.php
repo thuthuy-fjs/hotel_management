@@ -1,59 +1,33 @@
-<div class="header click_menu transparent">
-    <!-- =========================== HEADER ==========================-->
-    <div class="mainbar">
-        <div class="container-fluid">
-            <div class="logo"><a href="index.html" class="brand"><img src="{{asset('frontend_assets/images/logo.png')}}" alt="logo"></a></div>
-            <div class="nav_and_tools nav_centered uppercase transparent">
-                <nav class="primary_nav">
-                    <ul class="nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="room-list.html">Rooms</a></li>
-                        <li><a href="location.html">Location</a></li>
-                        <li><a href="index-activities.html">Activities</a></li>
-                        <li><a href="index-restaurant.html">Restaurant</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div><a class="menu-toggler"><span class="title"></span><span class="lines"></span></a>
-    </div>
-    <!-- END======================== HEADER ==========================-->
-</div>
-<div class="head_panel">
-    <!-- ============================ SLIDER ==========================-->
-    <div class="slider_wrapper">
-        <div id="head_panel_slider" class="owl-carousel">
-            <!-- ============================ SLIDE ==========================-->
-            <div class="stretchy-wrapper ratio_slider">
-                <div style="background-image: url({{asset('frontend_assets/images/home-1.jpg')}});" aria-hidden="true" class="item dark_section">
-                    <div class="container">
-                        <div class="caption caption_elegant text-center">
-                            <div class="inner animated fadeIn">
-                                <div class="t3 uppercase"> INDOOR &amp; OUTDOOR</div>
-                                <div class="t1">LUXURY EXPERIENCE</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END========================= SLIDE ==========================-->
-            <!-- ============================ SLIDE ==========================-->
-            <div class="stretchy-wrapper ratio_slider">
-                <div style="background-image: url({{asset('frontend_assets/images/home-2.jpg')}});" aria-hidden="true" class="item dark_section">
-                    <div class="container">
-                        <div class="caption caption_elegant text-center">
-                            <div class="inner animated fadeIn">
-                                <div class="t3 uppercase"> WILD BEAUTY</div>
-                                <div class="t1">THE PERFECT LOCATION</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END========================= SLIDE ==========================-->
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="#">Pacific<span>Travel Agency</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="destination.html" class="nav-link">Tỉnh/Thành phố</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Tài khoản</a></li>
+            </ul>
         </div>
     </div>
-    <!-- END========================= SLIDER ==========================-->
+</nav>
+<!-- END nav -->
+
+<div class="hero-wrap js-fullheight" style="background-image: url({{asset('frontend_assets/images/bg_5.jpg')}});">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
+            <div class="col-md-7 ftco-animate">
+                <span class="subheading">Welcome to Pacific</span>
+                <h1 class="mb-4">Tìm kiếm khách sạn, chỗ nghỉ ...</h1>
+                <p class="caps">Từ những khu nghỉ dưỡng thanh bình đến những căn hộ hạng sang hiện đại</p>
+            </div>
+        </div>
+    </div>
 </div>
+
+
