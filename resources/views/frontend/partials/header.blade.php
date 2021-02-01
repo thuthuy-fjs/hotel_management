@@ -18,11 +18,15 @@
                         <div class="nav-link dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                id="dropdownMenuButton">
-                                Tài khoản
+                                {{Auth::user()->user_name}}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Tài khoản</a>
-                                <a class="dropdown-item" href="#">Logout</a>
+                                <a class="dropdown-item" href="#">Tài khoản của bạn</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}">Đăng xuất</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    @csrf
+                                </form>
                             </div>
                         </div>
                     @endguest
