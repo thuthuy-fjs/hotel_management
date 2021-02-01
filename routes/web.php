@@ -21,6 +21,10 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:a
  */
 
 Route::get('/', 'Frontend\HomepageController@index')->name('home');
+Route::get('login', 'Auth\Frontend\LoginController@login')->name('login');
+Route::post('login', 'Auth\Frontend\LoginController@store')->name('login.store');
+Route::get('register', 'Auth\Frontend\RegisterController@create')->name('register');
+Route::post('register', 'Auth\Frontend\RegisterController@store')->name('register.store');
 
 /**
  * Admin route

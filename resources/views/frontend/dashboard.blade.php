@@ -163,7 +163,6 @@
         <div class="container">
             <div class="row justify-content-center pb-4">
                 <div class="col-md-12 heading-section text-center ftco-animate">
-                    <span class="subheading">Khám phá Việt Nam</span>
                     <h2 class="mb-4">Chọn địa điểm</h2>
                 </div>
             </div>
@@ -175,7 +174,8 @@
                         @foreach($provinces as $province)
                             <div class="item">
                                 <div class="project-destination">
-                                    <a href="#" class="img" style="background-image: url({{asset($province->province_image)}});">
+                                    <a href="#" class="img"
+                                       style="background-image: url({{asset($province->province_image)}});">
                                         <div class="text">
                                             <h3>{{$province->province_name}}</h3>
                                         </div>
@@ -194,7 +194,6 @@
         <div class="container">
             <div class="row justify-content-center pb-4">
                 <div class="col-md-12 heading-section text-center ftco-animate">
-                    <span class="subheading">Loại chỗ nghỉ</span>
                     <h2 class="mb-4">Tìm kiếm theo loại chỗ nghỉ</h2>
                 </div>
             </div>
@@ -206,7 +205,8 @@
                         @foreach($categories as $category)
                             <div class="item">
                                 <div class="project-destination">
-                                    <a href="#" class="img" style="background-image: url({{asset($category->category_image)}});">
+                                    <a href="#" class="img"
+                                       style="background-image: url({{asset($category->category_image)}});">
                                         <div class="text">
                                             <h3>{{$category->category_name}}</h3>
                                         </div>
@@ -220,7 +220,29 @@
         </div>
     </section>
 
-    <section class="ftco-section ftco-about img" style="background-image: url({{asset('frontend_assets/images/bg_4.jpg')}});">
+    <section class="ftco-section services-section">
+        <div class="container">
+            <div class="row justify-content-center pb-4">
+                <div class="col-md-12 heading-section text-left ftco-animate">
+                    <h2 class="mb-4">Khám phá</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="list-unstyled list-group-flush clearfix" style="display: list-item;text-align: -webkit-match-parent;">
+                        @foreach($countries as $country)
+                            <a class="list-group-item h-25 w-25 p-3" href="#" style="padding: 0 5px 0 0;margin: 10px 0 0;list-style: none; float: left">{{$country->country_name}}</a>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section ftco-about img"
+             style="background-image: url({{asset('frontend_assets/images/bg_4.jpg')}});">
         <div class="overlay"></div>
         <div class="container py-md-5">
             <div class="row py-md-5">
@@ -253,6 +275,7 @@
             </div>
         </div>
     </section>
+
 @endsection
 @section('js')
 @endsection
