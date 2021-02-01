@@ -70,7 +70,6 @@ class HotelController extends Controller
     {
         $categories = $this->categoryRepo->getAll();
         $hotel = $this->hotelRepo->find($id);
-
         return view('admin.contents.hotel.edit', ['categories' => $categories], ['hotel' => $hotel]);
     }
 

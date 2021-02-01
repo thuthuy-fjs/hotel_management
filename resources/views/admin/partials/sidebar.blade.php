@@ -54,7 +54,10 @@
                         <div id="collapse1" class="collapse">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('admin.room.type')}}">Loại phòng nghỉ</a>
+                                    <a class="nav-link" href="{{route('admin.room.type')}}">Loại phòng</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.room.list')}}">Danh sách</a>
                                 </li>
                             </ul>
                         </div>
