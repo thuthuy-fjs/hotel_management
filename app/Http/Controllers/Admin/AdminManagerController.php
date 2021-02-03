@@ -41,7 +41,6 @@ class AdminManagerController extends Controller
         $admin->location = $input['location'];
         $admin->image = $input['image'];
         $admin->save();
-        //dd($input);
         return redirect()->route('admin.profile');
     }
 }

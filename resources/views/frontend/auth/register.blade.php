@@ -26,33 +26,33 @@
                                 @csrf
                                 <div class="form-group">
                                     <div class="input-group input-group-merge input-group-alternative mb-3">
-                                        {{--<div class="input-group-prepend">--}}
-                                            {{--<span class="input-group-text"><i class="ni ni-hat-3"></i></span>--}}
-                                        {{--</div>--}}
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                        </div>
                                         <input class="form-control" placeholder="Username" type="text" id="user_name" name="user_name">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group input-group-merge input-group-alternative mb-3">
-                                        {{--<div class="input-group-prepend">--}}
-                                            {{--<span class="input-group-text"><i class="ni ni-email-83"></i></span>--}}
-                                        {{--</div>--}}
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                        </div>
                                         <input class="form-control" placeholder="Email" type="email" id="email" name="email">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group input-group-merge input-group-alternative">
-                                        {{--<div class="input-group-prepend">--}}
-                                            {{--<span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>--}}
-                                        {{--</div>--}}
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="bi bi-file-lock"></i></span>
+                                        </div>
                                         <input class="form-control" placeholder="Password" type="password" name="password" id="password">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group input-group-merge input-group-alternative">
-                                        {{--<div class="input-group-prepend">--}}
-                                            {{--<span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>--}}
-                                        {{--</div>--}}
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="bi bi-file-lock"></i></span>
+                                        </div>
                                         <input class="form-control" placeholder="Confirm password" type="password" name="password_confirm" id="password_confirm">
                                     </div>
                                 </div>

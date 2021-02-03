@@ -26,6 +26,16 @@ Route::post('login', 'Auth\Frontend\LoginController@store')->name('login.store')
 Route::get('register', 'Auth\Frontend\RegisterController@create')->name('register');
 Route::post('register', 'Auth\Frontend\RegisterController@store')->name('register.store');
 Route::get('logout', 'Auth\Frontend\LoginController@logout')->name('logout');
+Route::get('profile', 'Frontend\GuestManagerController@show')->name('profile');
+Route::get('profile/edit', 'Frontend\GuestManagerController@edit')->name('profile.edit');
+Route::post('profile/update', 'Frontend\GuestManagerController@update')->name('profile.update');
+Route::get('provinces', 'Frontend\ProvinceController@index')->name('province');
+
+Route::get('search/', 'Frontend\SearchController@search')->name('search');
+Route::get('search/province/{id}', 'Frontend\SearchController@searchByProvince')->name('search.province');
+Route::get('search/category/{id}', 'Frontend\SearchController@searchByCategory')->name('search.category');
+
+
 /**
  * Admin route
  */
@@ -46,7 +56,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('profile/update', 'Admin\AdminManagerController@update')->name('profile.update');
 
     Route::get('country', 'Admin\CountryController@index')->name('country');
+    Route::get('county/create', 'Admin\CountryController@create')->name('country.create');
+    Route::post('country', 'Admin\CountryController@store')->name('country.store');
+
     Route::get('province', 'Admin\ProvinceController@index')->name('province');
+    Route::get('province/create', 'Admin\ProvinceController@create')->name('province.create');
+    Route::post('province', 'Admin\ProvinceController@store')->name('province.store');
 
     Route::get('hotel/', 'Admin\HotelController@index')->name('hotel');
     Route::get('hotel/list_provinces', 'Admin\HotelController@getProvinces')->name('hotel.list_provinces');

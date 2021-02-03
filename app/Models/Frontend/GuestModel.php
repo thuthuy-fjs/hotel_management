@@ -12,7 +12,7 @@ class GuestModel extends Authenticatable
     protected $table = 'guests';
 
     protected $fillable = [
-        'first_name', 'last_name', 'user_name', 'email', 'password', 'phone', 'location', 'image',
+        'first_name', 'last_name', 'user_name', 'email', 'password', 'phone', 'address', 'image',
     ];
 
     protected $hidden = [

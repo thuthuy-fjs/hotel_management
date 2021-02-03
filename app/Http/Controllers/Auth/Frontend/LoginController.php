@@ -32,8 +32,6 @@ class LoginController extends Controller
         )) {
             return redirect()->route('home');
 
-        } else {
-            dd('Login không thành công');
         }
 
         return redirect()->back()->withInput($request->only('email', 'remember'));

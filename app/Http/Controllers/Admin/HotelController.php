@@ -24,7 +24,7 @@ class HotelController extends Controller
     protected $countryRepo;
     protected $categoryRepo;
 
-    public function __construct(HotelRepository $hotelRepo, ProvinceRepository $provinceRepo,CountryRepository $countryRepo, CategoryRepository $categoryRepo)
+    public function __construct(HotelRepository $hotelRepo, ProvinceRepository $provinceRepo, CountryRepository $countryRepo, CategoryRepository $categoryRepo)
     {
         $this->middleware('auth:admin');
         $this->hotelRepo = $hotelRepo;

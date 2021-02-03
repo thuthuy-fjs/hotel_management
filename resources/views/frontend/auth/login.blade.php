@@ -26,17 +26,17 @@
                                 @csrf
                                 <div class="form-group mb-3">
                                     <div class="input-group input-group-merge input-group-alternative">
-                                        {{--<div class="input-group-prepend">--}}
-                                            {{--<span class="input-group-text"><i class=""></i></span>--}}
-                                        {{--</div>--}}
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                        </div>
                                         <input class="form-control" placeholder="Email" type="email" name="email" id="email">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group input-group-merge input-group-alternative">
-                                        {{--<div class="input-group-prepend">--}}
-                                            {{--<span class="input-group-text"><i class="glyphicon glyphicon-pencil"></i></span>--}}
-                                        {{--</div>--}}
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="bi bi-file-lock"></i></span>
+                                        </div>
                                         <input class="form-control" placeholder="Password" type="password" name="password" id="password">
                                     </div>
                                 </div>

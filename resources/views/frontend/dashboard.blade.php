@@ -18,12 +18,11 @@
                                 </div>
                             </div>
                             <div class="col-md-12 tab-wrap">
-
                                 <div class="tab-content" id="v-pills-tabContent">
-
                                     <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel"
                                          aria-labelledby="v-pills-nextgen-tab">
-                                        <form action="#" class="search-property-1">
+                                        <form action="{{route('search')}}" method="get" class="search-property-1">
+                                            @csrf
                                             <div class="row no-gutters">
                                                 <div class="col-md d-flex">
                                                     <div class="form-group p-4 border-0">
@@ -174,8 +173,7 @@
                         @foreach($provinces as $province)
                             <div class="item">
                                 <div class="project-destination">
-                                    <a href="#" class="img"
-                                       style="background-image: url({{asset($province->province_image)}});">
+                                    <a href="{{route('search.province', $province->id)}}" class="img" style="background-image: url({{asset($province->province_image)}});">
                                         <div class="text">
                                             <h3>{{$province->province_name}}</h3>
                                         </div>
@@ -205,7 +203,7 @@
                         @foreach($categories as $category)
                             <div class="item">
                                 <div class="project-destination">
-                                    <a href="#" class="img"
+                                    <a href="{{route('search.category', $category->id)}}" class="img"
                                        style="background-image: url({{asset($category->category_image)}});">
                                         <div class="text">
                                             <h3>{{$category->category_name}}</h3>

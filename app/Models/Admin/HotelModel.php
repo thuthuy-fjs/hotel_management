@@ -3,6 +3,7 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Searchable\SearchResult;
 
 class HotelModel extends Model
 {
@@ -28,8 +29,24 @@ class HotelModel extends Model
         return $this->hasMany('App\Models\Admin\RoomModel', 'hotel_id');
     }
 
+    public function province()
+    {
+        return $this->belongsTo('App\Models\Admin\ProvinceModel', 'province_id');
+    }
+
     public function category()
     {
         return $this->belongsTo('App\Models\Admin\CategoryModel', 'category_id');
+    }
+
+    public function getSearchResult(): SearchResult
+    {
+        $url = route('hotel.show', $this->id);
+
+        return new SearchResult(
+            $this,
+            $this->hotel_name,
+            $url
+        );
     }
 }
