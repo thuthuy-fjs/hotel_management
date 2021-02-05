@@ -14,20 +14,3 @@
 @yield('js')
 </body>
 </html>
-
-        {{--<!DOCTYPE html>--}}
-{{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
-{{--@include('frontend.partials.head')--}}
-{{--<body>--}}
-
-{{--@include('frontend.partials.header')--}}
-
-{{--@yield('content')--}}
-
-{{--@include('frontend.partials.footer')--}}
-
-{{--@include('frontend.partials.main-js')--}}
-{{--@yield('js')--}}
-
-{{--</body>--}}
-{{--</html>--}}

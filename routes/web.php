@@ -32,8 +32,11 @@ Route::post('profile/update', 'Frontend\GuestManagerController@update')->name('p
 Route::get('provinces', 'Frontend\ProvinceController@index')->name('province');
 
 Route::get('search/', 'Frontend\SearchController@search')->name('search');
+Route::get('search/country/{id}', 'Frontend\SearchController@searchByCountry')->name('search.country');
 Route::get('search/province/{id}', 'Frontend\SearchController@searchByProvince')->name('search.province');
 Route::get('search/category/{id}', 'Frontend\SearchController@searchByCategory')->name('search.category');
+
+Route::get('hotel/detail/{id}', 'Frontend\HotelController@detail')->name('hotel.detail');
 
 
 /**

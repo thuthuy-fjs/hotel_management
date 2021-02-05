@@ -35,12 +35,11 @@
                 <div class="ftco-footer-widget pt-md-5 mb-4">
                     <h2 class="ftco-heading-2"></h2>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">Khách sạn</a></li>
-                        <li><a href="#" class="py-2 d-block">Căn hộ</a></li>
-                        <li><a href="#" class="py-2 d-block">Resort</a></li>
-                        <li><a href="#" class="py-2 d-block">Biệt thự</a></li>
-                        <li><a href="#" class="py-2 d-block">Khu nghỉ dưỡng</a></li>
-                        <li><a href="#" class="py-2 d-block">Nhà nghỉ</a></li>
+                        <li><a href="{{route('search.category', 1)}}" class="py-2 d-block">Khách sạn</a></li>
+                        <li><a href="{{route('search.category', 2)}}" class="py-2 d-block">Căn hộ</a></li>
+                        <li><a href="{{route('search.category', 3)}}" class="py-2 d-block">Resort</a></li>
+                        <li><a href="{{route('search.category', 4)}}" class="py-2 d-block">Biệt thự</a></li>
+                        <li><a href="{{route('search.category', 5)}}" class="py-2 d-block">Nhà nghỉ</a></li>
                     </ul>
                 </div>
             </div>

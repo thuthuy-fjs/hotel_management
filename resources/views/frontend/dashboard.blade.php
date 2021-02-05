@@ -231,7 +231,7 @@
                 <div class="col-md-12">
                     <ul class="list-unstyled list-group-flush clearfix" style="display: list-item;text-align: -webkit-match-parent;">
                         @foreach($countries as $country)
-                            <a class="list-group-item h-25 w-25 p-3" href="#" style="padding: 0 5px 0 0;margin: 10px 0 0;list-style: none; float: left">{{$country->country_name}}</a>
+                            <a class="list-group-item h-25 w-25 p-3" href="{{route('search.country', $country->id)}}" style="padding: 0 5px 0 0;margin: 10px 0 0;list-style: none; float: left">{{$country->country_name}}</a>
                         @endforeach
                     </ul>
                 </div>

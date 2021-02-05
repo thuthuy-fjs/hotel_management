@@ -26,6 +26,12 @@ class SearchController extends Controller
         return view('frontend.contents.search.index');
     }
 
+    public function searchByCountry($id)
+    {
+        $country = $this->countryRepo->find($id);
+        return view('frontend.contents.search.searchbycountry', ['country' => $country]);
+    }
+
     public function searchByProvince($id)
     {
         $province = $this->provinceRepo->find($id);
