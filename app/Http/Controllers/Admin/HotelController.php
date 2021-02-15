@@ -80,6 +80,7 @@ class HotelController extends Controller
         $hotel = $this->hotelRepo->create($data);
 
         return redirect()->route('admin.hotel');
+//        dd(strip_tags(htmlspecialchars_decode($request->description)));
     }
 
     public function update(HotelRequest $request, $id)

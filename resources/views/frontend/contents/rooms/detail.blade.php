@@ -6,19 +6,32 @@
     <section class="ftco-section">
         <div class="container">
             <div class="row">
+                <div class="nav-wrapper">
+                    <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-calendar-grid-58 mr-2"></i>Messages</a>
+                        </li>
+                    </ul>
+                </div>
                 <div class="col-lg-8">
                     <div class="row">
                         <div class="col-md-12 ftco-animate">
                             <h2 class="mb-4">Family Room</h2>
                             <div class="single-slider owl-carousel">
                                 <div class="item">
-                                    <div class="room-img" style="background-image: url(images/room-1.jpg);"></div>
+                                    <div class="room-img" style="background-image: url({{asset('images/room-1.jpg')}});"></div>
                                 </div>
                                 <div class="item">
-                                    <div class="room-img" style="background-image: url(images/room-2.jpg);"></div>
+                                    <div class="room-img" style="background-image: url({{asset('images/room-2.jpg')}});"></div>
                                 </div>
                                 <div class="item">
-                                    <div class="room-img" style="background-image: url(images/room-3.jpg);"></div>
+                                    <div class="room-img" style="background-image: url({{asset('images/room-3.jpg')}});"></div>
                                 </div>
                             </div>
                         </div>

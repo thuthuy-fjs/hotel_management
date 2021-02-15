@@ -26,6 +26,11 @@ Route::post('login', 'Auth\Frontend\LoginController@store')->name('login.store')
 Route::get('register', 'Auth\Frontend\RegisterController@create')->name('register');
 Route::post('register', 'Auth\Frontend\RegisterController@store')->name('register.store');
 Route::get('logout', 'Auth\Frontend\LoginController@logout')->name('logout');
+Route::get('forgot-password', 'Auth\Frontend\ForgotPasswordController@getEmail')->name('forgot-password.getEmail');
+Route::post('forgot-password/send', 'Auth\Frontend\ForgotPasswordController@sendEmail')->name('forgot-password.sendEmail');
+Route::get('forgot-password/token={token}', 'Auth\Frontend\ForgotPasswordController@getReset')->name('forgot-password');
+Route::post('forgot-password/update/{token}', 'Auth\Frontend\ForgotPasswordController@resetPassword')->name('forgot-password.update');
+
 Route::get('profile', 'Frontend\GuestManagerController@show')->name('profile');
 Route::get('profile/edit', 'Frontend\GuestManagerController@edit')->name('profile.edit');
 Route::post('profile/update', 'Frontend\GuestManagerController@update')->name('profile.update');
@@ -36,7 +41,7 @@ Route::get('search/country/{id}', 'Frontend\SearchController@searchByCountry')->
 Route::get('search/province/{id}', 'Frontend\SearchController@searchByProvince')->name('search.province');
 Route::get('search/category/{id}', 'Frontend\SearchController@searchByCategory')->name('search.category');
 
-Route::get('hotel/detail/{id}', 'Frontend\HotelController@detail')->name('hotel.detail');
+Route::get('hotel/{id}', 'Frontend\HotelController@hotel')->name('hotel');
 
 
 /**
@@ -53,6 +58,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('login', 'Auth\Admin\LoginController@login')->name('auth.login');
     Route::post('login', 'Auth\Admin\LoginController@loginAdmin')->name('auth.loginAdmin');
     Route::get('logout', 'Auth\Admin\LoginController@logout')->name('auth.logout');
+    Route::get('forgot-password', 'Auth\Admin\ForgotPasswordController@getEmail')->name('forgot-password.getEmail');
+    Route::post('forgot-password/send', 'Auth\Admin\ForgotPasswordController@sendEmail')->name('forgot-password.sendEmail');
+    Route::get('forgot-password/token={token}', 'Auth\Admin\ForgotPasswordController@getReset')->name('forgot-password');
+    Route::post('forgot-password/update/{token}', 'Auth\Admin\ForgotPasswordController@resetPassword')->name('forgot-password.update');
+//    Route::get('forget-password', 'Auth\Admin\ForgotPasswordController@getEmail');
+//    Route::post('forget-password', 'Auth\Admin\ForgotPasswordController@postEmail');
 
     Route::get('profile', 'Admin\AdminManagerController@show')->name('profile');
     Route::get('profile/edit', 'Admin\AdminManagerController@edit')->name('profile.edit');

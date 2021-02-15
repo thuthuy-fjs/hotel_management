@@ -6,11 +6,11 @@
     @foreach($province->hotels as $hotel)
         <div class="col-md-4 ftco-animate">
             <div class="project-wrap hotel">
-                <a href="{{route('hotel.detail', $hotel->id)}}" class="img" style="background-image: url({{$hotel->hotel_image}});">
+                <a href="{{route('hotel', $hotel->id)}}" class="img" style="background-image: url({{$hotel->hotel_image}});">
                     <span class="price">{{$hotel->hotel_name}}</span>
                 </a>
                 <div class="text p-4">
-                    <h3><a href="{{route('hotel.detail', $hotel->id)}}">Khách sạn {{$hotel->hotel_name}}</a></h3>
+                    <h3><a href="{{route('hotel', $hotel->id)}}">Khách sạn {{$hotel->hotel_name}}</a></h3>
                     <p class="location"><span class="fa fa-map-marker"></span> {{$hotel->province->province_name}}</p>
                     <ul>
                         <li>{{$hotel->hotel_email}}</li>

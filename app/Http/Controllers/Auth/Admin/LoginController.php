@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
-
     public function __construct()
     {
         $this->middleware('guest:admin')->except('logout');

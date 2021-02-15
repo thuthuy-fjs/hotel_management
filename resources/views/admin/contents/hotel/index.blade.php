@@ -8,7 +8,7 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-5">
                         <form action="{{route('admin.hotel.list_hotels')}}" method="get">
                             <select id="country" name="country" class="btn btn-sm btn-neutral">
                                 <option value="" selected disabled>Quốc gia</option>
@@ -23,7 +23,22 @@
                             <input type="submit" class="btn btn-sm btn-neutral" value="Tìm kiếm">
                         </form>
                     </div>
-                    <div class="col-lg-6 text-right">
+                    <div class="col-lg-4">
+                        <form class="navbar-search navbar-search-light form-inline"
+                              action="{{route('admin.room.search')}}" method="GET"
+                              name="search"
+                              id="search">
+                            <div class="form-group mb-0">
+                                <div class="input-group input-group-alternative input-group-merge input-group-sm">
+                                    <div class="input-group-prepend input-group-sm">
+                                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                    </div>
+                                    <input class="form-control" name="search" placeholder="Search" type="text">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-3 text-right">
                         <a href="{{route('admin.hotel.create')}}" class="btn btn-sm btn-neutral">Thêm mới</a>
                         <div class="dropdown">
                             <button class="btn btn-neutral btn-sm dropdown-toggle" type="button"
@@ -81,20 +96,6 @@
                             <div class="col-lg-7">
                                 <h3 class="mb-0">Khách sạn</h3>
                             </div>
-                            <div class="col-lg-5 text-right">
-                                <form class="navbar-search navbar-search-light form-inline" action="{{route('admin.hotel.search')}}" method="GET"
-                                      name="search"
-                                      id="search">
-                                    <div class="form-group mb-0">
-                                        <div class="input-group input-group-alternative input-group-merge input-group-sm">
-                                            <div class="input-group-prepend input-group-sm">
-                                                <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                            </div>
-                                            <input class="form-control" name="search" placeholder="Search" type="text">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
                         </div>
                     </div>
                     <!-- Light table -->
@@ -141,7 +142,11 @@
                                     </td>
 
                                     <td>
-                                        {{$hotel->is_active}}
+                                        <label class="custom-toggle">
+                                            <input type="checkbox" checked>
+                                            <span class="custom-toggle-slider rounded-circle" data-label-off="Ẩn" data-label-on="Hiện"></span>
+                                        </label>
+                                        {{--{{$hotel->is_active}}--}}
                                     </td>
                                     <td class="text-right">
                                         <div class="dropdown">

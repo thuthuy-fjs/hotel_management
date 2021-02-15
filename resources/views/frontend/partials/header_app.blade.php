@@ -36,5 +36,5 @@
     </div>
 </nav>
 
-<div class="hero-wrap" style="background-image: url({{asset('frontend_assets/images/bg_5.jpg')}}); height: 90px">
+<div class="hero-wrap" style="background-image: url({{asset('images/bg_5.jpg')}}); height: 90px">
 </div>

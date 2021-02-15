@@ -192,7 +192,7 @@
             });
 
 
-            $(body).on('click', '.remove-image', function (e) {
+            $('body').on('click', '.remove-image', function (e) {
                 console.log(e);
                 e.preventDefault();
                 $(this).closest('.form-group').remove();

@@ -107,7 +107,7 @@
                     <div class="row">
                         <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
                             <div class="services services-1 color-1 d-block img"
-                                 style="background-image: url({{asset('frontend_assets/images/services-3.jpg')}});">
+                                 style="background-image: url({{asset('images/services-3.jpg')}});">
                                 <div class="icon d-flex align-items-center justify-content-center"><span
                                             class="flaticon-paragliding"></span></div>
                                 <div class="media-body">
@@ -118,7 +118,7 @@
                         </div>
                         <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
                             <div class="services services-1 color-2 d-block img"
-                                 style="background-image: url({{asset('frontend_assets/images/services-1.jpg')}});">
+                                 style="background-image: url({{asset('images/services-1.jpg')}});">
                                 <div class="icon d-flex align-items-center justify-content-center"><span
                                             class="flaticon-route"></span></div>
                                 <div class="media-body">
@@ -130,7 +130,7 @@
                         </div>
                         <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
                             <div class="services services-1 color-3 d-block img"
-                                 style="background-image: url({{asset('frontend_assets/images/anh1.jpg')}});">
+                                 style="background-image: url({{asset('images/anh1.jpg')}});">
                                 <div class="icon d-flex align-items-center justify-content-center"><span
                                             class="flaticon-tour-guide"></span></div>
                                 <div class="media-body">
@@ -141,7 +141,7 @@
                         </div>
                         <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
                             <div class="services services-1 color-4 d-block img"
-                                 style="background-image: url({{asset('frontend_assets/images/anh2.png')}});">
+                                 style="background-image: url({{asset('images/anh2.png')}});">
                                 <div class="icon d-flex align-items-center justify-content-center"><span
                                             class="flaticon-map"></span></div>
                                 <div class="media-body">
@@ -158,7 +158,7 @@
     </section>
 
     <section class="ftco-section img ftco-select-destination"
-             style="background-image: url({{asset('frontend_assets/images/bg_3.jpg')}});">
+             style="background-image: url({{asset('images/bg_3.jpg')}});">
         <div class="container">
             <div class="row justify-content-center pb-4">
                 <div class="col-md-12 heading-section text-center ftco-animate">
@@ -240,7 +240,7 @@
     </section>
 
     <section class="ftco-section ftco-about img"
-             style="background-image: url({{asset('frontend_assets/images/bg_4.jpg')}});">
+             style="background-image: url({{asset('images/bg_4.jpg')}});">
         <div class="overlay"></div>
         <div class="container py-md-5">
             <div class="row py-md-5">
@@ -257,7 +257,7 @@
                     <div class="row">
                         <div class="col-md-6 d-flex align-items-stretch">
                             <div class="img d-flex w-100 align-items-center justify-content-center"
-                                 style="background-image:url({{asset('frontend_assets/images/tn1.jpg')}});">
+                                 style="background-image:url({{asset('images/tn1.jpg')}});">
                             </div>
                         </div>
                         <div class="col-md-6 pl-md-5 py-5">

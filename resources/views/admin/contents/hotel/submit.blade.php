@@ -229,7 +229,7 @@
             });
 
 
-            $(body).on('click', '.remove-image', function (e) {
+            $('body').on('click', '.remove-image', function (e) {
                 e.preventDefault();
 
                 $(this).closest('.form-group').remove();

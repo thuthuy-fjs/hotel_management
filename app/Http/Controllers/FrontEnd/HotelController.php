@@ -31,9 +31,14 @@ class HotelController extends Controller
 
     }
 
-    public function detail($id)
+    public function hotel($id)
     {
         $hotel = $this->hotelRepo->find($id);
         return view('frontend.contents.hotels.detail', ['hotel' => $hotel]);
+    }
+
+    public function detail()
+    {
+
     }
 }
