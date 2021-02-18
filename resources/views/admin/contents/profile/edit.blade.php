@@ -78,11 +78,17 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-address">Ảnh</label>
-                                            <input id="image" name="image" class="form-control" placeholder="Address"
-                                                   value="{{$admin->image}}" type="text">
-                                            <input id="password" name="password" class="form-control" placeholder=""
-                                                   value="{{$admin->password}}" type="password" hidden>
+                                            <label class="form-control-label" for="hotel_image">Ảnh</label>
+                                            <div style="margin: 10px 0px">
+                                                <span class="input-group-btn">
+                                                 <a id="lfm" data-input="thumbnail" data-preview="holder"
+                                                    class="btn btn-neutral lfm-btn">
+                                                   <i class="fa fa-picture-o"></i> Choose
+                                                 </a>
+                                               </span>
+                                            </div>
+                                            <input id="thumbnail" class="form-control" type="text" name="hotel_image">
+                                            <img id="holder" style="margin-top:15px;max-height:150px;max-width:150px">
                                         </div>
                                     </div>
                                 </div>
@@ -120,3 +126,14 @@
         </div>
     </div>
 @endsection
+@section('js')
+    <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.lfm-btn').filemanager('image', {'prefix': 'http://localhost:8080/hotel_management/public/laravel-filemanager'});
+        });
+
+    </script>
+
+@endsection
+

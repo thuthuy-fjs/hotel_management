@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Admin;
+namespace App\Http\Controllers\Auth\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,12 +11,7 @@ class ResetPasswordController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admin');
-    }
-
-    public function index()
-    {
-        return view('admin.auth.changepassword');
+        $this->middleware('guest');
     }
 
     public function update(Request $request)
@@ -44,5 +39,4 @@ class ResetPasswordController extends Controller
 
         return redirect()->back()->with("success", "Password changed successfully !");
     }
-
 }

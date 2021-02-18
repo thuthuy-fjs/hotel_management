@@ -37,16 +37,16 @@
                         </div>
                         <a href="{{route('admin.profile')}}" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
-                            <span>My profile</span>
+                            <span>Tài khoản</span>
                         </a>
-                        <a href="{{route('admin.profile')}}" class="dropdown-item">
+                        <a href="{{route('admin.change-password')}}" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
-                            <span>Change password</span>
+                            <span>Đổi mật khẩu</span>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a href="{{ route('admin.auth.logout') }}" class="dropdown-item">
                             <i class="ni ni-user-run"></i>
-                            <span>Logout</span>
+                            <span>Đăng xuất</span>
                             <form id="logout-form" action="{{ route('admin.auth.logout') }}" method="POST"
                                   style="display: none;">
                                 @csrf

@@ -1,44 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Admin;
+namespace App\Http\Controllers\Auth\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\LoginRequest;
-use App\Models\Admin\AdminModel;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Laravel\Socialite\Facades\Socialite;
 
-
-class LoginController extends Controller
+class SocialAuthController extends Controller
 {
-    use AuthenticatesUsers;
-
-    public function __construct()
-    {
-        $this->middleware('guest:admin')->except('logout');
-    }
-
-    public function login()
-    {
-        return view('admin.auth.login');
-    }
-
-    public function loginAdmin(LoginRequest $request)
-    {
-        $validated = $request->validated();
-        if (Auth::guard('admin')->attempt(
-            ['email' => $request->email, 'password' => $request->password], $request->remember
-        )) {
-            return redirect()->route('admin.dashboard');
-        }
-
-        return redirect()->back()->withInput($request->only('email', 'remember'));
-    }
-
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();
@@ -67,7 +35,7 @@ class LoginController extends Controller
         $adminModel->save();
 
         Auth::login($admin, true);
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('home');
 
     }
 
@@ -84,12 +52,5 @@ class LoginController extends Controller
             'provider' => $provider,
             'provider_id' => $user->id
         ]);
-    }
-
-    public function logout()
-    {
-        Auth::guard('admin')->logout();
-
-        return redirect()->route('admin.auth.login');
     }
 }

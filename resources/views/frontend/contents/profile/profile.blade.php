@@ -11,10 +11,10 @@
                         <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Thông tin</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Messages</a>
+                        <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
+                        <a href="" data-target="#changePassword" data-toggle="tab" class="nav-link">Đổi mật khẩu</a>
                     </li>
                 </ul>
                 <div class="tab-content py-4">
@@ -49,11 +49,60 @@
                         </div>
                         <!--/row-->
                     </div>
-                    <div class="tab-pane" id="messages">
-                        <div class="alert alert-info alert-dismissable">
-                            <a class="panel-close close" data-dismiss="alert">×</a> This is an <strong>.alert</strong>.
-                            Use this to show important messages to the user.
-                        </div>
+                    <div class="tab-pane" id="changePassword">
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <form action="{{ route('change-password.update') }}" method="post">
+                            @csrf
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Mật khẩu hiện tại</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" placeholder="Current password" type="password"
+                                           name="current_password"
+                                           id="current_password">
+                                    @if ($errors->has('current_password'))
+                                        <span class="help-block">
+                                            <p>{{ $errors->first('current_password') }}</p>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Mật khẩu mới</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" placeholder="New password" type="password"
+                                           name="new_password"
+                                           id="new_password">
+                                    @if ($errors->has('new_password'))
+                                        <span class="help-block">
+                                        <p>{{ $errors->first('new_password') }}</p>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Nhập lại mật khẩu
+                                    mới</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" placeholder="Confirm password" type="password"
+                                           name="confirm_password" id="confirm_password">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label"></label>
+                                <div class="col-lg-9">
+                                    <input type="submit" class="btn btn-primary" value="Change password">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="tab-pane" id="edit">
                         <form action="{{ route('profile.update') }}" method="post">
