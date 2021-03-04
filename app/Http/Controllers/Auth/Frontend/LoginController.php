@@ -48,39 +48,21 @@ class LoginController extends Controller
 
     public function handleProviderCallback($provider)
     {
-//        $user = Socialite::driver($provider)->user();
-//        dd($user);
-        try {
-            $user = Socialite::driver($provider)->user();
-        } catch (\Exception $e) {
-            return redirect()->route('login');
-        }
-
-        $admin = GuestModel::where('email', $user->email)->first();
-        if ($admin) {
-            return $admin;
-        }
-        $adminModel = new GuestModel();
-        $adminModel->user_name = $user->name;
-        $adminModel->email = $user->email;
-        $adminModel->password = Hash::make(Str::random(8));
-        $adminModel->provider = $provider;
-        $adminModel->provider_id = $user->id;
-        $adminModel->save();
-
-        Auth::login($admin, true);
+        $user = Socialite::driver($provider)->user();
+        $guest = $this->findOrCreateUser($user, $provider);
+        Auth::login($guest, true);
         return redirect()->route('home');
 
     }
 
     public function findOrCreateUser($user, $provider)
     {
-        $admin = GuestModel::where('email', $user->email)->first();
-        if ($admin) {
-            return $admin;
+        $guest = GuestModel::where('email', $user->email)->first();
+        if ($guest) {
+            return $guest;
         }
         return GuestModel::create([
-            'user_name' => $user->name,
+            'user_name' => isset($user->name) ? $user->name : 'User',
             'email' => $user->email,
             'password' => Hash::make(Str::random(8)),
             'provider' => $provider,

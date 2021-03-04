@@ -8,19 +8,22 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="{{asset('css/animate.css')}}">
+<link rel="stylesheet" href="{{asset('frontend_assets/css/animate.css')}}">
 
-<link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
-<link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
-<link rel="stylesheet" href="{{asset('css/magnific-popup.css')}}">
+<link rel="stylesheet" href="{{asset('frontend_assets/css/owl.carousel.min.css')}}">
+<link rel="stylesheet" href="{{asset('frontend_assets/css/owl.theme.default.min.css')}}">
+<link rel="stylesheet" href="{{asset('frontend_assets/css/magnific-popup.css')}}">
 
-<link rel="stylesheet" href="{{asset('css/bootstrap-datepicker.css')}}">
-<link rel="stylesheet" href="{{asset('css/jquery.timepicker.css')}}">
+<link rel="stylesheet" href="{{asset('frontend_assets/css/bootstrap-datepicker.css')}}">
+<link rel="stylesheet" href="{{asset('frontend_assets/css/jquery.timepicker.css')}}">
 
-<link rel="stylesheet" href="{{asset('css/flaticon.css')}}">
-<link rel="stylesheet" href="{{asset('css/style.css')}}">
+<link rel="stylesheet" href="{{asset('frontend_assets/css/flaticon.css')}}">
+<link rel="stylesheet" href="{{asset('frontend_assets/css/style.css')}}">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.10.0/css/lightgallery.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css">
 
 {{--<head>--}}
     {{--<title>@yield('title')</title>--}}

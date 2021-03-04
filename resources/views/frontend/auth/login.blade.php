@@ -13,7 +13,7 @@
                                 <small>Sign in with</small>
                             </div>
                             <div class="btn-wrapper text-center">
-                                <a href="#" class="btn btn-neutral btn-icon">
+                                <a href="{{route('provider', 'github')}}" class="btn btn-neutral btn-icon">
                                     <span class="btn-inner--icon"><img
                                                 src="{{ asset('admin_assets/img/icons/common/github.svg')}}"></span>
                                     <span class="btn-inner--text">Github</span>

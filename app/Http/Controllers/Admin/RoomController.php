@@ -74,7 +74,7 @@ class RoomController extends Controller
         $room->room_name = $input['room_name'];
         $room->room_price = $input['room_price'];
         $room->room_images = json_encode($input['room_images']);
-        //$room->save();
+        $room->save();
         $facilities = FacilityModel::all();
 
         return view('admin.contents.room_facility.submit', ['room' => $room], ['facilities' => $facilities]);

@@ -18,4 +18,8 @@ class GuestModel extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function bookings(){
+        return $this->hasMany('App\Models\Frontend\BookingModel', 'guest_id');
+    }
 }

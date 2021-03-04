@@ -30,8 +30,22 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'google' => [
-        'client_id'     => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect'      => env('GOOGLE_REDIRECT'),
+        'client_id'     => '212651184208-633db432t82a05qtc4grtqfpfbm6k0jl.apps.googleusercontent.com',
+        'client_secret' => 'R5YtAegsniwE09fDQrDkdAIs',
+        'redirect'      => 'http://localhost:8080/hotel_management/public/auth/google/callback',
+    ],
+//    'google' => [
+//        'client_id'     => '212651184208-754u12d40u6ohdbtpnj0kbfrbosl9kf1.apps.googleusercontent.com',
+//        'client_secret' => 'vX12q5nzm_V6gRGkfNGmmBmF',
+//        'redirect'      => 'http://localhost:8080/hotel_management/public/admin/auth/google/callback',
+//    ],
+    'github' => [
+
+        'client_id' => '2ef2958968ba55ae1a5f',
+
+        'client_secret' => '5b460e67ac3b568cb8b93f53282ceb08f224c2c1',
+
+        'redirect' => 'http://localhost:8080/hotel_management/public/auth/github/callback',
+
     ],
 ];

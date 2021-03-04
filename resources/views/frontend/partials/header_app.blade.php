@@ -10,7 +10,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active"><a href="{{route('home')}}" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="{{route('province')}}" class="nav-link">Tỉnh/Thành phố</a></li>
+                <li class="nav-item"><a href="{{route('search.country', '1')}}" class="nav-link">Tỉnh/Thành phố</a></li>
                 <li class="nav-item">
                     @guest
                         <a href="{{route('login')}}" class="nav-link">Đăng nhập</a>

@@ -14,10 +14,10 @@ class HotelModel extends Model
 
     public function scopeSearchByKeyword($query, $keyword)
     {
-        if ($keyword!='') {
+        if ($keyword != '') {
             $query->where(function ($query) use ($keyword) {
-                $query->where("hotel_name", "LIKE","%$keyword%")
-                    ->orwhere("hotel_phone", "LIKE","%$keyword%")
+                $query->where("hotel_name", "LIKE", "%$keyword%")
+                    ->orwhere("hotel_phone", "LIKE", "%$keyword%")
                     ->orWhere("hotel_email", "LIKE", "%$keyword%")
                     ->orWhere("hotel_website", "LIKE", "%$keyword%");
             });
@@ -25,7 +25,8 @@ class HotelModel extends Model
         return $query;
     }
 
-    public function rooms(){
+    public function rooms()
+    {
         return $this->hasMany('App\Models\Admin\RoomModel', 'hotel_id');
     }
 
@@ -48,5 +49,26 @@ class HotelModel extends Model
             $this->hotel_name,
             $url
         );
+    }
+
+    public function scopeFilters($query, $province, $times)
+    {
+        if ($province != '') {
+            $query->where(function ($query) use ($province) {
+                $query->where('province_id', $province);
+            })->whereDoesntHave('rooms', function ($query) use ($times) {
+                $query->where('id', function ($query) use ($times) {
+                    $query->from("booking")
+                        ->whereBetween('check_in_date', $times)
+                        ->orWhereBetween('check_out_date', $times)
+                        ->orWhere(function ($query) use ($times) {
+                            $query->where('check_in_date', '<', $times[0])
+                                ->where('check_out_date', '>', $times[1]);
+                        })
+                        ->select("room_id");
+                });
+            });
+        }
+        return $query;
     }
 }

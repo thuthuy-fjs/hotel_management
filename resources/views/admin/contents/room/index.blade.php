@@ -109,7 +109,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Light table -->
 
                     <div class="table-responsive tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel"
                          aria-labelledby="tabs-icons-text-1-tab">

@@ -166,7 +166,7 @@
                             '                         </a>\n' +
                             '                       </span>\n' +
                             '                     </div>\n' +
-                            '                     <input id="thumbnail' + next + '" type="text" name="room_image[]" value="" class="form-control" id="room_image" placeholder="">\n' +
+                            '                     <input id="thumbnail' + next + '" type="text" name="room_images[]" value="" class="form-control" id="room_image" placeholder="">\n' +
                             '                     <img id="holder' + next + '" style="margin-top:15px;max-height:100px;">\n' +
                             '                </div>';
 

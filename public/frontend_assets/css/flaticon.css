@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 12/08/2018 13:24
+  	Creation date: 04/01/2019 13:45
   	*/
 
 
@@ -36,7 +36,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.flaticon-reception-bell:before { content: "\f100"; }
-.flaticon-car:before { content: "\f101"; }
-.flaticon-spa:before { content: "\f102"; }
-.flaticon-serving-dish:before { content: "\f103"; }
+.flaticon-sun-umbrella:before { content: "\f100"; }
+.flaticon-king-size:before { content: "\f101"; }
+.flaticon-shower:before { content: "\f102"; }
+.flaticon-paragliding:before { content: "\f103"; }
+.flaticon-tour-guide:before { content: "\f104"; }
+.flaticon-route:before { content: "\f105"; }
+.flaticon-map:before { content: "\f106"; }
+.flaticon-mountains:before { content: "\f107"; }

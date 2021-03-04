@@ -23,17 +23,9 @@ class SocialAuthController extends Controller
     public function handleProviderCallback($provider)
     {
         $user = Socialite::driver($provider)->user();
-        dd($user);
-//        try {
-//            $user = Socialite::driver($provider)->user();
-//            dd($user);
-//        } catch (\Exception $e) {
-//            return redirect()->route('admin.auth.login');
-//        }
-
-//        $admin = $this->findOrCreateUser($user, $provider);
-//        Auth::login($admin, true);
-//        return redirect()->route('admin.dashboard');
+        $admin = $this->findOrCreateUser($user, $provider);
+        Auth::login($admin, true);
+        return redirect()->route('admin.dashboard');
 
     }
 
@@ -44,7 +36,7 @@ class SocialAuthController extends Controller
             return $admin;
         }
         return AdminModel::create([
-            'name' => $user->name,
+            'user_name' => $user->name,
             'email' => $user->email,
             'password' => Hash::make(Str::random(8)),
             'provider' => $provider,

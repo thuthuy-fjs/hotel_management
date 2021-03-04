@@ -29,8 +29,12 @@
                                                         <label for="#">Địa điểm</label>
                                                         <div class="form-field">
                                                             <div class="icon"><span class="fa fa-search"></span></div>
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="Địa điểm">
+                                                            <select  class="form-control" id="province" name="province">
+                                                                <option value="" selected disabled>Địa điểm</option>
+                                                                @foreach($provinces as $province)
+                                                                    <option value="{{ $province->id }}">{{ $province->province_name }}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -40,6 +44,7 @@
                                                         <div class="form-field">
                                                             <div class="icon"><span class="fa fa-calendar"></span></div>
                                                             <input type="text" class="form-control checkin_date"
+                                                                   name="check_in_date"
                                                                    placeholder="Check In">
                                                         </div>
                                                     </div>
@@ -50,6 +55,7 @@
                                                         <div class="form-field">
                                                             <div class="icon"><span class="fa fa-calendar"></span></div>
                                                             <input type="text" class="form-control checkout_date"
+                                                                   name="check_out_date"
                                                                    placeholder="Check Out">
                                                         </div>
                                                     </div>
@@ -61,7 +67,8 @@
                                                             <div class="select-wrap">
                                                                 <div class="icon"><span
                                                                             class="fa fa-chevron-down"></span></div>
-                                                                <select name="" id="" class="form-control">
+                                                                <select name="person_number" id="person_number"
+                                                                        class="form-control">
                                                                     <option value="">1</option>
                                                                     <option value="">2</option>
                                                                     <option value="">3</option>
@@ -173,7 +180,8 @@
                         @foreach($provinces as $province)
                             <div class="item">
                                 <div class="project-destination">
-                                    <a href="{{route('search.province', $province->id)}}" class="img" style="background-image: url({{asset($province->province_image)}});">
+                                    <a href="{{route('search.province', $province->id)}}" class="img"
+                                       style="background-image: url({{asset($province->province_image)}});">
                                         <div class="text">
                                             <h3>{{$province->province_name}}</h3>
                                         </div>
@@ -229,9 +237,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <ul class="list-unstyled list-group-flush clearfix" style="display: list-item;text-align: -webkit-match-parent;">
+                    <ul class="list-unstyled list-group-flush clearfix"
+                        style="display: list-item;text-align: -webkit-match-parent;">
                         @foreach($countries as $country)
-                            <a class="list-group-item h-25 w-25 p-3" href="{{route('search.country', $country->id)}}" style="padding: 0 5px 0 0;margin: 10px 0 0;list-style: none; float: left">{{$country->country_name}}</a>
+                            <a class="list-group-item h-25 w-25 p-3" href="{{route('search.country', $country->id)}}"
+                               style="padding: 0 5px 0 0;margin: 10px 0 0;list-style: none; float: left">{{$country->country_name}}</a>
                         @endforeach
                     </ul>
                 </div>

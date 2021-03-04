@@ -32,7 +32,7 @@ Route::get('forgot-password/token={token}', 'Auth\Frontend\ForgotPasswordControl
 Route::post('forgot-password/update/{token}', 'Auth\Frontend\ForgotPasswordController@resetPassword')->name('forgot-password.update');
 
 Route::get('auth/{provider}', 'Auth\Frontend\LoginController@redirectToProvider')->name('provider');
-Route::get('auth/{provide}/callback', 'Auth\Frontend\LoginController@handleProviderCallback')->name('provider.callback');
+Route::get('auth/{provider}/callback', 'Auth\Frontend\LoginController@handleProviderCallback')->name('provider.callback');
 
 Route::get('profile', 'Frontend\GuestManagerController@show')->name('profile');
 Route::get('profile/edit', 'Frontend\GuestManagerController@edit')->name('profile.edit');
@@ -41,13 +41,15 @@ Route::post('change-password/update', 'Frontend\GuestManagerController@updatePas
 
 Route::get('provinces', 'Frontend\ProvinceController@index')->name('province');
 
-Route::get('search/', 'Frontend\SearchController@search')->name('search');
+Route::get('search/', 'Frontend\HomePageController@search')->name('search');
 Route::get('search/country/{id}', 'Frontend\SearchController@searchByCountry')->name('search.country');
 Route::get('search/province/{id}', 'Frontend\SearchController@searchByProvince')->name('search.province');
 Route::get('search/category/{id}', 'Frontend\SearchController@searchByCategory')->name('search.category');
 
-Route::get('hotel/{id}', 'Frontend\HotelController@hotel')->name('hotel');
+Route::get('hotel', 'Frontend\HotelController@hotel')->name('hotel');
 
+Route::get('booking', 'Frontend\HotelController@booking')->name('booking')->middleware('web');
+Route::get('booking/store', 'Frontend\BookingController@store')->name('booking.store');
 
 /**
  * Admin route
@@ -71,7 +73,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::post('change-password/update', 'Auth\Admin\ResetPasswordController@update')->name('change-password.update');
 
     Route::get('auth/{provider}', 'Auth\Admin\LoginController@redirectToProvider')->name('provider');
-    Route::get('auth/{provide}/callback', 'Auth\Admin\LoginController@handleProviderCallback')->name('provider.callback');
+    Route::get('auth/{provider}/callback', 'Auth\Admin\LoginController@handleProviderCallback')->name('provider.callback');
 
     Route::get('profile', 'Admin\AdminManagerController@show')->name('profile');
     Route::get('profile/edit', 'Admin\AdminManagerController@edit')->name('profile.edit');

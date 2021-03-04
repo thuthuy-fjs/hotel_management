@@ -36,4 +36,24 @@ class RoomModel extends Model
     {
         return $this->hasMany('App\Models\Admin\RoomFacilityModel', 'room_id');
     }
+
+    public function bookings()
+    {
+        return $this->hasMany('App\Models\Frontend\BookingModel', 'room_id');
+    }
+
+
+    public function scopeFilters($query, $province)
+    {
+        if ($province != '') {
+            $query->where(function ($query) use ($province) {
+                $query->where('hotel_id', function ($query) use ($province) {
+                    $query->from("hotels")
+                        ->where("id", $province)
+                        ->select("id");
+                });
+            });
+        }
+        return $query;
+    }
 }

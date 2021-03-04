@@ -54,14 +54,14 @@
                                             </label>
 
                                         </div>
-                                        <div class="row textbox" id="textbox">
-                                            <div class="col-md-10 ">
-                                                <label for="description">Mô tả</label>
-                                                <textarea id="description" name="description"
-                                                          class="form-control mytinymce" rows="4" cols="50">
-                                            </textarea>
-                                            </div>
-                                        </div>
+                                        {{--<div class="row textbox" id="textbox">--}}
+                                            {{--<div class="col-md-10 ">--}}
+                                                {{--<label for="description">Mô tả</label>--}}
+                                                {{--<textarea id="description[]" name="description[]"--}}
+                                                          {{--class="form-control mytinymce" rows="4" cols="50">--}}
+                                            {{--</textarea>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
                                     </div>
                                 @endforeach
                                 <div class="col-sm-12 text-right">

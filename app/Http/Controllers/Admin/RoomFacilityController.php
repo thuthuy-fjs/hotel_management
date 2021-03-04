@@ -22,10 +22,11 @@ class RoomFacilityController extends Controller
     {
         $input = $request->all();
         $facilities = $input['room_facility_id'];
-        foreach ($facilities as $facility){
+        foreach ($facilities as $facility) {
             $room_facility = new RoomFacilityModel();
             $room_facility->room_id = $input['room_id'];
             $room_facility->room_facility_id = $facility;
+            $room_facility->description = isset($input['description']) ? $input['description'] : "";
             $room_facility->save();
         }
 

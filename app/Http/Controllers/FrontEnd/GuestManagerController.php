@@ -42,7 +42,6 @@ class GuestManagerController extends Controller
     public function updatePassword(Request $request)
     {
         if (!(Hash::check($request->current_password, Auth::user()->password))) {
-            // The passwords matches
             return redirect()->back()->with("error", "Your current password does not matches with the password you provided. Please try again.");
         }
 

@@ -9,6 +9,9 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -46,29 +49,11 @@ class LoginController extends Controller
 
     public function handleProviderCallback($provider)
     {
-//        $user = Socialite::driver($provider)->user();
-//        dd($user);
-        try {
-            $user = Socialite::driver($provider)->user();
-        } catch (\Exception $e) {
-            return redirect()->route('admin.auth.login');
-        }
-
-        $admin = AdminModel::where('email', $user->email)->first();
-        if ($admin) {
-            return $admin;
-        }
-        $adminModel = new AdminModel();
-        $adminModel->user_name = $user->name;
-        $adminModel->email = $user->email;
-        $adminModel->password = Hash::make(Str::random(8));
-        $adminModel->provider = $provider;
-        $adminModel->provider_id = $user->id;
-        $adminModel->save();
-
-        Auth::login($admin, true);
-        return redirect()->route('admin.dashboard');
-
+        $user = Socialite::driver($provider)->user();
+        dd($user);
+//        $admin = $this->findOrCreateUser($user, $provider);
+//        Auth::login($admin, true);
+//        return redirect()->route('admin.dashboard');
     }
 
     public function findOrCreateUser($user, $provider)
