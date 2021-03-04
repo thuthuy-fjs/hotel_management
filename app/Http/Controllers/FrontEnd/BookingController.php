@@ -23,7 +23,6 @@ class BookingController extends Controller
         $booking->booking_note = $input['booking_note'];
         $booking->is_payment = isset($input['is_payment']) ? $input['is_payment'] : 0;
         $booking->save();
-//        dd($booking);
         return redirect()->route('home');
     }
 }

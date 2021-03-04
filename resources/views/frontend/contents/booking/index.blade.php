@@ -3,7 +3,7 @@
     Đặt phòng
 @endsection
 @section('content')
-    <form action="{{route('booking.store')}}" method="get">
+    <form action="{{route('booking.store')}}" method="post">
         <div class="container">
             <div class="row" style="margin-top: 20px">
                 <div class="col-lg-4">

@@ -4,16 +4,29 @@ namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\GuestRequest;
+use App\Models\Frontend\BookingModel;
+use App\Repositories\Frontend\StarRatingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class GuestManagerController extends Controller
 {
+    protected $starRepo;
+
+    public function __construct(StarRatingRepository $starRepo)
+    {
+        $this->starRepo = $starRepo;
+    }
+
     public function show()
     {
         $guest = Auth::user();
-        return view('frontend.contents.profile.profile', ['guest' => $guest]);
+        $star_ratings = $this->starRepo->getAll();
+        $bookings = BookingModel::all();
+        return view('frontend.contents.profile.profile')
+            ->with('guest', $guest)->with('star_ratings', $star_ratings)
+            ->with('bookings', $bookings);
     }
 
     public function edit()

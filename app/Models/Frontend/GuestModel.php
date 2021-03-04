@@ -22,4 +22,9 @@ class GuestModel extends Authenticatable
     public function bookings(){
         return $this->hasMany('App\Models\Frontend\BookingModel', 'guest_id');
     }
+
+    public function star_rating()
+    {
+        return $this->hasOne('App\Models\Frontend\StarRatingModel', 'booking_id');
+    }
 }

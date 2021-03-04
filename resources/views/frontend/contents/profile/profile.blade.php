@@ -16,6 +16,9 @@
                     <li class="nav-item">
                         <a href="" data-target="#changePassword" data-toggle="tab" class="nav-link">Đổi mật khẩu</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="" data-target="#bookingDetail" data-toggle="tab" class="nav-link">Phòng đã đặt</a>
+                    </li>
                 </ul>
                 <div class="tab-content py-4">
                     <div class="tab-pane active" id="profile">
@@ -169,6 +172,98 @@
                             </div>
                         </form>
                     </div>
+                    <div class="tab-pane" id="bookingDetail">
+                        @foreach($bookings as $booking)
+                        <table class="table table-border">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Khách sạn</th>
+                                <th>Phòng</th>
+                                <th>Ngày đặt</th>
+                                <th>Đánh giá</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>{{$booking->id}}</td>
+                                    <td>{{$booking->room->hotel->hotel_name}}</td>
+                                    <td>{{$booking->room->room_name}}</td>
+                                    <td>{{\Carbon\Carbon::parse($booking->booking_date)->format('d-m-Y')}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#modal{{$booking->id}}">
+                                            Đánh giá
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="modal fade" id="modal{{$booking->id}}" tabindex="-1" role="dialog"
+                             aria-labelledby="modal{{$booking->id}}Label" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <form action="{{route('comment')}}">
+                                        <div class="card">
+                                            <div class="row">
+                                                <div class="col-2"><img src="{{asset('images/user.png')}}" width="70"
+                                                                        class="rounded-circle mt-2"></div>
+                                                <div class="col-10">
+                                                    <div class="comment-box ml-2">
+                                                        <h4>Đánh giá</h4>
+                                                        <input name="guest_id" value="{{$booking->guest_id}}" hidden>
+                                                        <input name="booking_id" value="{{$booking->id}}" hidden>
+                                                        <input hidden>
+                                                        <div class="rating">
+                                                            <input type="radio" name="level[]" value="5" id="5">
+                                                            <label for="5">☆</label>
+                                                            <input type="radio" name="level[]" value="4" id="4">
+                                                            <label for="4">☆</label>
+                                                            <input type="radio" name="level[]" value="3" id="3">
+                                                            <label for="3">☆</label>
+                                                            <input type="radio" name="level[]" value="2" id="2">
+                                                            <label for="2">☆</label>
+                                                            <input type="radio" name="level[]" value="1" id="1">
+                                                            <label for="1">☆</label>
+                                                        </div>
+                                                        <div class="comment-area">
+                                                        <textarea class="form-control" name="description" id="description" placeholder="what is your view?"
+                                                                  rows="4"></textarea>
+                                                        </div>
+                                                        <div class="comment-btns mt-2">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <div class="pull-left">
+                                                                        <button class="btn btn-success btn-sm"
+                                                                                type="button" class="close"
+                                                                                data-dismiss="modal"
+                                                                                aria-label="Close">
+                                                                            Cancle
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <div class="pull-right">
+                                                                        <button class="btn btn-success send btn-sm"
+                                                                                type="submit">Gửi
+                                                                            <i class="fa fa-long-arrow-right ml-1"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4 order-lg-1 text-center">
@@ -177,6 +272,217 @@
             </div>
         </div>
     </div>
+    <style>
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            padding: 20px;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border-radius: 6px;
+            -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1)
+        }
+
+        .comment-box {
+            padding: 5px
+        }
+
+        .comment-area textarea {
+            resize: none;
+            border: 1px solid #ad9f9f
+        }
+
+        .form-control:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #ffffff;
+            outline: 0;
+            box-shadow: 0 0 0 1px rgb(255, 0, 0) !important
+        }
+
+        .send {
+            color: #fff;
+            background-color: #ff0000;
+            border-color: #ff0000
+        }
+
+        .send:hover {
+            color: #fff;
+            background-color: #f50202;
+            border-color: #f50202
+        }
+
+        .rating {
+            display: flex;
+            margin-top: -10px;
+            flex-direction: row-reverse;
+            margin-left: -4px;
+            float: left
+        }
+
+        .rating > input {
+            display: none
+        }
+
+        .rating > label {
+            position: relative;
+            width: 19px;
+            font-size: 25px;
+            color: #ff0000;
+            cursor: pointer
+        }
+
+        .rating > label::before {
+            content: "\2605";
+            position: absolute;
+            opacity: 0
+        }
+
+        .rating > label:hover:before,
+        .rating > label:hover ~ label:before {
+            opacity: 1 !important
+        }
+
+        .rating > input:checked ~ label:before {
+            opacity: 1
+        }
+
+        .rating:hover > input:checked ~ label:before {
+            opacity: 0.4
+        }
+
+        a {
+            text-decoration: none !important;
+            color: inherit
+        }
+
+        a:hover {
+            color: #455A64
+        }
+
+        .card {
+            border-radius: 5px;
+            background-color: #fff;
+            padding-left: 60px;
+            padding-right: 60px;
+            margin-top: 30px;
+            padding-top: 30px;
+            padding-bottom: 30px
+        }
+
+        .rating-box {
+            width: 130px;
+            height: 130px;
+            margin-right: auto;
+            margin-left: auto;
+            background-color: #FBC02D;
+            color: #fff
+        }
+
+        .rating-label {
+            font-weight: bold
+        }
+
+        .rating-bar {
+            width: 300px;
+            padding: 8px;
+            border-radius: 5px
+        }
+
+        .bar-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            text-align: center;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-bottom: 5px
+        }
+
+        .bar-5 {
+            width: 70%;
+            height: 13px;
+            background-color: #FBC02D;
+            border-radius: 20px
+        }
+
+        .bar-4 {
+            width: 30%;
+            height: 13px;
+            background-color: #FBC02D;
+            border-radius: 20px
+        }
+
+        .bar-3 {
+            width: 20%;
+            height: 13px;
+            background-color: #FBC02D;
+            border-radius: 20px
+        }
+
+        .bar-2 {
+            width: 10%;
+            height: 13px;
+            background-color: #FBC02D;
+            border-radius: 20px
+        }
+
+        .bar-1 {
+            width: 0%;
+            height: 13px;
+            background-color: #FBC02D;
+            border-radius: 20px
+        }
+
+        td {
+            padding-bottom: 10px
+        }
+
+        .star-active {
+            color: #FBC02D;
+            margin-top: 10px;
+            margin-bottom: 10px
+        }
+
+        .star-active:hover {
+            color: #F9A825;
+            cursor: pointer
+        }
+
+        .star-inactive {
+            color: #CFD8DC;
+            margin-top: 10px;
+            margin-bottom: 10px
+        }
+
+        .blue-text {
+            color: #0091EA
+        }
+
+        .content {
+            font-size: 18px
+        }
+
+        .profile-pic {
+            width: 90px;
+            height: 90px;
+            border-radius: 100%;
+            margin-right: 30px
+        }
+
+        .pic {
+            width: 80px;
+            height: 80px;
+            margin-right: 10px
+        }
+
+        .vote {
+            cursor: pointer
+        }
+    </style>
 @endsection
 @section('js')
 @endsection

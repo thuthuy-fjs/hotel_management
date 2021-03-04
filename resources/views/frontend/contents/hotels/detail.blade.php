@@ -221,131 +221,36 @@
 
                                 <div class="col-md-12 properties-single ftco-animate mb-5 mt-4" id="evaluate">
                                     <h4 class="mb-4">Đánh giá</h4>
-                                    @guest
+                                    @foreach($star_ratings as $star_rating)
                                         <div class="card">
                                             <div class="row d-flex">
-                                                <div class=""><img class="profile-pic"
-                                                                   src="https://i.imgur.com/V3ICjlm.jpg"></div>
+                                                <div class="">
+                                                    <img class="profile-pic" src="{{asset('images/user.png')}}">
+                                                </div>
                                                 <div class="d-flex flex-column">
-                                                    <h3 class="mt-2 mb-0">Vikram jit Singh</h3>
+                                                    <h3 class="mt-2 mb-0">{{$star_rating->guest->user_name}}</h3>
                                                     <div>
-                                                        <p class="text-left"><span class="text-muted">4.0</span> <span
-                                                                    class="fa fa-star star-active ml-3"></span> <span
-                                                                    class="fa fa-star star-active"></span> <span
-                                                                    class="fa fa-star star-active"></span> <span
-                                                                    class="fa fa-star star-active"></span> <span
-                                                                    class="fa fa-star star-inactive"></span></p>
+                                                        <p class="text-left">
+                                                            <span class="text-muted">{{$star_rating->level}}</span>
+                                                            @for($i = 1; $i < 6; $i++)
+                                                                @if($i <= $star_rating->level)
+                                                                    <span class="fa fa-star star-active"></span>
+                                                                @else
+                                                                    <span class="fa fa-star star-inactive"></span>
+                                                                @endif
+                                                            @endfor
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 <div class="ml-auto">
-                                                    <p class="text-muted pt-5 pt-sm-3">10 Sept</p>
+                                                    <p class="text-muted pt-5 pt-sm-3">{{\Carbon\Carbon::parse($star_rating->create_at)->format('d/m/y')}}</p>
                                                 </div>
                                             </div>
                                             <div class="row text-left">
-                                                <h4 class="blue-text mt-3">"An awesome activity to experience"</h4>
-                                                <p class="content">If you really enjoy spending your vacation 'on water'
-                                                    or would like to try
-                                                    something new and exciting for the first time.</p>
-                                            </div>
-                                            <div class="row text-left"><img class="pic"
-                                                                            src="https://i.imgur.com/kjcZcfv.jpg"> <img
-                                                        class="pic"
-                                                        src="https://i.imgur.com/SjBwAgs.jpg">
-                                                <img class="pic" src="https://i.imgur.com/IgHpsBh.jpg"></div>
-                                            <div class="row text-left mt-4">
-                                                <div class="like mr-3 vote"><img
-                                                            src="https://i.imgur.com/mHSQOaX.png"><span
-                                                            class="blue-text pl-2">20</span></div>
-                                                <div class="unlike vote"><img
-                                                            src="https://i.imgur.com/bFBO3J7.png"><span
-                                                            class="text-muted pl-2">4</span></div>
+                                                <p class="content">{{$star_rating->description}}</p>
                                             </div>
                                         </div>
-                                    @else
-                                        <div class="card">
-                                            <div class="row">
-                                                <div class="col-2"><img src="https://i.imgur.com/xELPaag.jpg" width="70"
-                                                                        class="rounded-circle mt-2"></div>
-                                                <div class="col-10">
-                                                    <div class="comment-box ml-2">
-                                                        <h4>Add a comment</h4>
-                                                        <div class="rating"><input type="radio" name="rating" value="5"
-                                                                                   id="5"><label
-                                                                    for="5">☆</label> <input type="radio" name="rating"
-                                                                                             value="4" id="4"><label
-                                                                    for="4">☆</label> <input type="radio" name="rating"
-                                                                                             value="3" id="3"><label
-                                                                    for="3">☆</label> <input type="radio" name="rating"
-                                                                                             value="2" id="2"><label
-                                                                    for="2">☆</label> <input type="radio" name="rating"
-                                                                                             value="1" id="1"><label
-                                                                    for="1">☆</label></div>
-                                                        <div class="comment-area"><textarea class="form-control"
-                                                                                            placeholder="what is your view?"
-                                                                                            rows="4"></textarea></div>
-                                                        <div class="comment-btns mt-2">
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <div class="pull-left">
-                                                                        <button class="btn btn-success btn-sm">Cancel
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="pull-right">
-                                                                        <button class="btn btn-success send btn-sm">Send
-                                                                            <i
-                                                                                    class="fa fa-long-arrow-right ml-1"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="row d-flex">
-                                                <div class=""><img class="profile-pic"
-                                                                   src="https://i.imgur.com/V3ICjlm.jpg"></div>
-                                                <div class="d-flex flex-column">
-                                                    <h3 class="mt-2 mb-0">Vikram jit Singh</h3>
-                                                    <div>
-                                                        <p class="text-left"><span class="text-muted">4.0</span> <span
-                                                                    class="fa fa-star star-active ml-3"></span> <span
-                                                                    class="fa fa-star star-active"></span> <span
-                                                                    class="fa fa-star star-active"></span> <span
-                                                                    class="fa fa-star star-active"></span> <span
-                                                                    class="fa fa-star star-inactive"></span></p>
-                                                    </div>
-                                                </div>
-                                                <div class="ml-auto">
-                                                    <p class="text-muted pt-5 pt-sm-3">10 Sept</p>
-                                                </div>
-                                            </div>
-                                            <div class="row text-left">
-                                                <h4 class="blue-text mt-3">"An awesome activity to experience"</h4>
-                                                <p class="content">If you really enjoy spending your vacation 'on water'
-                                                    or would like to try
-                                                    something new and exciting for the first time.</p>
-                                            </div>
-                                            <div class="row text-left"><img class="pic"
-                                                                            src="https://i.imgur.com/kjcZcfv.jpg"> <img
-                                                        class="pic"
-                                                        src="https://i.imgur.com/SjBwAgs.jpg">
-                                                <img class="pic" src="https://i.imgur.com/IgHpsBh.jpg"></div>
-                                            <div class="row text-left mt-4">
-                                                <div class="like mr-3 vote"><img
-                                                            src="https://i.imgur.com/mHSQOaX.png"><span
-                                                            class="blue-text pl-2">20</span></div>
-                                                <div class="unlike vote"><img
-                                                            src="https://i.imgur.com/bFBO3J7.png"><span
-                                                            class="text-muted pl-2">4</span></div>
-                                            </div>
-                                        </div>
-                                    @endguest
-
+                                    @endforeach
                                 </div>
 
                             </div>

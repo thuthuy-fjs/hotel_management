@@ -49,7 +49,9 @@ Route::get('search/category/{id}', 'Frontend\SearchController@searchByCategory')
 Route::get('hotel', 'Frontend\HotelController@hotel')->name('hotel');
 
 Route::get('booking', 'Frontend\HotelController@booking')->name('booking')->middleware('web');
-Route::get('booking/store', 'Frontend\BookingController@store')->name('booking.store');
+Route::post('booking/store', 'Frontend\BookingController@store')->name('booking.store');
+
+Route::get('comment', 'Frontend\StarRatingController@comment')->name('comment');
 
 /**
  * Admin route
