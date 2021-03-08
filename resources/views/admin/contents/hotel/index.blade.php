@@ -18,7 +18,7 @@
 
                             </select>
                             <select id="province" name="province" class="btn btn-sm btn-neutral">
-                                <option value="" selected disabled>Tỉnh/Thành phố</option>
+                                <option value="" selected disabled>Tỉnh thành</option>
                             </select>
                             <input type="submit" class="btn btn-sm btn-neutral" value="Tìm kiếm">
                         </form>
@@ -213,7 +213,7 @@
                     success: function (res) {
                         if (res) {
                             $('#province').html('');
-                            $('#province').append('<option value="" selected disabled>Tỉnh/Thành phố</option>');
+                            $('#province').append('<option value="" selected disabled>Tỉnh thành</option>');
                             console.log(res);
                             $.each(res, function (key, value) {
                                 console.log(value.province_name);

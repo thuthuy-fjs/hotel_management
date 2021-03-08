@@ -110,7 +110,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('room/search', 'Admin\RoomController@search')->name('room.search');
     Route::get('room/create', 'Admin\RoomController@create')->name('room.create');
     Route::get('room/edit/{id}', 'Admin\RoomController@edit')->where('id', '[0-9]+')->name('room.edit');
-    Route::get('room/export', 'Admin\RoomController@export')->name('room.export');;
+    Route::get('room/export', 'Admin\RoomController@export')->name('room.export');
 
     Route::post('room', 'Admin\RoomController@store')->name('room.store');
     Route::post('room/{id}', 'Admin\RoomController@update')->where('id', '[0-9]+')->name('room.update');
@@ -119,4 +119,22 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('room/facility/create', 'Admin\RoomFacilityController@create')->name('room.facility.create');
     Route::post('room/facility', 'Admin\RoomFacilityController@store')->name('room.facility.store');
+
+    Route::get('room/detail', 'Admin\RoomDetailController@index')->name('room.detail');
+    Route::get('room/list_hotels', 'Admin\RoomDetailController@getHotels')->name('room.list_hotels');
+    Route::get('room/calendar', 'Admin\RoomDetailController@getRooms')->name('room.calendar');
+
+    Route::get('guest', 'Admin\GuestController@index')->name('guest');
+    Route::get('guest/create', 'Admin\GuestController@create')->name('guest.create');
+    Route::get('guest/edit/{id}', 'Admin\GuestController@edit')->name('guest.edit');
+    Route::get('guest/export', 'Admin\GuestController@export')->name('guest.export');;
+
+    Route::post('guest', 'Admin\GuestController@store')->name('guest.store');
+    Route::post('guest/{id}', 'Admin\GuestController@update')->name('guest.update');
+    Route::post('guest/delete/{id}', 'Admin\GuestController@destroy')->where('id', '[0-9]+')->name('guest.destroy');
+    Route::post('guest/import', 'Admin\GuestController@import')->name('guest.import');
+
+
+    Route::get('booking', 'Admin\BookingManagerController@index')->name('booking');;
+
 });

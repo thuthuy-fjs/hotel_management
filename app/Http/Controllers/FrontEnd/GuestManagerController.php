@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\GuestRequest;
 use App\Models\Frontend\BookingModel;
+use App\Models\Frontend\GuestModel;
 use App\Repositories\Frontend\StarRatingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,10 +24,8 @@ class GuestManagerController extends Controller
     {
         $guest = Auth::user();
         $star_ratings = $this->starRepo->getAll();
-        $bookings = BookingModel::all();
         return view('frontend.contents.profile.profile')
-            ->with('guest', $guest)->with('star_ratings', $star_ratings)
-            ->with('bookings', $bookings);
+            ->with('guest', $guest)->with('star_ratings', $star_ratings);
     }
 
     public function edit()
@@ -39,16 +38,16 @@ class GuestManagerController extends Controller
     {
         $validated = $request->validated();
         $input = $request->all();
-        $admin = Auth::user();
-        $admin->first_name = $input['first_name'];
-        $admin->last_name = $input['last_name'];
-        $admin->user_name = $input['user_name'];
-        $admin->email = $input['email'];
-        $admin->password = $input['password'];
-        $admin->phone = $input['phone'];
-        $admin->address = $input['address'];
-        $admin->image = $input['image'];
-        $admin->save();
+        $guest = Auth::user();
+        $guest->first_name = $input['first_name'];
+        $guest->last_name = $input['last_name'];
+        $guest->user_name = $input['user_name'];
+        $guest->email = $input['email'];
+        $guest->password = $input['password'];
+        $guest->phone = $input['phone'];
+        $guest->address = $input['address'];
+        $guest->image = $input['image'];
+        $guest->save();
         return redirect()->route('profile');
     }
 

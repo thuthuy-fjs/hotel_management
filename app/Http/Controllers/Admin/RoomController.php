@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\Admin\RoomExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\RoomRequest;
+use App\Imports\Admin\RoomImport;
 use App\Models\Admin\FacilityModel;
 use App\Models\Admin\RoomFacilityModel;
 use App\Models\Admin\RoomModel;
+use App\Repositories\Admin\CountryRepository;
 use App\Repositories\Admin\HotelRepository;
+use App\Repositories\Admin\ProvinceRepository;
 use App\Repositories\Admin\RoomRepository;
 use App\Repositories\Admin\RoomTypeRepository;
 use Illuminate\Http\Request;
@@ -18,20 +22,25 @@ class RoomController extends Controller
     protected $roomRepo;
     protected $hotelRepo;
     protected $roomtypeRepo;
+    protected $countryRepo;
+    protected $provinceRepo;
 
-    public function __construct(RoomRepository $roomRepo, HotelRepository $hotelRepo, RoomTypeRepository $roomtypeRepo)
+    public function __construct(RoomRepository $roomRepo, HotelRepository $hotelRepo, RoomTypeRepository $roomtypeRepo, ProvinceRepository $provinceRepo, CountryRepository $countryRepo)
     {
         $this->middleware('auth:admin');
         $this->roomRepo = $roomRepo;
         $this->hotelRepo = $hotelRepo;
         $this->roomtypeRepo = $roomtypeRepo;
+        $this->countryRepo = $countryRepo;
+        $this->provinceRepo = $provinceRepo;
     }
 
     public function index()
     {
         $rooms = $this->roomRepo->getAll();
         $hotels = $this->hotelRepo->getAll();
-        return view('admin.contents.room.index', ['rooms' => $rooms], ['hotels' => $hotels]);
+        $countries = $this->countryRepo->getAll();
+        return view('admin.contents.room.index', ['rooms' => $rooms], ['hotels' => $hotels])->with('countries', $countries);
     }
 
     public function show($id)
@@ -42,15 +51,17 @@ class RoomController extends Controller
 
     public function getRoomInHotel(Request $request)
     {
+        $countries = $this->countryRepo->getAll();
         $hotels = $this->hotelRepo->getAll();
         $hotel = $this->hotelRepo->find($request->hotel);
         $rooms = $hotel->rooms;
-        return view('admin.contents.room.index', ['hotels' => $hotels], ['rooms' => $rooms]);
+        return view('admin.contents.room.index', ['hotels' => $hotels], ['rooms' => $rooms])->with('countries', $countries);
 
     }
 
     public function create()
     {
+
         $hotels = $this->hotelRepo->getAll();
         $types = $this->roomtypeRepo->getAll();
         return view('admin.contents.room.submit')->with('hotels', $hotels)->with('types', $types);
@@ -116,13 +127,13 @@ class RoomController extends Controller
             'select_file' => 'required|mimes:xls,xlsx,csv'
         ]);
 
-        $import = Excel::import(new HotelImport(), request()->file('select_file'));
+        $import = Excel::import(new RoomImport(), request()->file('select_file'));
         return redirect()->route('admin.hotel');
     }
 
     public function export()
     {
-        return Excel::download(new HotelExport(), 'hotels.xlsx');
+        return Excel::download(new RoomExport(), 'rooms.xlsx');
 
     }
 }

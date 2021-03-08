@@ -1,49 +1,16 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-    Danh sách phòng
+    Danh sách người đăng kí
 @endsection
 @section('content')
     <div class="header bg-primary pb-6">
         <div class="container-fluid">
             <div class="header-body">
                 <div class="row align-items-center py-4">
-
-                    <div class="col-lg-6">
-                        <form action="{{route('admin.room.list_rooms')}}" method="get">
-                            <select id="country" name="country" class="btn btn-sm btn-neutral">
-                                <option value="" selected disabled>Quốc gia</option>
-                                @foreach($countries as $country)
-                                    <option value="{{$country->id}}">{{$country->country_name}}</option>
-                                @endforeach
-
-                            </select>
-                            <select id="province" name="province" class="btn btn-sm btn-neutral">
-                                <option value="" selected disabled>Tỉnh/Thành</option>
-                            </select>
-
-                            <select id="hotel" name="hotel" class="btn btn-sm btn-neutral">
-                                <option value="" selected disabled>Khách sạn</option>
-                            </select>
-                            <input type="submit" class="btn btn-sm btn-neutral" value="Tìm kiếm">
-                        </form>
-
-                    </div>
-                    <div class="col-lg-3">
-                        <form class="navbar-search navbar-search-light form-inline"
-                              action="{{route('admin.room.search')}}"
-                              method="GET" name="search" id="search">
-                            <div class="form-group mb-0">
-                                <div class="input-group input-group-alternative input-group-merge input-group-sm">
-                                    <div class="input-group-prepend input-group-sm">
-                                        <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                    </div>
-                                    <input class="form-control" name="search" placeholder="Search" type="text">
-                                </div>
-                            </div>
-                        </form>
+                    <div class="col-lg-9">
                     </div>
                     <div class="col-lg-3 text-right">
-                        <a href="{{route('admin.room.create')}}" class="btn btn-sm btn-neutral">Thêm mới</a>
+                        <a href="{{route('admin.guest.create')}}" class="btn btn-sm btn-neutral">Thêm mới</a>
                         <div class="dropdown">
                             <button class="btn btn-neutral btn-sm dropdown-toggle" type="button"
                                     id="dropdownMenuButton"
@@ -52,10 +19,10 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" data-toggle="modal" data-target="#modal">Import</a>
-                                <a class="dropdown-item" href="{{route('admin.room.export')}}">Export</a>
+                                <a class="dropdown-item" href="{{route('admin.guest.export')}}">Export</a>
                             </div>
 
-                            <form action="{{route('admin.room.import')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{route('admin.guest.import')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="modal fade" id="modal" tabindex="-1" role="dialog"
                                      aria-labelledby="modalLabel" aria-hidden="true">
@@ -110,31 +77,30 @@
                             <thead class="thead-light">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Tên khách sạn</th>
-                                <th scope="col">Loại phòng nghỉ</th>
-                                <th scope="col">Số phòng</th>
-                                <th scope="col">Giá tiền</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Tên đăng nhập</th>
+                                <th scope="col">Địa chỉ</th>
+                                <th scope="col">Điện thoại</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody class="list">
-                            @foreach($rooms as $room)
+                            @foreach($guests as $guest)
                                 <tr>
                                     <td>
-                                        {{$room->id}}
+                                        {{$guest->id}}
                                     </td>
                                     <td>
-                                        {{$room->hotel->hotel_name}}
-                                    </td>
-
-                                    <td>
-                                        {{$room->type->room_type}}
+                                        {{$guest->email}}
                                     </td>
                                     <td>
-                                        {{$room->room_name}}
+                                        {{$guest->user_name}}
                                     </td>
                                     <td>
-                                        {{$room->room_price}}
+                                        {{$guest->address}}
+                                    </td>
+                                    <td>
+                                        {{$guest->phone}}
                                     </td>
 
                                     <td class="text-right">
@@ -145,32 +111,30 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                 <a class="dropdown-item"
-                                                   href="{{route('admin.room.edit', $room->id)}}">Edit</a>
+                                                   href="{{route('admin.guest.edit', $guest->id)}}">Edit</a>
                                                 <a class="dropdown-item" data-toggle="modal"
-                                                   data-target="#modal{{$room->id}}">Delete</a>
+                                                   data-target="#modal{{$guest->id}}">Delete</a>
 
                                             </div>
                                         </div>
 
                                     </td>
                                 </tr>
-                                <form action="{{route('admin.room.destroy', $room->id)}}" method="post">
+                                <form action="{{route('admin.guest.destroy', $guest->id)}}" method="post">
                                     @csrf
-                                    <div class="modal fade" id="modal{{$room->id}}" tabindex="-1" role="dialog"
-                                         aria-labelledby="modal{{$room->id}}Label" aria-hidden="true">
+                                    <div class="modal fade" id="modal{{$guest->id}}" tabindex="-1" role="dialog"
+                                         aria-labelledby="modal{{$guest->id}}Label" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="modal{{$room->id}}Label">Xóa
-                                                        phòng {{$room->room_name}}</h5>
+                                                    <h5 class="modal-title" id="modal{{$guest->id}}Label">Xóa người dùng{{$guest->user_name}}</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Bạn có chắc chắn xóa phòng {{$room->room_name}} khách
-                                                    sạn {{$room->hotel->hotel_name}} ?
+                                                    Bạn có chắc chắn xóa người dùng {{$guest->user_name}}?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -192,60 +156,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('js')
-    <script type="text/javascript">
-        $('#country').change(function () {
-            var country_id = $(this).val();
-            if (country_id) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{route('admin.hotel.list_provinces')}}?country_id=" + country_id,
-                    success: function (res) {
-                        if (res) {
-                            $('#province').html('');
-                            $('#province').append('<option value="" selected disabled>Tỉnh thành</option>');
-                            console.log(res);
-                            $.each(res, function (key, value) {
-                                console.log(value.province_name);
-                                $('#province').append('<option value="' + value.id + '">' + value.province_name + '</option>');
-                            });
-
-                        } else {
-                            $('#province').html('');
-                        }
-                    }
-                });
-            } else {
-                $('#province').html('');
-                $('#city').html('');
-            }
-        });
-        $('#province').change(function () {
-            var province_id = $(this).val();
-            console.log(province_id);
-            if (province_id) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{route('admin.room.list_hotels')}}?province_id=" + province_id,
-                    success: function (res) {
-                        if (res) {
-                            $('#hotel').html('');
-                            $('#hotel').append('<option value="" selected disabled>Khách sạn</option>');
-                            console.log(res);
-                            $.each(res, function (key, value) {
-                                console.log(value.hotel_name);
-                                $('#hotel').append('<option value="' + value.id + '">' + value.hotel_name + '</option>');
-                            });
-
-                        } else {
-                            $('#hotel').html('');
-                        }
-                    }
-                });
-            } else {
-                $('#hotel').html('');
-            }
-        });
-    </script>
 @endsection

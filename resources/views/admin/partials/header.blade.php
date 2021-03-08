@@ -40,7 +40,7 @@
                             <span>Tài khoản</span>
                         </a>
                         <a href="{{route('admin.change-password')}}" class="dropdown-item">
-                            <i class="ni ni-single-02"></i>
+                            <i class="ni ni-settings-gear-65"></i>
                             <span>Đổi mật khẩu</span>
                         </a>
                         <div class="dropdown-divider"></div>

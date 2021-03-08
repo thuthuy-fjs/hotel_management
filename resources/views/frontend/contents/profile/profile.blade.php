@@ -173,7 +173,7 @@
                         </form>
                     </div>
                     <div class="tab-pane" id="bookingDetail">
-                        @foreach($bookings as $booking)
+                        @foreach($guest->bookings as $booking)
                         <table class="table table-border">
                             <thead>
                             <tr>

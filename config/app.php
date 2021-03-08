@@ -178,6 +178,7 @@ return [
         UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        LaravelFullCalendar\FullCalendarServiceProvider::class,
     ],
 
     /*
@@ -231,6 +232,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Calendar' => LaravelFullCalendar\Facades\Calendar::class,
     ],
 
 ];

@@ -7,22 +7,9 @@
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-7">
                 <div class="card bg-secondary border-0 mb-0">
-                    <div class="card-header bg-transparent pb-5">
-                        <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
-                        <div class="btn-wrapper text-center">
-                            <a href="#" class="btn btn-neutral btn-icon">
-                                <span class="btn-inner--icon"><img src="{{ asset('admin_assets/img/icons/common/github.svg')}}"></span>
-                                <span class="btn-inner--text">Github</span>
-                            </a>
-                            <a href="{{route('admin.provider', 'google')}}" class="btn btn-neutral btn-icon">
-                                <span class="btn-inner--icon"><img src="{{ asset('admin_assets/img/icons/common/google.svg')}}"></span>
-                                <span class="btn-inner--text">Google</span>
-                            </a>
-                        </div>
-                    </div>
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
-                            <small>Or sign in with credentials</small>
+                            <h2>Đăng nhập Admin</h2>
                         </div>
                         <form action="{{ route('admin.auth.loginAdmin') }}" method="post">
                             @csrf

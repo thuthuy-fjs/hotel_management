@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-    Chỉnh sửa thông tin
+    Thêm mới người dùng
 @endsection
 @section('content')
     <!-- Header -->
@@ -25,7 +25,7 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">Chỉnh sửa thông tin của {{$admin->user_name}} </h3>
+                                <h3 class="mb-0">Thêm mới người dùng </h3>
                             </div>
                         </div>
                     </div>
@@ -39,23 +39,30 @@
                         </div>
                     @endif
                     <div class="card-body">
-                        <form action="{{ route('admin.profile.update') }}" method="post">
+                        <form action="{{ route('admin.guest.store') }}" method="post">
                             @csrf
-                            <h6 class="heading-small text-muted mb-4">Thông tin</h6>
+                            <h6 class="heading-small text-muted mb-4">Thông tin người dùng </h6>
                             <div class="pl-lg-4">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-username">Tên đăng nhập*</label>
                                             <input type="text" id="user_name" name="user_name" class="form-control"
-                                                   placeholder="Tên đăng nhập" value="{{$admin->user_name}}">
+                                                   placeholder="Tên đăng nhập">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-email">Email*</label>
-                                            <input type="email" id="email" name="email" class="form-control"
-                                                   placeholder="Email" value="{{$admin->email}}">
+                                            <label class="form-control-label" for="input-email">Mật khẩu*</label>
+                                            <input type="password" id="password" name="password" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="email">Email*</label>
+                                            <input id="email" name="email" class="form-control" placeholder="Email" type="email">
                                         </div>
                                     </div>
                                 </div>
@@ -64,21 +71,21 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-first-name">Họ đệm</label>
                                             <input type="text" id="first_name" name="first_name" class="form-control"
-                                                   placeholder="First name" value="{{$admin->first_name}}">
+                                                   placeholder="First name">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-last-name">Tên</label>
                                             <input type="text" id="last_name" name="last_name" class="form-control"
-                                                   placeholder="Last name" value="{{$admin->last_name}}">
+                                                   placeholder="Last name">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="hotel_image">Ảnh</label>
+                                            <label class="form-control-label" for="image">Ảnh</label>
                                             <div style="margin: 10px 0px">
                                                 <span class="input-group-btn">
                                                  <a id="lfm" data-input="thumbnail" data-preview="holder"
@@ -87,7 +94,7 @@
                                                  </a>
                                                </span>
                                             </div>
-                                            <input id="thumbnail" class="form-control" type="text" name="hotel_image">
+                                            <input id="thumbnail" class="form-control" type="text" name="image">
                                             <img id="holder" style="margin-top:15px;max-height:150px;max-width:150px">
                                         </div>
                                     </div>
@@ -101,8 +108,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-address">Địa chỉ</label>
-                                            <input id="location" name="location" class="form-control" placeholder="Address"
-                                                   value="{{$admin->location}}" type="text">
+                                            <input id="address" name="address" class="form-control" placeholder="Address" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -110,8 +116,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-city">Điện thoại</label>
-                                            <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" pattern="09|03|07|08|05)+([0-9]{8}"
-                                                   value="{{$admin->phone}}">
+                                            <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" pattern="09|03|07|08|05)+([0-9]{8}">
                                         </div>
                                     </div>
                                 </div>
@@ -136,4 +141,3 @@
     </script>
 
 @endsection
-

@@ -59,6 +59,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('admin.room.list')}}">Danh sách</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.room.detail')}}">Chi tiết</a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -67,39 +70,26 @@
                 <hr class="my-3">
                 <!-- Heading -->
                 <h6 class="navbar-heading p-0 text-muted">
-                    <span class="docs-normal">Khách hàng</span>
+                    <span class="docs-normal">Người dùng</span>
                 </h6>
                 <!-- Navigation -->
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link"
-                           href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html"
-                           target="_blank">
-                            <i class="ni ni-spaceship"></i>
-                            <span class="nav-link-text">Getting started</span>
+                        <a class="nav-link" href="{{route('admin.guest')}}">
+                            <i class="ni ni-single-02"></i>
+                            <span class="nav-link-text">Danh sách</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"
-                           href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html"
-                           target="_blank">
-                            <i class="ni ni-palette"></i>
-                            <span class="nav-link-text">Foundation</span>
+                        <a class="nav-link" href="{{route('admin.booking')}}">
+                            <i class="ni ni-collection"></i>
+                            <span class="nav-link-text">Phòng đã đặt</span>
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link"
-                           href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html"
-                           target="_blank">
-                            <i class="ni ni-ui-04"></i>
-                            <span class="nav-link-text">Components</span>
-                        </a>
-                    </li>
+
                 </ul>
             </div>
 
-            <div class="collapse navbar-collapse">
-            </div>
         </div>
     </div>
 </nav>

@@ -72,9 +72,9 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-username">Username</label>
+                                            <label class="form-control-label" for="input-username">Tên đăng nhập</label>
                                             <input type="text" id="input-username" class="form-control"
-                                                   placeholder="Username" value="{{$admin->user_name}}" disabled>
+                                                   placeholder="Tên đăng nhập" value="{{$admin->user_name}}" disabled>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
