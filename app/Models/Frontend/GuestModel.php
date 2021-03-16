@@ -12,7 +12,16 @@ class GuestModel extends Authenticatable
     protected $table = 'guests';
 
     protected $fillable = [
-        'first_name', 'last_name', 'user_name', 'email', 'password', 'phone', 'address', 'image', 'provider', 'provider_id'
+        'first_name',
+        'last_name',
+        'user_name',
+        'email',
+        'password',
+        'phone',
+        'address',
+        'image',
+        'provider',
+        'provider_id'
     ];
 
     protected $hidden = [
@@ -25,6 +34,6 @@ class GuestModel extends Authenticatable
 
     public function star_rating()
     {
-        return $this->hasOne('App\Models\Frontend\StarRatingModel', 'booking_id');
+        return $this->hasMany('App\Models\Frontend\StarRatingModel', 'guest_id');
     }
 }

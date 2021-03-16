@@ -8,7 +8,8 @@ class FacilityModel extends Model
 {
     protected $table = 'facility';
 
-    public function rooms(){
-        return $this->hasMany('App\Models\Admin\RoomFacilityModel', 'room_facility_id');
+    public function rooms()
+    {
+        return $this->hasMany(RoomFacilityModel::class, 'room_facility_id');
     }
 }

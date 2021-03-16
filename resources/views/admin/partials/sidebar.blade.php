@@ -39,19 +39,40 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('admin.hotel')}}">
+                        <a class="nav-link nav-pills nav-fill flex-column flex-md-row" href="#collapse1"
+                           data-toggle="collapse" data-target="#collapse1" aria-expanded="true"
+                           aria-controls="collapse">
                             <i class="ni ni-building text-yellow"></i>
-                            <span class="nav-link-text">Khách sạn</span>
+                            <span class="nav-link-text">Loại chỗ nghỉ</span>
                         </a>
+                        <div id="collapse1" class="collapse">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('admin.hotel')}}">Khách sạn</a>
+                                </li>
+                                {{--<li class="nav-item">--}}
+                                    {{--<a class="nav-link" href="#">Căn hộ</a>--}}
+                                {{--</li>--}}
+                                {{--<li class="nav-item">--}}
+                                    {{--<a class="nav-link" href="#">Resort</a>--}}
+                                {{--</li>--}}
+                                {{--<li class="nav-item">--}}
+                                    {{--<a class="nav-link" href="#">Biệt thự</a>--}}
+                                {{--</li>--}}
+                                {{--<li class="nav-item">--}}
+                                    {{--<a class="nav-link" href="#">Nhà nghỉ</a>--}}
+                                {{--</li>--}}
+                            </ul>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-pills nav-fill flex-column flex-md-row" href="#collapse1"
-                           data-toggle="collapse" data-target="#collapse1" aria-expanded="true"
+                           data-toggle="collapse" data-target="#collapse2" aria-expanded="true"
                            aria-controls="collapse">
                             <i class="ni ni-shop text-default"></i>
                             <span class="nav-link-text">Phòng</span>
                         </a>
-                        <div id="collapse1" class="collapse">
+                        <div id="collapse2" class="collapse">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('admin.room.type')}}">Loại phòng</a>

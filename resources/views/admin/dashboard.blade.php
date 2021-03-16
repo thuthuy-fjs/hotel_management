@@ -93,35 +93,10 @@
                             <div class="col">
                                 <h5 class="h3 text-white mb-0">Tổng doanh thu</h5>
                             </div>
-                            <div class="col">
-                                <ul class="nav nav-pills justify-content-end">
-                                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart"
-                                        data-target="#chart-sales-dark"
-                                        data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}'
-                                        data-prefix="$" data-suffix="k">
-                                        <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                                            <span class="d-none d-md-block">Month</span>
-                                            <span class="d-md-none">M</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales-dark"
-                                        data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}'
-                                        data-prefix="$" data-suffix="k">
-                                        <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                                            <span class="d-none d-md-block">Week</span>
-                                            <span class="d-md-none">W</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <!-- Chart -->
-                        <div class="chart">
-                            <!-- Chart wrapper -->
-                            <canvas id="chart-sales-dark" class="chart-canvas"></canvas>
-                        </div>
+                        <div id="chart_total_price" class="chart"></div>
                     </div>
                 </div>
             </div>
@@ -135,7 +110,6 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <!-- Chart -->
                         <div id="chart_booking_total" class="chart">
                         </div>
                     </div>
@@ -149,13 +123,11 @@
     <script type="text/javascript">
         google.charts.load('current', {'packages': ['corechart']});
         google.charts.setOnLoadCallback(dawChartBookingTotal);
-
-        //google.charts.setOnLoadCallback(drawChartScholar);
+        google.charts.setOnLoadCallback(dawChartTotalPrice);
 
         function dawChartBookingTotal() {
             var booking_total = <?php echo $booking_total ?>;
             var data = google.visualization.arrayToDataTable(booking_total);
-
             var options = {
                     chart: {
                         is3D: false,
@@ -171,6 +143,28 @@
             ;
 
             var chart = new google.visualization.LineChart(document.getElementById('chart_booking_total'));
+
+            chart.draw(data, options);
+        }
+
+        function dawChartTotalPrice() {
+            var total_price = <?php echo $total_price ?>;
+            var data = google.visualization.arrayToDataTable(total_price);
+            var options = {
+                    chart: {
+                        is3D: false,
+                    },
+                    'hAxis': {
+                        'title': 'Tháng',
+                    },
+                    'vAxis': {
+                        'title': 'Doanh thu'
+                    },
+                    'bars': 'horizontal',
+                }
+            ;
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_total_price'));
 
             chart.draw(data, options);
         }

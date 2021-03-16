@@ -9,20 +9,6 @@
 <!-- Argon JS -->
 <script src="{{ asset('admin_assets/js/argon.js?v=1.2.0')}}"></script>
 
-{{--<script src="{{ asset('admin_assets/ckeditor/ckeditor.js') }}"></script>--}}
-{{--<script src="{{asset('admin_assets/ckeditor/adapters/jquery.js')}}"></script>--}}
-{{--<script>--}}
-    {{--var options = {--}}
-        {{--filebrowserImageBrowseUrl: 'http://localhost:8080/hotel_management/public/laravel-filemanager?type=Images',--}}
-        {{--filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',--}}
-        {{--filebrowserBrowseUrl: 'http://localhost:8080/hotel_management/public/laravel-filemanager?type=Files',--}}
-        {{--filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='--}}
-    {{--};--}}
-{{--</script>--}}
-{{--<script>--}}
-    {{--$('textarea.myckditor').ckeditor(options);--}}
-{{--</script>--}}
-
 <script src="{{ asset('admin_assets/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 
 <script type="text/javascript">

@@ -42,9 +42,9 @@
                     <div class="card-body">
                         <form action="{{ route('admin.change-password.update') }}" method="post">
                             @csrf
-                            <div class="pl-lg-4">
+                            <div class="pl-lg-4" style="margin-left: 200px">
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-8">
                                         <div class="form-group">
                                             <label class="form-control-label" for="current_password">Mật khẩu hiện
                                                 tại: </label>
@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <label class="form-control-label" for="new_password">Mật khẩu mới: </label>
                                             <input class="form-control" placeholder="New password" type="password"
@@ -76,7 +76,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <label class="form-control-label" for="confirm_password">Nhập lại mật khẩu
                                                 mới: </label>

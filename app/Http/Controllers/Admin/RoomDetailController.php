@@ -20,9 +20,21 @@ class RoomDetailController extends Controller
     protected $countryRepo;
     protected $provinceRepo;
 
-    public function __construct(RoomRepository $roomRepo, ProvinceRepository $provinceRepo, HotelRepository $hotelRepo, RoomTypeRepository $roomtypeRepo, CountryRepository $countryRepo)
+    /**
+     * RoomDetailController constructor.
+     * @param RoomRepository $roomRepo
+     * @param ProvinceRepository $provinceRepo
+     * @param HotelRepository $hotelRepo
+     * @param RoomTypeRepository $roomtypeRepo
+     * @param CountryRepository $countryRepo
+     */
+    public function __construct(
+        RoomRepository $roomRepo,
+        ProvinceRepository $provinceRepo,
+        HotelRepository $hotelRepo,
+        RoomTypeRepository $roomtypeRepo,
+        CountryRepository $countryRepo)
     {
-        $this->middleware('auth:admin');
         $this->roomRepo = $roomRepo;
         $this->hotelRepo = $hotelRepo;
         $this->roomtypeRepo = $roomtypeRepo;
@@ -30,12 +42,19 @@ class RoomDetailController extends Controller
         $this->provinceRepo = $provinceRepo;
     }
 
-    public function index(Request $request)
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index()
     {
         $countries = $this->countryRepo->getAll();
         return view('admin.contents.room_detail.index')->with('countries', $countries);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getHotels(Request $request)
     {
         if ($request->ajax()) {
@@ -45,24 +64,35 @@ class RoomDetailController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getRoomInHotel(Request $request)
     {
         $countries = $this->countryRepo->getAll();
         $hotels = $this->hotelRepo->getAll();
         $hotel = $this->hotelRepo->find($request->hotel);
         $rooms = $hotel->rooms;
-        return view('admin.contents.room.index', ['hotels' => $hotels], ['rooms' => $rooms])->with('countries', $countries);
+        return view('admin.contents.room.index',
+            ['hotels' => $hotels],
+            ['rooms' => $rooms])
+            ->with('countries', $countries);
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getRooms(Request $request)
     {
         $countries = $this->countryRepo->getAll();
         $hotel = $this->hotelRepo->find($request->hotel);
         $rooms = $hotel->rooms;
         $events = [];
-        foreach ($rooms as $room){
-            foreach ($room->bookings as $booking){
+        foreach ($rooms as $room) {
+            foreach ($room->bookings as $booking) {
                 $events[] = Calendar::event(
                     $booking->guest->user_name,
                     true,
@@ -76,6 +106,5 @@ class RoomDetailController extends Controller
         $calendar = \Calendar::addEvents($events);
         return view('admin.contents.room_detail.index')
             ->with('countries', $countries)->with('calendar', $calendar);
-        //dd($rooms);
     }
 }

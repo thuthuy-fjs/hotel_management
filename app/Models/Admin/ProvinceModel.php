@@ -8,22 +8,18 @@ use Spatie\Searchable\SearchResult;
 class ProvinceModel extends Model
 {
     protected $table = 'provinces';
+
     protected $fillable = [
         'country_id', 'province_name', 'province_image'
     ];
 
-    public function hotels(){
-        return $this->hasMany('App\Models\Admin\HotelModel', 'province_id');
+    public function hotels()
+    {
+        return $this->hasMany(HotelModel::class, 'province_id');
     }
 
-    public function getSearchResult(): SearchResult
+    public function country()
     {
-        $url = route('provinces.show', $this->id);
-
-        return new SearchResult(
-            $this,
-            $this->province_name,
-            $url
-        );
+        return $this->belongsTo(CountryModel::class, 'country_id');
     }
 }

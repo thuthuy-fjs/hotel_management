@@ -25,7 +25,7 @@
                     <h2 class="ftco-heading-2"></h2>
                     <ul class="list-unstyled">
                         <li><a href="#" class="py-2 d-block">Quốc gia</a></li>
-                        <li><a href="#" class="py-2 d-block">Tỉnh/Thành phố</a></li>
+                        <li><a href="{{route('search.country', '1')}}" class="py-2 d-block">Tỉnh/Thành phố</a></li>
                         <li><a href="#" class="py-2 d-block">Khách sạn</a></li>
                         <li><a href="#" class="py-2 d-block">Địa điểm được quan tâm</a></li>
                     </ul>

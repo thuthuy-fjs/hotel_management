@@ -49,22 +49,16 @@
                                             <label class="form-control-label" for="input-username">Tên đăng nhập*</label>
                                             <input type="text" id="user_name" name="user_name" class="form-control"
                                                    placeholder="Tên đăng nhập" value="{{$guest->user_name}}">
+                                            <input type="password" id="password" name="password" class="form-control"
+                                                   placeholder="Tên đăng nhập" value="{{$guest->password}}" hidden>
 
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-email">Mật khẩu*</label>
-                                            <input type="password" id="password" name="password" class="form-control"
-                                                   placeholder="Tên đăng nhập" value="{{$guest->password}}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-control-label" for="email">Email*</label>
+                                            <label class="form-control-label" for="input-email">Email*</label>
                                             <input id="email" name="email" class="form-control" placeholder="Email" type="email" value="{{$guest->email}}">
+
                                         </div>
                                     </div>
                                 </div>

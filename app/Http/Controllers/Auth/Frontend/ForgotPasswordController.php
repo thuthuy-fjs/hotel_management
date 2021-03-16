@@ -14,11 +14,18 @@ use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getEmail()
     {
         return view('frontend.auth.forgot');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function sendEmail(Request $request)
     {
         $email = $request->email;
@@ -36,12 +43,20 @@ class ForgotPasswordController extends Controller
         }
     }
 
-
+    /**
+     * @param $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getReset($token)
     {
         return view('frontend.auth.forgot_password', ['token' => $token]);
     }
 
+    /**
+     * @param Request $request
+     * @param $token
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function resetPassword(Request $request, $token)
     {
         $request->validate([

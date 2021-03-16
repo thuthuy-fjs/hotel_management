@@ -27,6 +27,11 @@ abstract class BaseRepository implements RepositoryInterface
         return $this->model->get();
     }
 
+    public function paginate($limit)
+    {
+        return $this->model->paginate($limit);
+    }
+
     public function find($id)
     {
         $result = $this->model->find($id);
@@ -60,5 +65,10 @@ abstract class BaseRepository implements RepositoryInterface
         }
 
         return false;
+    }
+
+    public function where()
+    {
+
     }
 }

@@ -26,8 +26,8 @@ class HotelRequest extends FormRequest
         return [
             'province_id' => 'required',
             'category_id' => 'required',
-            'hotel_name' => 'required',
-            'hotel_phone' => 'required',
+            'hotel_name' => 'required|max:255',
+            'hotel_phone' => 'required|numeric',
             'hotel_email' => 'required|email',
             'hotel_image' => 'required',
         ];

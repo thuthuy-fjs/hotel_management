@@ -32,7 +32,7 @@
                         <form class="navbar-search navbar-search-light form-inline"
                               action="{{route('admin.room.search')}}"
                               method="GET" name="search" id="search">
-                            <div class="form-group mb-0">
+                            <div class="form-group input-group-sm mb-0">
                                 <div class="input-group input-group-alternative input-group-merge input-group-sm">
                                     <div class="input-group-prepend input-group-sm">
                                         <span class="input-group-text"><i class="fas fa-search"></i></span>

@@ -6,72 +6,94 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\GuestRequest;
 use App\Models\Frontend\BookingModel;
 use App\Models\Frontend\GuestModel;
+use App\Repositories\Frontend\GuestRepository;
 use App\Repositories\Frontend\StarRatingRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class GuestManagerController extends Controller
 {
     protected $starRepo;
+    protected $guestRepo;
 
-    public function __construct(StarRatingRepository $starRepo)
+    /**
+     * GuestManagerController constructor.
+     * @param StarRatingRepository $starRepo
+     * @param GuestRepository $guestRepo
+     */
+    public function __construct(
+        StarRatingRepository $starRepo,
+        GuestRepository $guestRepo)
     {
         $this->starRepo = $starRepo;
+        $this->guestRepo = $guestRepo;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show()
     {
         $guest = Auth::user();
-        $star_ratings = $this->starRepo->getAll();
         return view('frontend.contents.profile.profile')
-            ->with('guest', $guest)->with('star_ratings', $star_ratings);
+            ->with('guest', $guest);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit()
     {
         $guest = Auth::user();
         return view('frontend.contents.profile.edit', ['guest' => $guest]);
     }
 
+    /**
+     * @param GuestRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(GuestRequest $request)
     {
-        $validated = $request->validated();
+        $directory = 'uploads/';
         $input = $request->all();
-        $guest = Auth::user();
-        $guest->first_name = $input['first_name'];
-        $guest->last_name = $input['last_name'];
-        $guest->user_name = $input['user_name'];
-        $guest->email = $input['email'];
-        $guest->password = $input['password'];
-        $guest->phone = $input['phone'];
-        $guest->address = $input['address'];
-        $guest->image = $input['image'];
-        $guest->save();
+        $dataInsert = Arr::only($input, [
+            'first_name',
+            'last_name',
+            'user_name',
+            'email',
+            'phone',
+            'address',
+        ]);
+        $dataInsert['password'] = bcrypt($input['password']);
+        $image = $input['image'];
+        $image_name = $image->getClientOriginalName();
+        $image->move($directory, $image_name);
+        $dataInsert['image'] = $image_name;
+        $this->guestRepo->update(Auth::id(), $dataInsert);
         return redirect()->route('profile');
     }
 
-    public function updatePassword(Request $request)
+    /**
+     * @param GuestRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePassword(GuestRequest $request)
     {
         if (!(Hash::check($request->current_password, Auth::user()->password))) {
-            return redirect()->back()->with("error", "Your current password does not matches with the password you provided. Please try again.");
+            return redirect()->back()->with("error", "Your current password does not matches with the password you provided.
+             Please try again.");
         }
 
         if (strcmp($request->current_password, $request->new_password) == 0) {
-            //Current password and new password are same
-            return redirect()->back()->with("error", "New Password cannot be same as your current password. Please choose a different password.");
+            return redirect()->back()->with("error", "New Password cannot be same as your current password. 
+            Please choose a different password.");
         }
-
-        $validatedData = $request->validate([
-            'current_password' => 'required',
-            'new_password' => 'required|min:8',
-            'confirm_password' => 'required',
-        ]);
 
         $user = Auth::user();
         $user->password = bcrypt($request->new_password);
         $user->save();
-
         return redirect()->back()->with("success", "Password changed successfully !");
     }
 }

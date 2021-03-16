@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-lg-4">
                         <form class="navbar-search navbar-search-light form-inline"
-                              action="{{route('admin.room.search')}}" method="GET"
+                              action="{{route('admin.hotel.search')}}" method="GET"
                               name="search"
                               id="search">
                             <div class="form-group mb-0">
@@ -109,7 +109,7 @@
                                 <th scope="col">Điện thoại</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Website</th>
-                                <th scope="col">Ẩn/hiện</th>
+                                {{--<th scope="col">Ẩn/hiện</th>--}}
                                 <th scope="col"></th>
                             </tr>
                             </thead>
@@ -141,13 +141,13 @@
                                         {{$hotel->hotel_website}}
                                     </td>
 
-                                    <td>
-                                        <label class="custom-toggle">
-                                            <input type="checkbox" checked>
-                                            <span class="custom-toggle-slider rounded-circle" data-label-off="Ẩn" data-label-on="Hiện"></span>
-                                        </label>
+                                    {{--<td>--}}
+                                        {{--<label class="custom-toggle">--}}
+                                            {{--<input type="checkbox" value="" checked>--}}
+                                            {{--<span class="custom-toggle-slider rounded-circle" data-label-off="Ẩn" data-label-on="Hiện"></span>--}}
+                                        {{--</label>--}}
                                         {{--{{$hotel->is_active}}--}}
-                                    </td>
+                                    {{--</td>--}}
                                     <td class="text-right">
                                         <div class="dropdown">
                                             <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"

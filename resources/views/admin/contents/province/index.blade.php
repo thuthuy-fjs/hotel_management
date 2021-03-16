@@ -7,14 +7,26 @@
         <div class="container-fluid">
             <div class="header-body">
                 <div class="row align-items-center py-4">
-                    <div class="col-lg-12 text-right">
+                    <div class="col-lg-5">
+                        <form action="{{route('admin.province.search')}}" method="get">
+                            <select id="country" name="country" class="btn btn-sm btn-neutral">
+                                <option value="" selected disabled>Quốc gia</option>
+                                @foreach($countries as $country)
+                                    <option value="{{$country->id}}">{{$country->country_name}}</option>
+                                @endforeach
+
+                            </select>
+                            <input type="submit" class="btn btn-sm btn-neutral" value="Tìm kiếm">
+                        </form>
+                    </div>
+                    <div class="col-lg-7 text-right">
                         <a href="{{route('admin.province.create')}}" class="btn btn-sm btn-neutral">Thêm mới</a>
                         <div class="dropdown">
-                            <button class="btn btn-neutral btn-sm dropdown-toggle" type="button"
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action
-                            </button>
+                            {{--<button class="btn btn-neutral btn-sm dropdown-toggle" type="button"--}}
+                            {{--id="dropdownMenuButton"--}}
+                            {{--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                            {{--Action--}}
+                            {{--</button>--}}
                             {{--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
                             {{--<a class="dropdown-item"  data-toggle="modal" data-target="#modal">Import</a>--}}
                             {{--<a class="dropdown-item" href="{{route('admin.country.export')}}">Export</a>--}}
@@ -65,20 +77,6 @@
                             <div class="col-lg-7">
                                 <h3 class="mb-0">Tỉnh thành</h3>
                             </div>
-                            {{--<div class="col-lg-5 text-right">--}}
-                            {{--<form class="navbar-search navbar-search-light form-inline" action="{{route('admin.country.search')}}" method="GET"--}}
-                            {{--name="search"--}}
-                            {{--id="search">--}}
-                            {{--<div class="form-group mb-0">--}}
-                            {{--<div class="input-group input-group-alternative input-group-merge input-group-sm">--}}
-                            {{--<div class="input-group-prepend input-group-sm">--}}
-                            {{--<span class="input-group-text"><i class="fas fa-search"></i></span>--}}
-                            {{--</div>--}}
-                            {{--<input class="form-control" name="search" placeholder="Search" type="text">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--</form>--}}
-                            {{--</div>--}}
                         </div>
                     </div>
                     <!-- Light table -->
@@ -103,57 +101,57 @@
                                         {{$province->province_name}}
                                     </td>
                                     <td>
-                                        <img alt="Image placeholder" src="{{$province->province_image}}" style="width: 120px; height: 80px;">
+                                        <img alt="Image placeholder" src="{{$province->province_image}}"
+                                             style="width: 120px; height: 80px;">
                                     </td>
 
                                     <td class="text-right">
                                         <div class="dropdown">
-                                            {{--<a class="btn btn-sm btn-icon-only text-light" href="#" role="button"--}}
-                                            {{--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-                                            {{--<i class="fas fa-ellipsis-v"></i>--}}
-                                            {{--</a>--}}
-                                            {{--<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">--}}
-                                            {{--<a class="dropdown-item"--}}
-                                            {{--href="{{route('admin.country.edit', $country->id)}}">Edit</a>--}}
-                                            {{--<a class="dropdown-item" data-toggle="modal"--}}
-                                            {{--data-target="#modal{{$country->id}}">Delete</a>--}}
-                                            {{--</div>--}}
+                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                <a class="dropdown-item"
+                                                   href="{{route('admin.province.edit', $province->id)}}">Edit</a>
+                                                <a class="dropdown-item" data-toggle="modal"
+                                                   data-target="#modal{{$province->id}}">Delete</a>
+                                            </div>
                                         </div>
 
                                     </td>
                                 </tr>
-                                {{--<form action="{{route('admin.country.destroy', $country->id)}}" method="post">--}}
-                                {{--@csrf--}}
-                                {{--<div class="modal fade" id="modal{{$country->id}}" tabindex="-1" role="dialog"--}}
-                                {{--aria-labelledby="modal{{$country->id}}Label" aria-hidden="true">--}}
-                                {{--<div class="modal-dialog modal-dialog-centered" role="document">--}}
-                                {{--<div class="modal-content">--}}
-                                {{--<div class="modal-header">--}}
-                                {{--<h5 class="modal-title" id="modal{{$country->id}}Label">Xóa khách--}}
-                                {{--sạn {{$country->country_name}}</h5>--}}
-                                {{--<button type="button" class="close" data-dismiss="modal"--}}
-                                {{--aria-label="Close">--}}
-                                {{--<span aria-hidden="true">&times;</span>--}}
-                                {{--</button>--}}
-                                {{--</div>--}}
-                                {{--<div class="modal-body">--}}
-                                {{--Bạn có chắc chắn xóa khách sạn {{$country->country_name}} ?--}}
-                                {{--</div>--}}
-                                {{--<div class="modal-footer">--}}
-                                {{--<button type="button" class="btn btn-secondary"--}}
-                                {{--data-dismiss="modal">--}}
-                                {{--Close--}}
-                                {{--</button>--}}
-                                {{--<button type="submit" class="btn btn-primary">Xóa</button>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
-                                {{--</form>--}}
+                                <form action="{{route('admin.province.destroy', $province->id)}}" method="post">
+                                    @csrf
+                                    <div class="modal fade" id="modal{{$province->id}}" tabindex="-1" role="dialog"
+                                         aria-labelledby="modal{{$province->id}}Label" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modal{{$province->id}}Label">Xóa tỉnh {{$province->province_name}}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Bạn có chắc chắn xóa tỉnh {{$province->province_name}} ?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">Xóa</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             @endforeach
                             </tbody>
                         </table>
-                        {{--{{ $countrys->links() }}--}}
+                        {{--{{ $provinces->links() }}--}}
                     </div>
                 </div>
             </div>

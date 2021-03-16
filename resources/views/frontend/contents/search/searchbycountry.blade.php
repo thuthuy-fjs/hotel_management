@@ -3,7 +3,9 @@
     {{$country->country_name}}
 @endsection
 @section('content')
-    <h2 class="text-center">{{$country->country_name}}</h2>
+    <div style="margin-top: 50px">
+        <h2 class="text-center">{{$country->country_name}}</h2>
+    </div>
     <section class="ftco-section bg-light">
 
         <div class="container">
@@ -17,7 +19,7 @@
                                         <span class="price">{{$province->province_name}}</span>
                                     </a>
                                     <div class="text p-4">
-
+                                    <p>{{$country->country_name}}</p>
                                     </div>
                                 </div>
                             </div>

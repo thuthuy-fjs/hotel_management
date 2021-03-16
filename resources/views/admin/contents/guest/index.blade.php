@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-    Danh sách người đăng kí
+    Danh sách người dùng
 @endsection
 @section('content')
     <div class="header bg-primary pb-6">

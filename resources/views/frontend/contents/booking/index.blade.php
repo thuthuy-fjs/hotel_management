@@ -4,6 +4,7 @@
 @endsection
 @section('content')
     <form action="{{route('booking.store')}}" method="post">
+        @csrf
         <div class="container">
             <div class="row" style="margin-top: 20px">
                 <div class="col-lg-4">
@@ -53,10 +54,10 @@
                         <h5>Thông tin của bạn</h5>
                         <input name="guest_id" value="{{$guest->id}}" hidden>
                         <input name="room_id" value="{{$room->id}}" hidden>
-                        <input name="booking_date" value="{{\Carbon\Carbon::now()->format('Y-m-d H:i:s')}}" hidden>
                         <input name="check_in_date" value="{{$check_in_date}}" hidden>
                         <input name="check_out_date" value="{{$check_out_date}}" hidden>
-                        <input name="is_payment" hidden>
+                        <input name="total_price" value="{{$room->room_price}}" hidden>
+                        <input name="is_payment" value="0" hidden>
 
                         <div class="row">
                             <div class="col-lg-6">

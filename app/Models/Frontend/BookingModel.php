@@ -9,20 +9,15 @@ class BookingModel extends Model
     protected $table = 'booking';
 
     protected $fillable = [
-        'guest_id', 'room_id', 'booking_date', 'check_in_date', 'check_out_date', 'booking_note', 'is_payment'
+        'guest_id',
+        'room_id',
+        'booking_date',
+        'check_in_date',
+        'check_out_date',
+        'total_price',
+        'booking_note',
+        'is_payment'
     ];
-
-//    protected $dates = [
-//        'booking_date',
-//        'check_in_date',
-//        'check_out_date',
-//    ];
-//
-//    protected function serializeDate(\DateTimeInterface $date)
-//    {
-//        return $date->toDateString();
-//
-//    }
 
     public function guest()
     {

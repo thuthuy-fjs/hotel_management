@@ -19,6 +19,9 @@
                     <li class="nav-item">
                         <a href="" data-target="#bookingDetail" data-toggle="tab" class="nav-link">Phòng đã đặt</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="" data-target="#starBooking" data-toggle="tab" class="nav-link">Đánh giá</a>
+                    </li>
                 </ul>
                 <div class="tab-content py-4">
                     <div class="tab-pane active" id="profile">
@@ -108,7 +111,7 @@
                         </form>
                     </div>
                     <div class="tab-pane" id="edit">
-                        <form action="{{ route('profile.update') }}" method="post">
+                        <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Tên đăng nhập</label>
@@ -159,7 +162,7 @@
                                 <label class="col-lg-3 col-form-label form-control-label">Ảnh</label>
                                 <div class="col-lg-9">
                                     <input id="image" name="image" class="form-control"
-                                           value="{{$guest->image}}" type="text">
+                                           value="{{$guest->image}}" type="text" hidden>
                                     <input id="image" name="image" type="file">
                                 </div>
                             </div>
@@ -173,7 +176,7 @@
                         </form>
                     </div>
                     <div class="tab-pane" id="bookingDetail">
-                        @foreach($guest->bookings as $booking)
+
                         <table class="table table-border">
                             <thead>
                             <tr>
@@ -185,89 +188,150 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($guest->bookings as $booking)
+                                @foreach($guest->star_rating as $star_rating)
+                                    <tr>
+                                        <td>{{$booking->id}}</td>
+                                        <td>{{$booking->room->hotel->hotel_name}}</td>
+                                        <td>{{$booking->room->room_name}}</td>
+                                        <td>{{\Carbon\Carbon::parse($booking->booking_date)->format('d-m-Y')}}</td>
+                                        <td>
+                                            @if($star_rating->id != $booking->id)
+                                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#modal{{$booking->id}}">
+                                                    Đánh giá
+                                                </button>
+                                            @else
+                                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#modal{{$booking->id}}" disabled>
+                                                    Đã đánh giá
+                                                </button>
+                                            @endif
 
-                                <tr>
-                                    <td>{{$booking->id}}</td>
-                                    <td>{{$booking->room->hotel->hotel_name}}</td>
-                                    <td>{{$booking->room->room_name}}</td>
-                                    <td>{{\Carbon\Carbon::parse($booking->booking_date)->format('d-m-Y')}}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#modal{{$booking->id}}">
-                                            Đánh giá
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="modal fade" id="modal{{$booking->id}}" tabindex="-1" role="dialog"
-                             aria-labelledby="modal{{$booking->id}}Label" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <form action="{{route('comment')}}">
-                                        <div class="card">
-                                            <div class="row">
-                                                <div class="col-2"><img src="{{asset('images/user.png')}}" width="70"
-                                                                        class="rounded-circle mt-2"></div>
-                                                <div class="col-10">
-                                                    <div class="comment-box ml-2">
-                                                        <h4>Đánh giá</h4>
-                                                        <input name="guest_id" value="{{$booking->guest_id}}" hidden>
-                                                        <input name="booking_id" value="{{$booking->id}}" hidden>
-                                                        <input hidden>
-                                                        <div class="rating">
-                                                            <input type="radio" name="level[]" value="5" id="5">
-                                                            <label for="5">☆</label>
-                                                            <input type="radio" name="level[]" value="4" id="4">
-                                                            <label for="4">☆</label>
-                                                            <input type="radio" name="level[]" value="3" id="3">
-                                                            <label for="3">☆</label>
-                                                            <input type="radio" name="level[]" value="2" id="2">
-                                                            <label for="2">☆</label>
-                                                            <input type="radio" name="level[]" value="1" id="1">
-                                                            <label for="1">☆</label>
-                                                        </div>
-                                                        <div class="comment-area">
-                                                        <textarea class="form-control" name="description" id="description" placeholder="what is your view?"
-                                                                  rows="4"></textarea>
-                                                        </div>
-                                                        <div class="comment-btns mt-2">
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <div class="pull-left">
-                                                                        <button class="btn btn-success btn-sm"
-                                                                                type="button" class="close"
-                                                                                data-dismiss="modal"
-                                                                                aria-label="Close">
-                                                                            Cancle
-                                                                        </button>
+                                        </td>
+                                    </tr>
+                                    <div class="modal fade" id="modal{{$booking->id}}" tabindex="-1" role="dialog"
+                                         aria-labelledby="modal{{$booking->id}}Label" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <form action="{{route('comment')}}">
+                                                    <div class="card">
+                                                        <div class="row">
+                                                            <div class="col-2"><img src="{{asset('images/user.png')}}"
+                                                                                    width="70"
+                                                                                    class="rounded-circle mt-2"></div>
+                                                            <div class="col-10">
+                                                                <div class="comment-box ml-2">
+                                                                    <h4>Đánh giá</h4>
+                                                                    <input name="guest_id"
+                                                                           value="{{$booking->guest_id}}"
+                                                                           hidden>
+                                                                    <input name="booking_id" value="{{$booking->id}}"
+                                                                           hidden>
+                                                                    <input hidden>
+                                                                    <div class="rating">
+                                                                        <input type="radio" name="level[]" value="5"
+                                                                               id="5">
+                                                                        <label for="5">☆</label>
+                                                                        <input type="radio" name="level[]" value="4"
+                                                                               id="4">
+                                                                        <label for="4">☆</label>
+                                                                        <input type="radio" name="level[]" value="3"
+                                                                               id="3">
+                                                                        <label for="3">☆</label>
+                                                                        <input type="radio" name="level[]" value="2"
+                                                                               id="2">
+                                                                        <label for="2">☆</label>
+                                                                        <input type="radio" name="level[]" value="1"
+                                                                               id="1">
+                                                                        <label for="1">☆</label>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="pull-right">
-                                                                        <button class="btn btn-success send btn-sm"
-                                                                                type="submit">Gửi
-                                                                            <i class="fa fa-long-arrow-right ml-1"></i>
-                                                                        </button>
+                                                                    <div class="comment-area">
+                                                        <textarea class="form-control" name="description"
+                                                                  id="description" placeholder="what is your view?"
+                                                                  rows="4"></textarea>
+                                                                    </div>
+                                                                    <div class="comment-btns mt-2">
+                                                                        <div class="row">
+                                                                            <div class="col-6">
+                                                                                <div class="pull-left">
+                                                                                    <button class="btn btn-success btn-sm"
+                                                                                            type="button" class="close"
+                                                                                            data-dismiss="modal"
+                                                                                            aria-label="Close">
+                                                                                        Cancle
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-6">
+                                                                                <div class="pull-right">
+                                                                                    <button class="btn btn-success send btn-sm"
+                                                                                            type="submit">Gửi
+                                                                                        <i class="fa fa-long-arrow-right ml-1"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                         </div>
                                                     </div>
-                                                </div>
-
+                                                </form>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
+                                    </div>
+                                @endforeach
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="tab-pane" id="starBooking">
+                        <table class="table table-border">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Khách sạn</th>
+                                <th>Phòng</th>
+                                <th>Đánh giá</th>
+                                <th>Mô tả</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($guest->star_rating as $star_rating)
+                                <tr>
+                                    <td>{{$star_rating->id}}</td>
+                                    <td>{{$star_rating->booking->room->hotel->hotel_name}}</td>
+                                    <td>{{$star_rating->booking->room->room_name}}</td>
+                                    <td>
+                                        <div>
+                                            <p class="text-left">
+                                                @for($i = 1; $i < 6; $i++)
+                                                    @if($i <= $star_rating->level)
+                                                        <span class="fa fa-star star-active"></span>
+                                                    @else
+                                                        <span class="fa fa-star star-inactive"></span>
+                                                    @endif
+                                                @endfor
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{$star_rating->description}}
+                                    </td>
+
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 order-lg-1 text-center">
-                <img src="{{isset($guest->image) ? $guest->image: '//placehold.it/150'}}"
+                <img src="{{isset($guest->image) ? 'uploads/'.$guest->image : '//placehold.it/150'}}"
                      class="mx-auto img-fluid img-circle d-block" alt="avatar" style="height: 150px; width: 150px">
             </div>
         </div>

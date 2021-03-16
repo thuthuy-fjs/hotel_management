@@ -4,43 +4,46 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\AdminRequest;
-use Illuminate\Http\Request;
+use App\Repositories\Admin\AdminRepository;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class AdminManagerController extends Controller
 {
-    public function __construct()
+    protected $adminRepo;
+
+    public function __construct(AdminRepository $adminRepo)
     {
-        $this->middleware('auth:admin');
+        $this->adminRepo = $adminRepo;
     }
 
+    /**
+     *
+     * @param
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show()
     {
         $admin = Auth::user();
         return view('admin.contents.profile.profile', ['admin' => $admin]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit()
     {
         $admin = Auth::user();
         return view('admin.contents.profile.edit', ['admin' => $admin]);
     }
 
+    /**
+     * @param AdminRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(AdminRequest $request)
     {
-        $validated = $request->validated();
         $input = $request->all();
-        $admin = Auth::user();
-        $admin->first_name = $input['first_name'];
-        $admin->last_name = $input['last_name'];
-        $admin->user_name = $input['user_name'];
-        $admin->email = $input['email'];
-        $admin->password = $input['password'];
-        $admin->phone = $input['phone'];
-        $admin->location = $input['location'];
-        $admin->image = $input['image'];
-        $admin->save();
+        $this->adminRepo->update(Auth::id(), $input);
         return redirect()->route('admin.profile');
     }
 }

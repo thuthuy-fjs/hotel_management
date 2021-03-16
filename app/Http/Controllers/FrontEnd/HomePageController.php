@@ -18,30 +18,50 @@ class HomePageController extends Controller
 {
     protected $roomRepo;
     protected $hotelRepo;
-    protected $roomtypeRepo;
     protected $provinceRepo;
     protected $categoryRepo;
     protected $countryRepo;
 
-    public function __construct(RoomRepository $roomRepo, HotelRepository $hotelRepo, RoomTypeRepository $roomtypeRepo, ProvinceRepository $provinceRepo, CategoryRepository $categoryRepo, CountryRepository $countryRepo)
+    /**
+     * HomePageController constructor.
+     * @param RoomRepository $roomRepo
+     * @param HotelRepository $hotelRepo
+     * @param ProvinceRepository $provinceRepo
+     * @param CategoryRepository $categoryRepo
+     * @param CountryRepository $countryRepo
+     */
+    public function __construct(
+        RoomRepository $roomRepo,
+        HotelRepository $hotelRepo,
+        ProvinceRepository $provinceRepo,
+        CategoryRepository $categoryRepo,
+        CountryRepository $countryRepo)
     {
         $this->roomRepo = $roomRepo;
         $this->hotelRepo = $hotelRepo;
-        $this->roomtypeRepo = $roomtypeRepo;
         $this->provinceRepo = $provinceRepo;
         $this->categoryRepo = $categoryRepo;
         $this->countryRepo = $countryRepo;
 
     }
 
+    /**
+     * @return mixed
+     */
     public function index()
     {
         $provinces = $this->provinceRepo->getAll();
         $categories = $this->categoryRepo->getAll();
         $countries = $this->countryRepo->getAll();
-        return view('frontend.dashboard')->with('provinces', $provinces)->with('categories', $categories)->with('countries', $countries);
+        return view('frontend.dashboard')
+            ->with('provinces', $provinces)->with('categories', $categories)
+            ->with('countries', $countries);
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function search(Request $request)
     {
         $hotels = null;
@@ -49,9 +69,9 @@ class HomePageController extends Controller
         $check_in_date = Carbon::parse($request->input('check_in_date'))->toDateString();
         $check_out_date = Carbon::parse($request->input('check_out_date'))->toDateString();
         $person_number = $request->input('person_number');
-        if ($request->filled(['province', 'check_in_date', 'check_out_date'])) {
+        if ($request->filled(['province', 'check_in_date', 'check_out_date', 'person_number'])) {
             $times = [$check_in_date, $check_out_date,];
-            $hotels = HotelModel::filters($province, $times, true)->get();
+            $hotels = $this->hotelRepo->getHotel($province, $times, $person_number);
         }
         $provinces = $this->provinceRepo->getAll();
         return view('frontend.contents.search.index')

@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('title')
-    Khách sạn {{$hotel->hotel_name }}
+    Khách sạn {{ $hotel->hotel_name }}
 @endsection
 @section('content')
     <section class="ftco-section bg-light">
@@ -13,6 +13,7 @@
                             <div class="fields">
                                 <div class="form-group">
                                     <select class="form-control" id="province" name="province">
+                                        <option value="" selected disabled>Địa điểm</option>
                                         @foreach($provinces as $province)
                                             @if ($province->id == $province_name)
                                                 <option value="{{ $province->id }}"
@@ -25,24 +26,27 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="text" id="check_in_date" name="check_in_date"
-                                           class="form-control checkin_date"
+                                           class="form-control"
                                            placeholder="Nhận phòng" value="{{$check_in_date}}">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" id="check_out_date" name="check_out_date"
-                                           class="form-control checkout_date"
+                                           class="form-control"
                                            placeholder="Trả phòng" value="{{$check_out_date}}">
                                 </div>
                                 <div class="form-group">
                                     <div class="select-wrap one-third">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                         <select name="person_number" id="person_number" class="form-control">
-                                            <option value="">1 người</option>
-                                            <option value="">2 người</option>
-                                            <option value="">3 người</option>
-                                            <option value="">4 người</option>
-                                            <option value="">5 người</option>
-                                            <option value="">6 người</option>
+                                            @for($i = 1; $i<5; $i++)
+                                                @if($i == $person_number)
+                                                    <option value="{{$person_number}}" selected>{{$person_number}} người
+                                                    </option>
+                                                @else
+                                                    <option value="{{$i}}">{{$i}} người</option>
+                                                @endif
+                                            @endfor
+
                                         </select>
                                     </div>
                                 </div>
@@ -147,26 +151,49 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($hotel->rooms as $room)
+                                        @foreach($rooms as $room)
                                             <tr>
                                                 <td>{{$room->type->room_type}}</td>
-                                                <td>2 người</td>
+                                                <td>{{$room->type->person_number}} người</td>
                                                 <td>{{$room->room_price}} <span class="per">vnd</span></td>
                                                 <td>
                                                     <a href="#" class="btn btn-success" id="dynamic{{$room->id}}"
                                                        name="dynamic{{$room->id}}">Ảnh</a>
-                                                    <a href="{{route('booking', ['id='.$room->id, 'province='.$province_name, 'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date, 'person_number='.$person_number])}}"
+                                                    <a href="{{route('booking', ['id='.$room->id, 'province='.$province_name,
+                                                    'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date,
+                                                    'person_number='.$person_number])}}"
                                                        class="btn btn-danger">Đặt</a>
                                                 </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                     </table>
-
+                                    {{--<div id="booking"><a href="{{route('booking', ['id='.$room->id, 'province='.$province_name,--}}
+                                    {{--'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date,--}}
+                                    {{--'person_number='.$person_number])}}"--}}
+                                    {{--class="btn btn-danger">Đặt</a></div>--}}
                                 </div>
                                 <div class="col-md-12 room-single ftco-animate mb-5 mt-4" id="facility">
                                     <h3 class="mb-4">Tiện nghi</h3>
-
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <ul class="list-unstyled list-group-flush clearfix"
+                                                    style="display: list-item;text-align: -webkit-match-parent;">
+                                                    @foreach($rooms as $room)
+                                                        @foreach($room->facilities as $facility)
+                                                            @if($facility)
+                                                                <p class="list-group-item h-25 w-25 p-3"
+                                                                   style="padding: 0 5px 0 0;margin: 10px 10px;list-style: none; float: left">
+                                                                    <i class="bi bi-check2"></i>{{$facility->room_facility->facility}}
+                                                                </p>
+                                                            @endif
+                                                        @endforeach
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-12 room-single ftco-animate mb-5 mt-4" id="rule">
@@ -231,7 +258,6 @@
                                                     <h3 class="mt-2 mb-0">{{$star_rating->guest->user_name}}</h3>
                                                     <div>
                                                         <p class="text-left">
-                                                            <span class="text-muted">{{$star_rating->level}}</span>
                                                             @for($i = 1; $i < 6; $i++)
                                                                 @if($i <= $star_rating->level)
                                                                     <span class="fa fa-star star-active"></span>
@@ -251,6 +277,7 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                    {{$star_ratings->links()}}
                                 </div>
 
                             </div>
@@ -535,6 +562,23 @@
     </style>
 @endsection
 @section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#check_in_date").datepicker({
+                autoclose: true,
+                todayHighlight: 'TRUE',
+                startDate: new Date()
+            });
+            $("#check_out_date").datepicker({
+                autoclose: true,
+                todayHighlight: 'TRUE',
+                startDate: new Date()
+            });
+        });
+    </script>
     <script>
         function modifyOffset() {
             var el, newPoint, newPlace, offset, siblings, k;
@@ -602,5 +646,17 @@
 
         });
         <?php } ?>
+        <!---->
+        //        $(document).scroll(function() {
+        //            var y = $(document).scrollTop(), //get page y value
+        //                header = $("#booking"); // your div id
+        //            if(y >= 400)  {
+        //                header.css({position: "fixed", "top" : "0", "left" : "0"});
+        //            } else {
+        //                header.css("position", "static");
+        //            }
+        //        });
+
+
     </script>
 @endsection

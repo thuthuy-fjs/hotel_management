@@ -31,8 +31,8 @@ class RoomExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             $room->id,
-            $room->hotel_id,
-            $room->room_type_id,
+            $room->hotel->hotel_name,
+            $room->type->room_type,
             $room->room_name,
             $room->room_price,
         ];

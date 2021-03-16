@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active"><a href="{{route('home')}}" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                {{--<li class="nav-item"><a href="" class="nav-link">About</a></li>--}}
                 <li class="nav-item"><a href="{{route('search.country', '1')}}" class="nav-link">Tỉnh/Thành phố</a></li>
                 <li class="nav-item">
                     @guest

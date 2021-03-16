@@ -7,10 +7,10 @@
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-7">
                 <div class="card bg-secondary border-0 mb-0">
+                    <div class="card-header bg-transparent pb-5">
+                        <div class="text-muted text-center"><h2>Đăng nhập quản trị</h2></div>
+                    </div>
                     <div class="card-body px-lg-5 py-lg-5">
-                        <div class="text-center text-muted mb-4">
-                            <h2>Đăng nhập Admin</h2>
-                        </div>
                         <form action="{{ route('admin.auth.loginAdmin') }}" method="post">
                             @csrf
                             <div class="form-group mb-3">
@@ -36,7 +36,7 @@
                                 </label>
                             </div>
                             <div class="text-center">
-                                <input type="submit" class="btn btn-primary my-4" value="Sign in">
+                                <input type="submit" class="btn btn-primary my-4" value="Đăng nhập">
                             </div>
                         </form>
                     </div>

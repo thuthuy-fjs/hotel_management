@@ -29,7 +29,7 @@
                                                         <label for="#">Địa điểm</label>
                                                         <div class="form-field">
                                                             <div class="icon"><span class="fa fa-search"></span></div>
-                                                            <select  class="form-control" id="province" name="province">
+                                                            <select class="form-control" id="province" name="province">
                                                                 <option value="" selected disabled>Địa điểm</option>
                                                                 @foreach($provinces as $province)
                                                                     <option value="{{ $province->id }}">{{ $province->province_name }}</option>
@@ -43,8 +43,8 @@
                                                         <label for="#">Nhận phòng</label>
                                                         <div class="form-field">
                                                             <div class="icon"><span class="fa fa-calendar"></span></div>
-                                                            <input type="text" class="form-control checkin_date"
-                                                                   name="check_in_date"
+                                                            <input type="text" class="form-control"
+                                                                   name="check_in_date" id="check_in_date"
                                                                    placeholder="Check In">
                                                         </div>
                                                     </div>
@@ -54,8 +54,8 @@
                                                         <label for="#">Trả phòng</label>
                                                         <div class="form-field">
                                                             <div class="icon"><span class="fa fa-calendar"></span></div>
-                                                            <input type="text" class="form-control checkout_date"
-                                                                   name="check_out_date"
+                                                            <input type="text" class="form-control"
+                                                                   name="check_out_date" id="check_out_date"
                                                                    placeholder="Check Out">
                                                         </div>
                                                     </div>
@@ -69,10 +69,10 @@
                                                                             class="fa fa-chevron-down"></span></div>
                                                                 <select name="person_number" id="person_number"
                                                                         class="form-control">
-                                                                    <option value="">1</option>
-                                                                    <option value="">2</option>
-                                                                    <option value="">3</option>
-                                                                    <option value="">4</option>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -286,4 +286,21 @@
 
 @endsection
 @section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#check_in_date").datepicker({
+                autoclose: true,
+                todayHighlight: 'TRUE',
+                startDate: new Date()
+            });
+            $("#check_out_date").datepicker({
+                autoclose: true,
+                todayHighlight: 'TRUE',
+                startDate: new Date()
+            });
+        });
+    </script>
 @endsection

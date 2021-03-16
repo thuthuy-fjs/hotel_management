@@ -28,7 +28,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Loại phòng nghỉ</th>
                                 <th scope="col">Mô tả</th>
-                                <th scope="col"></th>
+                                {{--<th scope="col"></th>--}}
                             </tr>
                             </thead>
                             <tbody class="list">
@@ -45,20 +45,20 @@
                                         {{$type->description}}
                                     </td>
 
-                                    <td class="text-right">
-                                        <div class="dropdown">
-                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <a class="dropdown-item">Edit</a>
-                                                <a class="dropdown-item" data-toggle="modal"
-                                                   data-target="#modal">Delete</a>
-                                            </div>
-                                        </div>
+                                    {{--<td class="text-right">--}}
+                                        {{--<div class="dropdown">--}}
+                                            {{--<a class="btn btn-sm btn-icon-only text-light" href="#" role="button"--}}
+                                               {{--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                                                {{--<i class="fas fa-ellipsis-v"></i>--}}
+                                            {{--</a>--}}
+                                            {{--<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">--}}
+                                                {{--<a class="dropdown-item">Edit</a>--}}
+                                                {{--<a class="dropdown-item" data-toggle="modal"--}}
+                                                   {{--data-target="#modal">Delete</a>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
 
-                                    </td>
+                                    {{--</td>--}}
                                 </tr>
                                 {{--<form action="{{route('admin.room.destroy', $room->id)}}" method="post">--}}
                                     {{--@csrf--}}

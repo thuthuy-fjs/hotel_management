@@ -20,23 +20,25 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" id="check_in_date" name="check_in_date" class="form-control checkin_date"
+                                    <input type="text" id="check_in_date" name="check_in_date" class="form-control"
                                            placeholder="Nhận phòng">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" id="check_out_date" name="check_out_date" class="form-control checkout_date"
+                                    <input type="text" id="check_out_date" name="check_out_date" class="form-control"
                                            placeholder="Trả phòng">
                                 </div>
                                 <div class="form-group">
                                     <div class="select-wrap one-third">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                                         <select name="person_number" id="person_number" class="form-control">
-                                            <option value="">1 người</option>
-                                            <option value="">2 người</option>
-                                            <option value="">3 người</option>
-                                            <option value="">4 người</option>
-                                            <option value="">5 người</option>
-                                            <option value="">6 người</option>
+                                            @for($i = 1; $i<5; $i++)
+                                                @if($i == $person_number)
+                                                    <option value="{{$person_number}}" selected>{{$person_number}} người
+                                                    </option>
+                                                @else
+                                                    <option value="{{$i}}">{{$i}} người</option>
+                                                @endif
+                                            @endfor
                                         </select>
                                     </div>
                                 </div>
@@ -46,89 +48,89 @@
                             </div>
                         </form>
                     </div>
-                    <hr>
-                    <div class="sidebar-wrap bg-light ftco-animate">
-                        <h3 class="heading mb-4">Các bộ lọc phổ biến</h3>
-                        <form method="post" class="star-rating">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span>Khách sạn</span></p>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span>Căn hộ</span></p>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span>Resort</span></p>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span>Nhà nghỉ</span></p>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span>Biệt thự</span></p>
-                                </label>
-                            </div>
-                        </form>
-                    </div>
-                    <hr>
-                    <div class="sidebar-wrap bg-light ftco-animate">
-                        <h3 class="heading mb-4">Xếp hạng sao</h3>
-                        <form method="post" class="star-rating">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
-                                    </p>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i><i class="bi bi-star"></i></span></p>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i></span></p>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i></span></p>
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">
-                                    <p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                                    class="bi bi-star"></i></span></p>
-                                </label>
-                            </div>
-                        </form>
-                    </div>
+                    {{--<hr>--}}
+                    {{--<div class="sidebar-wrap bg-light ftco-animate">--}}
+                        {{--<h3 class="heading mb-4">Các bộ lọc phổ biến</h3>--}}
+                        {{--<form method="post" class="star-rating">--}}
+                            {{--<div class="form-check">--}}
+                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                                {{--<label class="form-check-label" for="exampleCheck1">--}}
+                                    {{--<p class="rate"><span>Khách sạn</span></p>--}}
+                                {{--</label>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-check">--}}
+                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                                {{--<label class="form-check-label" for="exampleCheck1">--}}
+                                    {{--<p class="rate"><span>Căn hộ</span></p>--}}
+                                {{--</label>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-check">--}}
+                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                                {{--<label class="form-check-label" for="exampleCheck1">--}}
+                                    {{--<p class="rate"><span>Resort</span></p>--}}
+                                {{--</label>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-check">--}}
+                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                                {{--<label class="form-check-label" for="exampleCheck1">--}}
+                                    {{--<p class="rate"><span>Nhà nghỉ</span></p>--}}
+                                {{--</label>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-check">--}}
+                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                                {{--<label class="form-check-label" for="exampleCheck1">--}}
+                                    {{--<p class="rate"><span>Biệt thự</span></p>--}}
+                                {{--</label>--}}
+                            {{--</div>--}}
+                        {{--</form>--}}
+                    {{--</div>--}}
+                    {{--<hr>--}}
+                    {{--<div class="sidebar-wrap bg-light ftco-animate">--}}
+                        {{--<h3 class="heading mb-4">Xếp hạng sao</h3>--}}
+                        {{--<form method="post" class="star-rating">--}}
+                            {{--<div class="form-check">--}}
+                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                                {{--<label class="form-check-label" for="exampleCheck1">--}}
+                                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i--}}
+                                                    {{--class="bi bi-star-fill"></i><i--}}
+                                                    {{--class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>--}}
+                                    {{--</p>--}}
+                                {{--</label>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-check">--}}
+                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                                {{--<label class="form-check-label" for="exampleCheck1">--}}
+                                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i--}}
+                                                    {{--class="bi bi-star-fill"></i><i--}}
+                                                    {{--class="bi bi-star-fill"></i><i class="bi bi-star"></i></span></p>--}}
+                                {{--</label>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-check">--}}
+                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                                {{--<label class="form-check-label" for="exampleCheck1">--}}
+                                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i--}}
+                                                    {{--class="bi bi-star-fill"></i><i--}}
+                                                    {{--class="bi bi-star"></i><i class="bi bi-star"></i></span></p>--}}
+                                {{--</label>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-check">--}}
+                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                                {{--<label class="form-check-label" for="exampleCheck1">--}}
+                                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i--}}
+                                                    {{--class="bi bi-star"></i><i class="bi bi-star"></i><i--}}
+                                                    {{--class="bi bi-star"></i></span></p>--}}
+                                {{--</label>--}}
+                            {{--</div>--}}
+                            {{--<div class="form-check">--}}
+                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                                {{--<label class="form-check-label" for="exampleCheck1">--}}
+                                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i--}}
+                                                    {{--class="bi bi-star"></i><i class="bi bi-star"></i><i--}}
+                                                    {{--class="bi bi-star"></i></span></p>--}}
+                                {{--</label>--}}
+                            {{--</div>--}}
+                        {{--</form>--}}
+                    {{--</div>--}}
                 </div>
                 <div class="col-lg-9">
                     <div class="row">
@@ -164,4 +166,21 @@
 
 @endsection
 @section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#check_in_date").datepicker({
+                autoclose: true,
+                todayHighlight: 'TRUE',
+                startDate: new Date()
+            });
+            $("#check_out_date").datepicker({
+                autoclose: true,
+                todayHighlight: 'TRUE',
+                startDate: new Date()
+            });
+        });
+    </script>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CountryRequest;
 use App\Repositories\Admin\CountryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,29 +14,62 @@ class CountryController extends Controller
 
     public function __construct(CountryRepository $countryRepo)
     {
-        $this->middleware('auth:admin');
         $this->countryRepo = $countryRepo;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $countries = $this->countryRepo->getAll();
         return view('admin.contents.country.index', ['countries' => $countries]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('admin.contents.country.submit');
     }
 
-    public function store(Request $request)
+    public function edit($id)
     {
-        $validator = Validator::make($request->all(), [
-            'country_name' => 'required|max:255',
-        ]);
-        $data = $request->all();
-        $hotel = $this->countryRepo->create($data);
+        $country = $this->countryRepo->find($id);
+        return view('admin.contents.country.edit', ['country' => $country]);
+    }
 
+    /**
+     * @param CountryRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(CountryRequest $request)
+    {
+        $data = $request->all();
+        $this->countryRepo->create($data);
+        return redirect()->route('admin.country');
+    }
+
+    /**
+     * @param CountryRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(CountryRequest $request, $id)
+    {
+        $data = $request->all();
+        $this->countryRepo->update($id, $data);
+        return redirect()->route('admin.country');
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        $this->countryRepo->delete($id);
         return redirect()->route('admin.country');
     }
 }

@@ -18,21 +18,28 @@ use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
-    use AuthenticatesUsers;
-
+    /**
+     * LoginController constructor.
+     */
     public function __construct()
     {
         $this->middleware('guest:admin')->except('logout');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function login()
     {
         return view('admin.auth.login');
     }
 
+    /**
+     * @param LoginRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function loginAdmin(LoginRequest $request)
     {
-        $validated = $request->validated();
         if (Auth::guard('admin')->attempt(
             ['email' => $request->email, 'password' => $request->password], $request->remember
         )) {
@@ -42,35 +49,9 @@ class LoginController extends Controller
         return redirect()->back()->withInput($request->only('email', 'remember'));
     }
 
-    public function redirectToProvider($provider)
-    {
-        return Socialite::driver($provider)->redirect();
-    }
-
-    public function handleProviderCallback($provider)
-    {
-        $user = Socialite::driver($provider)->user();
-        dd($user);
-//        $admin = $this->findOrCreateUser($user, $provider);
-//        Auth::login($admin, true);
-//        return redirect()->route('admin.dashboard');
-    }
-
-    public function findOrCreateUser($user, $provider)
-    {
-        $admin = AdminModel::where('email', $user->email)->first();
-        if ($admin) {
-            return $admin;
-        }
-        return AdminModel::create([
-            'user_name' => $user->name,
-            'email' => $user->email,
-            'password' => Hash::make(Str::random(8)),
-            'provider' => $provider,
-            'provider_id' => $user->id
-        ]);
-    }
-
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout()
     {
         Auth::guard('admin')->logout();

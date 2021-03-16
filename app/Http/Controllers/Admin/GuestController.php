@@ -4,91 +4,116 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\Admin\GuestExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\FileRequest;
 use App\Http\Requests\Frontend\GuestRequest;
 use App\Imports\Admin\GuestImport;
-use App\Models\Frontend\GuestModel;
+use App\Repositories\Frontend\GuestRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Maatwebsite\Excel\Facades\Excel;
 
 class GuestController extends Controller
 {
-    public function __construct()
+    protected $guestRepo;
+
+    public function __construct(GuestRepository $guestRepo)
     {
-        $this->middleware('auth:admin');
+        $this->guestRepo = $guestRepo;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        $guests = GuestModel::all();
+        $guests = $this->guestRepo->paginate(10);
         return view('admin.contents.guest.index')->with('guests', $guests);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('admin.contents.guest.submit');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($id)
     {
-        $guest = GuestModel::find($id);
+        $guest =  $this->guestRepo->find($id);
         return view('admin.contents.guest.edit')->with('guest', $guest);
     }
 
+    /**
+     * @param GuestRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(GuestRequest $request)
     {
-        $validated = $request->validated();
         $input = $request->all();
-
-        $guest = new GuestModel();
-        $guest->first_name = $input['first_name'];
-        $guest->last_name = $input['last_name'];
-        $guest->user_name = $input['user_name'];
-        $guest->email = $input['email'];
-        $guest->password = bcrypt($input['password']);
-        $guest->phone = $input['phone'];
-        $guest->address = $input['address'];
-        $guest->image = $input['image'];
-        $guest->save();
+        $dataInsert = Arr::only($input, [
+            'first_name',
+            'last_name',
+            'user_name',
+            'email',
+            'phone',
+            'address',
+            'image',
+        ]);
+        $dataInsert['password'] = bcrypt($input['password']);
+        $this->guestRepo->create($dataInsert);
         return redirect()->route('admin.guest');
     }
 
+    /**
+     * @param GuestRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(GuestRequest $request, $id)
     {
-        $validated = $request->validated();
         $input = $request->all();
-
-        $validated = $request->validated();
-        $input = $request->all();
-        $guest = GuestModel::find($id);
-        $guest->first_name = $input['first_name'];
-        $guest->last_name = $input['last_name'];
-        $guest->user_name = $input['user_name'];
-        $guest->email = $input['email'];
-        $guest->password = bcrypt($input['password']);
-        $guest->phone = $input['phone'];
-        $guest->address = $input['address'];
-        $guest->image = $input['image'];
-        $guest->save();
+        $dataInsert = Arr::only($input, [
+            'first_name',
+            'last_name',
+            'user_name',
+            'email',
+            'phone',
+            'address',
+            'image',
+        ]);
+        $dataInsert['password'] = bcrypt($input['password']);
+        $this->guestRepo->update($id, $dataInsert);
         return redirect()->route('admin.guest');
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
-        $guest = GuestModel::find($id);
-        $guest->delete();
+        $this->guestRepo->delete($id);
         return redirect()->route('admin.guest');
     }
 
-    public function import(Request $request)
+    /**
+     * @param FileRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function import(FileRequest $request)
     {
-        $validatedData = $request->validate([
-            'select_file' => 'required|mimes:xls,xlsx,csv'
-        ]);
-
-        $import = Excel::import(new GuestImport(), request()->file('select_file'));
+        Excel::import(new GuestImport(), $request->file('select_file'));
         return redirect()->route('admin.hotel');
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function export()
     {
         return Excel::download(new GuestExport(), 'guests.xlsx');

@@ -9,7 +9,7 @@ class CategoryModel extends Model
     public $table = 'categories';
 
     public function hotels(){
-        return $this->hasMany('App\Models\Admin\HotelModel', 'category_id');
+        return $this->hasMany(HotelModel::class, 'category_id');
     }
 
 }

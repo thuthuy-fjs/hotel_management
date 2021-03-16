@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Frontend\GuestModel;
+use App\Repositories\Frontend\GuestRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,11 +13,26 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialAuthController extends Controller
 {
+    protected $guestRepo;
+
+    public function __construct(GuestRepository $guestRepo)
+    {
+        $this->guestRepo = $guestRepo;
+    }
+
+    /**
+     * @param $provider
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();
     }
 
+    /**
+     * @param $provider
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function handleProviderCallback($provider)
     {
         $user = Socialite::driver($provider)->user();
@@ -26,13 +42,18 @@ class SocialAuthController extends Controller
 
     }
 
+    /**
+     * @param $user
+     * @param $provider
+     * @return mixed
+     */
     public function findOrCreateUser($user, $provider)
     {
         $guest = GuestModel::where('email', $user->email)->first();
         if ($guest) {
             return $guest;
         }
-        return GuestModel::create([
+        return $this->guestRepo->create([
             'user_name' => $user->name,
             'email' => $user->email,
             'password' => Hash::make(Str::random(8)),

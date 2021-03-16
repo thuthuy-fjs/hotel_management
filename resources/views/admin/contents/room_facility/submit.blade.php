@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-    Thêm ảnh phòng
+    Thêm tiện ích
 @endsection
 @section('content')
     <div class="header bg-primary pb-6">
@@ -39,7 +39,7 @@
                     <div class="card-body">
                         <form action="{{ route('admin.room.facility.store') }}" method="post">
                             @csrf
-                            \ <h6 class="heading-small text-muted mb-4">Tiện ích</h6>
+                             <h6 class="heading-small text-muted mb-4">Tiện ích</h6>
                             <input class="form-check-input" type="text" value="{{$room->id}}"
                                    id="room_id" name="room_id" hidden>
                             <div class="pl-lg-8">
