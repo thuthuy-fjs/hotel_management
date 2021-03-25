@@ -12,19 +12,22 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
-                        @foreach($country->provinces as $province)
+                        @foreach($provinces as $province)
                             <div class="col-md-4 ftco-animate">
                                 <div class="project-wrap hotel">
-                                    <a href="{{route('search.province', $province->id)}}" class="img" style="background-image: url({{$province->province_image}});">
+                                    <a href="{{route('search.province', $province->id)}}" class="img"
+                                       style="background-image: url({{$province->province_image}});">
                                         <span class="price">{{$province->province_name}}</span>
                                     </a>
                                     <div class="text p-4">
-                                    <p>{{$country->country_name}}</p>
+                                        <p>{{count($province->hotels)}} chỗ nghỉ</p>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
+
                     </div>
+                    {{ $provinces->links() }}
                 </div>
 
             </div>

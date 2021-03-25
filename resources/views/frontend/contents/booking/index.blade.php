@@ -3,6 +3,7 @@
     Đặt phòng
 @endsection
 @section('content')
+
     <form action="{{route('booking.store')}}" method="post">
         @csrf
         <div class="container">
@@ -46,49 +47,79 @@
                         </table>
                     </div>
                 </div>
+
                 <div class="col-lg-8">
+
                     <div class="form-group">
                         <h4><b>{{$room->hotel->hotel_name}}</b></h4>
                     </div>
                     <div class="form-group">
                         <h5>Thông tin của bạn</h5>
-                        <input name="guest_id" value="{{$guest->id}}" hidden>
+                        @if(Auth::check())
+                            <input name="guest_id" value="{{Auth::id()}}" hidden>
+                        @endif
                         <input name="room_id" value="{{$room->id}}" hidden>
                         <input name="check_in_date" value="{{$check_in_date}}" hidden>
                         <input name="check_out_date" value="{{$check_out_date}}" hidden>
                         <input name="total_price" value="{{$room->room_price}}" hidden>
+                        <input name="payment_code" value="250000" hidden>
                         <input name="is_payment" value="0" hidden>
 
                         <div class="row">
                             <div class="col-lg-6">
-                                <label class="" for="user_name">Họ đệm*: </label>
-                                <input class="form-control" value="{{$guest->user_name}}" type="text" name="user_name"
-                                       id="user_name" disabled>
+                                <label class="" for="user_name">Họ tên*: </label>
+                                @if(Auth::check())
+                                    <input class="form-control" value="{{Auth::user()->user_name}}" type="text"
+                                           name="name" id="name">
+                                @else
+                                    <input class="form-control" value="" type="text" placeholder="Nhập tên người dùng"
+                                           name="name" id="name">
+                                @endif
+                                @error('name')
+                                <span class="small text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <label class="" for="email">Địa chỉ email*: </label>
-                                <input class="form-control" value="{{$guest->email}}" type="text" name="email"
-                                       id="email" disabled>
+                                @if(Auth::check())
+                                    <input class="form-control" value="{{Auth::user()->email}}" type="text" name="email"
+                                           id="email">
+                                @else
+                                    <input class="form-control" value="" type="text" placeholder="Nhập email"
+                                           name="email" id="email">
+                                @endif
+                                @error('email')
+                                <span class="small text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <label class="" for="booking_note">Ghi chú*: </label>
+                                <label class="" for="booking_note">Ghi chú: </label>
                                 <textarea class="form-control" type="text" name="booking_note" id="booking_note"
                                           cols="50" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-4">
+                                <label class="" for="payment_method">Phương thức thanh toán*: </label>
+                                <select class="form-control" name="payment_id" id="payment_id">
+                                    @foreach($payments as $payment)
+                                        <option value="{{$payment->id}}">{{$payment->payment_method}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12" style="margin-top: 10px">
                                 <input type="submit" class="btn btn-primary" value="Đặt">
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </form>

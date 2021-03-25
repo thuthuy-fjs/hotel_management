@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\ResetPasswordRequest;
 use App\Mail\UserResetPassword;
 use App\Models\Frontend\GuestModel;
 use App\Models\Frontend\PasswordGuestReset;
@@ -25,9 +26,22 @@ class ForgotPasswordController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function sendEmail(Request $request)
     {
+        $this->validate($request,
+            [
+                'email' => 'required|email|exists:guests,email',
+            ],
+
+            [
+                'email.required' => 'Email là bắt buộc',
+                'email.email' => 'Email chưa đúng định dạng',
+                'email.exists' => 'Email không tồn tại',
+            ]
+
+        );
         $email = $request->email;
         $guest = GuestModel::where('email', $email)->firstOrFail();
         if (asset($guest)) {
@@ -49,7 +63,10 @@ class ForgotPasswordController extends Controller
      */
     public function getReset($token)
     {
-        return view('frontend.auth.forgot_password', ['token' => $token]);
+        $data = PasswordGuestReset::where('token', $token)->firstOrFail();
+        if (isset($data)) {
+            return view('frontend.auth.forgot_password', ['token' => $token]);
+        }
     }
 
     /**
@@ -57,16 +74,12 @@ class ForgotPasswordController extends Controller
      * @param $token
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function resetPassword(Request $request, $token)
+    public function resetPassword(ResetPasswordRequest $request, $token)
     {
-        $request->validate([
-            'password' => 'required|min:8',
-            'password_confirm' => 'required|same:password',
-        ]);
         $data = PasswordGuestReset::where('token', $token)->firstOrFail();
         if (Carbon::parse($data->updated_at)->addMinutes(720)->isPast()) {
             $data->delete();
-            return view('frontend.auth.forgot_password', ['message' => "Quá thời gian!"]);
+            return view('frontend.auth.forgot_password', ['message' => "Link đặt lại mật khẩu này không hợp lệ"]);
 
         }
         $guest = GuestModel::where('email', $data->email)->firstOrFail();

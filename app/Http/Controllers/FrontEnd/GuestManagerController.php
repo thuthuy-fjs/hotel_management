@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\ChangePasswordRequest;
 use App\Http\Requests\Frontend\GuestRequest;
 use App\Models\Frontend\BookingModel;
 use App\Models\Frontend\GuestModel;
@@ -65,35 +66,45 @@ class GuestManagerController extends Controller
             'email',
             'phone',
             'address',
+            'password'
         ]);
-        $dataInsert['password'] = bcrypt($input['password']);
         $image = $input['image'];
-        $image_name = $image->getClientOriginalName();
-        $image->move($directory, $image_name);
-        $dataInsert['image'] = $image_name;
+        if ($request->hasFile('image')) {
+            $image_name = $image->getClientOriginalName();
+            $image->move($directory, $image_name);
+            $dataInsert['image'] = $image_name;
+        } else {
+            $dataInsert['image'] = $image;
+        }
         $this->guestRepo->update(Auth::id(), $dataInsert);
         return redirect()->route('profile');
     }
 
     /**
-     * @param GuestRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editPassword()
+    {
+        return view('frontend.auth.changepassword');
+    }
+
+    /**
+     * @param ChangePasswordRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updatePassword(GuestRequest $request)
+    public function updatePassword(ChangePasswordRequest $request)
     {
         if (!(Hash::check($request->current_password, Auth::user()->password))) {
-            return redirect()->back()->with("error", "Your current password does not matches with the password you provided.
-             Please try again.");
+            return redirect()->back()->with("error", "Mật khẩu không khớp. Vui lòng thử lại!");
         }
 
         if (strcmp($request->current_password, $request->new_password) == 0) {
-            return redirect()->back()->with("error", "New Password cannot be same as your current password. 
-            Please choose a different password.");
+            return redirect()->back()->with("error", "Mật khẩu xác nhận không giống với mật khẩu mới. Vui lòng thử lại!");
         }
 
         $user = Auth::user();
         $user->password = bcrypt($request->new_password);
         $user->save();
-        return redirect()->back()->with("success", "Password changed successfully !");
+        return redirect()->back()->with("success", "Đổi mật khẩu thành công!");
     }
 }

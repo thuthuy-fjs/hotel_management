@@ -27,9 +27,9 @@ class RoomModel extends Model
         return $this->belongsTo(RoomTypeModel::class, 'room_type_id');
     }
 
-    public function facilities()
+    public function facility()
     {
-        return $this->hasMany(RoomFacilityModel::class, 'room_id');
+        return $this->belongsTo(RoomFacilityModel::class, 'room_id');
     }
 
     public function bookings()

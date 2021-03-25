@@ -5,7 +5,7 @@
 </head>
 <body>
 @include('frontend.partials.header_app')
-<section class="ftco-section bg-light">
+<section style="margin: 50px 0px;">
     <div class="container">
         <div class="row">
             @include('frontend.partials.sidebar')

@@ -3,14 +3,15 @@
     Đăng nhập
 @endsection
 @section('content')
-    <div class="hero-wrap js-fullheight" style="background-image: url({{asset('frontend_assets/images/bg_2.jpg')}});">
+    <div class="hero-wrap"
+         style="background-image: url({{asset('frontend_assets/images/bg_2.jpg')}}); max-height:900px">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-5 col-md-7" style=" margin-top: 40px">
+                <div class="col-lg-5 col-md-7" style="margin: 40px 0px">
                     <div class="card">
                         <div class="card-header bg-transparent pb-5">
                             <div class="text-muted text-center mt-2 mb-3">
-                                <small>Sign in with</small>
+                                <small>Đăng nhập với</small>
                             </div>
                             <div class="btn-wrapper text-center">
                                 <a href="{{route('provider', 'github')}}" class="btn btn-neutral btn-icon">
@@ -33,18 +34,24 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                         </div>
-                                        <input class="form-control" placeholder="Email" type="email" name="email"
-                                               id="email">
+                                        <input class="form-control" placeholder="Nhập email" type="email"
+                                               name="email" id="email" value="{{old('email')}}">
                                     </div>
+                                    @error('email')
+                                    <span class="small text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group input-group-merge input-group-alternative">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="bi bi-file-lock"></i></span>
                                         </div>
-                                        <input class="form-control" placeholder="Password" type="password"
+                                        <input class="form-control" placeholder="Nhập mật khẩu" type="password"
                                                name="password" id="password">
                                     </div>
+                                    @error('password')
+                                    <span class="small text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="custom-control custom-control-alternative custom-checkbox">
                                     <input class="custom-control-input" id=" customCheckLogin" type="checkbox"
@@ -54,18 +61,18 @@
                                     </label>
                                 </div>
                                 <div class="text-center">
-                                    <input type="submit" class="btn btn-primary my-4" value="Sign in">
+                                    <input type="submit" class="btn btn-primary my-4" value="Đăng nhập">
                                 </div>
                             </form>
                             <div class="row mt-3">
-                                <div class="col-6">
-                                    <a href="{{route('forgot-password.getEmail')}}" class="text-dark">
-                                        <small>Forgot password?</small>
+                                <div class="col-5">
+                                    <a href="{{route('forgot_password.getEmail')}}" class="text-dark">
+                                        <small>Quên mật khẩu</small>
                                     </a>
                                 </div>
-                                <div class="col-6 text-right">
+                                <div class="col-7 text-right">
                                     <a href="{{ route('register') }}" class="text-dark">
-                                        <small>Create new account</small>
+                                        <small>Tạo tài khoản mới</small>
                                     </a>
                                 </div>
                             </div>

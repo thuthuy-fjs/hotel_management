@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Frontend;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class GuestRequest extends FormRequest
 {
@@ -25,17 +26,32 @@ class GuestRequest extends FormRequest
     {
         return [
             'user_name' => 'required|max:255',
-            'email' => 'required|email',
-            'password' => 'min:8',
+            'email' => [
+                'required',
+                'email',
+            ],
+            'password' => 'required|min:8',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'user_name' => 'Tên đăng nhập',
+            'email' => 'Email',
+            'password' => 'Mật khẩu',
         ];
     }
 
     public function messages()
     {
         return [
-            'required' => ':attribute is required!',
-            'min' => ':attribute must be at least 8 character',
-            'email' => ':attribute must be email'
+            'required' => ':attribute là bắt buộc',
+            'max' => ':attribute không quá 255 kí tự',
+            'min' => ':attribute tối thiểu 8 kí tự',
+            'email'=> ':attribute không đúng định dạng',
+            'same'=> ':attribute không chính xác',
+            'unique'=> ':attribute đã tồn tại. Vui lòng nhập email khác'
         ];
     }
 }

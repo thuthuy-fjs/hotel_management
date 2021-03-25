@@ -21,7 +21,7 @@
                                 {{Auth::user()->user_name}}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{route('profile')}}">Tài khoản của bạn</a>
+                                <a class="dropdown-item" href="{{route('profile')}}">Tài khoản của tôi</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}">Đăng xuất</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                       style="display: none;">

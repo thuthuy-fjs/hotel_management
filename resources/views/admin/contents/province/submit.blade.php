@@ -28,15 +28,6 @@
                             </div>
                         </div>
                     </div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <div class="card-body">
                         <form action="{{ route('admin.province.store') }}" method="post">
                             @csrf
@@ -54,6 +45,9 @@
 
                                             </select>
                                         </div>
+                                        @error('country_id')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row">
@@ -64,12 +58,15 @@
                                                    class="form-control"
                                                    placeholder="Province name">
                                         </div>
+                                        @error('province_name')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="hotel_image">Ảnh</label>
+                                            <label class="form-control-label" for="province_image">Ảnh</label>
                                             <div style="margin: 10px 0px">
                                                 <span class="input-group-btn">
                                                  <a id="lfm" data-input="thumbnail" data-preview="holder"
@@ -81,6 +78,9 @@
                                             <input id="thumbnail" class="form-control" type="text" name="province_image">
                                             <img id="holder" style="margin-top:15px;max-height:150px;max-width:150px">
                                         </div>
+                                        @error('province_image')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

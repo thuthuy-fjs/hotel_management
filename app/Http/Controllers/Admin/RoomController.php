@@ -27,23 +27,17 @@ class RoomController extends Controller
     protected $countryRepo;
     protected $provinceRepo;
     protected $facilityRepo;
+    protected $roomFacilityRepo;
 
-    /**
-     * RoomController constructor.
-     * @param RoomRepository $roomRepo
-     * @param HotelRepository $hotelRepo
-     * @param RoomTypeRepository $roomtypeRepo
-     * @param ProvinceRepository $provinceRepo
-     * @param CountryRepository $countryRepo
-     * @param FacilityRepository $facilityRepo
-     */
+
     public function __construct(
         RoomRepository $roomRepo,
         HotelRepository $hotelRepo,
         RoomTypeRepository $roomtypeRepo,
         ProvinceRepository $provinceRepo,
         CountryRepository $countryRepo,
-        FacilityRepository $facilityRepo)
+        FacilityRepository $facilityRepo,
+        RoomFacilityRepository $roomFacilityRepo)
     {
         $this->roomRepo = $roomRepo;
         $this->hotelRepo = $hotelRepo;
@@ -51,6 +45,7 @@ class RoomController extends Controller
         $this->countryRepo = $countryRepo;
         $this->provinceRepo = $provinceRepo;
         $this->facilityRepo = $facilityRepo;
+        $this->roomFacilityRepo = $roomFacilityRepo;
     }
 
     /**
@@ -59,7 +54,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $rooms = $this->roomRepo->getAll();
+        $rooms = $this->roomRepo->paginate(10);
         $hotels = $this->hotelRepo->getAll();
         $countries = $this->countryRepo->getAll();
         return view('admin.contents.room.index', ['rooms' => $rooms], ['hotels' => $hotels])
@@ -86,12 +81,21 @@ class RoomController extends Controller
     {
         $countries = $this->countryRepo->getAll();
         $hotels = $this->hotelRepo->getAll();
-        $hotel = $this->hotelRepo->find($request->hotel);
-        $rooms = $hotel->rooms;
+        $rooms = $this->roomRepo->findBy('hotel_id', $request->hotel, 10);
         return view('admin.contents.room.index',
             ['hotels' => $hotels], ['rooms' => $rooms])
             ->with('countries', $countries);
 
+    }
+
+    public function getRooms($id)
+    {
+        $countries = $this->countryRepo->getAll();
+        $hotels = $this->hotelRepo->getAll();
+        $rooms = $this->roomRepo->findBy('hotel_id', $id, 10);
+        return view('admin.contents.room.index',
+            ['hotels' => $hotels], ['rooms' => $rooms])
+            ->with('countries', $countries);
     }
 
     /**
@@ -155,16 +159,27 @@ class RoomController extends Controller
         ]);
         $dataInsert['room_images'] = json_encode($input['room_images']);
         $room = $this->roomRepo->update($id, $dataInsert);
-        $facilities = $this->facilityRepo->getAll();
-        foreach ($facilities as $key => $facility) {
-            foreach ($room->facilities as $room_facility) {
-                if ($facility->id == $room_facility->room_facility_id) {
-                    unset($facilities[$key]);
+        $room_facility = $this->roomFacilityRepo->findByRoom($id);
+        if (isset($room_facility)) {
+            $facilities = $this->facilityRepo->getAll();
+            $room_facilities = $room_facility->room_facility_id ?
+                json_decode($room_facility->room_facility_id) : array();
+            foreach ($facilities as $key => $facility) {
+                foreach ($room_facilities as $key2 => $roomfacility) {
+                    if ($facility->id == $roomfacility) {
+                        unset($facilities[$key]);
+                    }
                 }
             }
+            $un_facilities = $facilities;
+            $facilities = $this->facilityRepo->getAll();
+            return view('admin.contents.room_facility.edit')->with('room', $room)
+                ->with('room_facility', $room_facility)->with('facilities', $facilities)
+                ->with('room_facilities', $room_facilities)->with('un_facilities', $un_facilities);
+        } else {
+            $facilities = $this->facilityRepo->getAll();
+            return view('admin.contents.room_facility.submit', ['room' => $room], ['facilities' => $facilities]);
         }
-        return redirect()->route('admin.room.list');
-        //return view('admin.contents.room_facility.edit', ['room' => $room], ['facilities' => $facilities]);
     }
 
     /**
@@ -197,17 +212,22 @@ class RoomController extends Controller
      */
     public function import(FileRequest $request)
     {
-        Excel::import(new RoomImport(), $request->file('select_file'));
-        return redirect()->route('admin.hotel');
+        $import_room = new RoomImport();
+        $import_room->import($request->file('select_file'));
+        if ($import_room->failures()->isNotEmpty()) {
+            $failures = $import_room->failures();
+            return redirect()->route('admin.room.list')->withFailures($failures);
+        }
+        return redirect()->route('admin.room.list')->with('success', 'Upload file thành công!');
     }
 
     /**
      * export room list
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function export()
+    public function export($id)
     {
-        return Excel::download(new RoomExport(), 'rooms.xlsx');
+        return Excel::download(new RoomExport($id), 'rooms.xlsx');
 
     }
 }

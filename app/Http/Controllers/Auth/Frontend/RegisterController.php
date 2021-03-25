@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Auth\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\RegisterRequest;
-use App\Models\Frontend\GuestModel;
+use App\Http\Requests\Frontend\RegisterRequest;
 use App\Repositories\Frontend\GuestRepository;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -44,7 +45,12 @@ class RegisterController extends Controller
     public function store(RegisterRequest $request)
     {
         $data = $request->all();
-        $this->guestRepo->create($data);
+        $dataInsert = Arr::only($data, [
+            'user_name',
+            'email',
+        ]);
+        $dataInsert['password'] = Hash::make($data['password']);
+        $this->guestRepo->create($dataInsert);
         return redirect()->route('login');
     }
 }

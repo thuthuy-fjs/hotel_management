@@ -12,7 +12,7 @@
                             <section class='alert alert-success'>{{$msg}}</section>
                             <a class="small" href="{{route('admin.auth.login')}}">Login</a>
                         @else
-                            <form action="{{route('admin.forgot-password.update', $token)}}" method="post">
+                            <form action="{{route('admin.forgot_password.update', $token)}}" method="post">
                                 @csrf
                                 <input type="hidden" name="token" value="{{ $token }}">
                                 <div class="form-group">
@@ -21,8 +21,7 @@
                                             <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                         </div>
                                         <input class="form-control" placeholder="Password" type="password"
-                                               name="password"
-                                               id="password">
+                                               name="password" id="password">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -35,7 +34,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <input type="submit" class="btn btn-primary my-4" value="Change password">
+                                    <input type="submit" class="btn btn-primary my-4" value="Đặt lại mật khảu">
                                 </div>
                             </form>
                         @endif

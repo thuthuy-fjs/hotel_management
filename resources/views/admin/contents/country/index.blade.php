@@ -148,7 +148,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{--{{ $countrys->links() }}--}}
+                        {{ $countries->links() }}
                     </div>
                 </div>
             </div>

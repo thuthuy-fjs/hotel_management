@@ -29,40 +29,43 @@
                             </div>
                         </div>
                     </div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+
                     <div class="card-body">
                         <form action="{{ route('admin.guest.store') }}" method="post">
                             @csrf
                             <h6 class="heading-small text-muted mb-4">Thông tin người dùng </h6>
                             <div class="pl-lg-4">
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="email">Email*</label>
+                                            <input id="email" name="email" class="form-control" placeholder="Nhâp email"
+                                                   type="email" value="{{old('email')}}">
+                                            @error('email')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-username">Tên đăng nhập*</label>
                                             <input type="text" id="user_name" name="user_name" class="form-control"
-                                                   placeholder="Tên đăng nhập">
+                                                   placeholder="Nhập tên đăng nhập" value="{{old('user_name')}}">
+                                            @error('user_name')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-email">Mật khẩu*</label>
-                                            <input type="password" id="password" name="password" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-control-label" for="email">Email*</label>
-                                            <input id="email" name="email" class="form-control" placeholder="Email" type="email">
+                                            <input type="password" id="password" name="password" class="form-control"
+                                                   value="{{old('password')}}">
+                                            @error('password')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -71,14 +74,20 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-first-name">Họ đệm</label>
                                             <input type="text" id="first_name" name="first_name" class="form-control"
-                                                   placeholder="First name">
+                                                   placeholder="Nhập họ đệm" value="{{old('first_name')}}">
+                                            @error('first_name')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-last-name">Tên</label>
                                             <input type="text" id="last_name" name="last_name" class="form-control"
-                                                   placeholder="Last name">
+                                                   placeholder="Nhập tên" value="{{old('last_name')}}">
+                                            @error('last_name')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -90,13 +99,17 @@
                                                 <span class="input-group-btn">
                                                  <a id="lfm" data-input="thumbnail" data-preview="holder"
                                                     class="btn btn-neutral lfm-btn">
-                                                   <i class="fa fa-picture-o"></i> Choose
+                                                   <i class="fa fa-picture-o"></i> Chọn
                                                  </a>
                                                </span>
                                             </div>
                                             <input id="thumbnail" class="form-control" type="text" name="image">
+                                            @error('image')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                             <img id="holder" style="margin-top:15px;max-height:150px;max-width:150px">
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +121,11 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-address">Địa chỉ</label>
-                                            <input id="address" name="address" class="form-control" placeholder="Address" type="text">
+                                            <input id="address" name="address" class="form-control" placeholder="Nhập địa chỉ"
+                                                   type="text" value="{{old('address')}}">
+                                            @error('address')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -116,13 +133,18 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-city">Điện thoại</label>
-                                            <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" pattern="09|03|07|08|05)+([0-9]{8}">
+                                            <input type="text" id="phone" name="phone" class="form-control"
+                                                   placeholder="Nhập số điện thoại" pattern="09|03|07|08|05)+([0-9]{8}"
+                                                   value="{{old('phone')}}">
+                                            @error('phone')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-offset-2">
-                                <button type="submit" class="btn btn-success">Save</button>
+                                <button type="submit" class="btn btn-success">Lưu</button>
                             </div>
                         </form>
                     </div>

@@ -33,19 +33,18 @@ class ResetPasswordController extends Controller
     public function update(ChangePasswordRequest $request)
     {
         if (!(Hash::check($request->current_password, Auth::user()->password))) {
-            return redirect()->back()->with("error", "Your current password does not matches with the password you provided. 
-                                        Please try again.");
+            return redirect()->back()->with("error", "Mật khẩu không khớp. Vui lòng thử lại!");
         }
 
         if (strcmp($request->current_password, $request->new_password) == 0) {
-            return redirect()->back()->with("error", "New Password cannot be same as your current password. 
-                                        Please choose a different password.");
+            return redirect()->back()->with("error",
+                "Mật khẩu xác nhận không giống với mật khẩu mới. Vui lòng thử lại!");
         }
         $user = Auth::user();
         $user->password = bcrypt($request->new_password);
         $user->save();
 
-        return redirect()->back()->with("success", "Password changed successfully !");
+        return redirect()->back()->with("success", "Đổi mật khẩu thành công!");
     }
 
 }

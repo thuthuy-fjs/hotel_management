@@ -27,4 +27,19 @@ class FileRequest extends FormRequest
             'select_file' => 'required|mimes:xls,xlsx,csv'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'select_file' => 'File',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => ':attribute chưa được chọn',
+            'mimes' => ':attribute không đúng định dạng'
+        ];
+    }
 }

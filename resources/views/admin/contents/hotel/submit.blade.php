@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-    Thêm mới khách sạn
+    Thêm mới chỗ nghỉ
 @endsection
 @section('content')
     <!-- Header -->
@@ -25,19 +25,10 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">Thêm mới khách sạn </h3>
+                                <h3 class="mb-0">Thêm mới chỗ nghỉ </h3>
                             </div>
                         </div>
                     </div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <div class="card-body">
                         <form action="{{ route('admin.hotel.store') }}" method="post">
                             @csrf
@@ -46,7 +37,7 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="country_id">Quốc gia</label><br>
+                                            <label class="form-control-label" for="country_id">Quốc gia*</label><br>
                                             <select id="country" name="country" class="form-control btn-sm btn-neutral">
                                                 <option value="" selected disabled>Quốc gia</option>
                                                 @foreach($countries as $country)
@@ -54,91 +45,132 @@
                                                 @endforeach
 
                                             </select>
+                                            @error('country')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
+
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="province_id">Tỉnh/Thành phố</label><br>
-                                            <select id="province_id" name="province_id" class="form-control btn-sm btn-neutral">
+                                            <label class="form-control-label" for="province_id">Tỉnh/Thành
+                                                phố*</label><br>
+                                            <select id="province_id" name="province_id"
+                                                    class="form-control btn-sm btn-neutral">
                                                 <option value="" selected disabled>Tỉnh/Thành phố</option>
                                             </select>
+                                            @error('province_id')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
+
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="category_id">Loại chỗ nghỉ</label><br>
-                                            <select id="category_id" name="category_id" class="form-control btn-sm btn-neutral">
+                                            <label class="form-control-label" for="category_id">Loại chỗ
+                                                nghỉ*</label><br>
+                                            <select id="category_id" name="category_id"
+                                                    class="form-control btn-sm btn-neutral">
                                                 <option value="" selected disabled>Loại chỗ nghỉ</option>
                                                 @foreach($categories as $category)
                                                     <option value="{{$category->id}}">{{$category->category_name}}</option>
                                                 @endforeach
                                             </select>
+                                            @error('category_id')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="hotel_name">Tên khách sạn</label>
+                                            <label class="form-control-label" for="hotel_name">Tên chỗ nghỉ*</label>
                                             <input type="text" id="hotel_name" name="hotel_name" class="form-control"
-                                                   placeholder="Hotel name">
+                                                   placeholder="Nhập tên chỗ nghỉ" value="{{old('hotel_name')}}">
+                                            @error('hotel_name')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
+
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="hotel_phone">Điện thoại</label>
+                                            <label class="form-control-label" for="hotel_phone">Điện thoại*</label>
                                             <input type="text" id="hotel_phone" name="hotel_phone" class="form-control"
-                                                   placeholder="Phone" pattern="09|03|07|08|05)+([0-9]{8}">
+                                                   placeholder="Nhập số điện thoại" pattern="09|03|07|08|05)+([0-9]{8}"
+                                                   value="{{old('hotel_phone')}}">
+                                            @error('hotel_phone')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
+
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="hotel_email">Email</label>
+                                            <label class="form-control-label" for="hotel_email">Email*</label>
                                             <input type="text" id="hotel_email" name="hotel_email" class="form-control"
-                                                   placeholder="Email">
+                                                   placeholder="Nhập email" value="{{old('hotel_email')}}">
+                                            @error('hotel_email')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
+
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="hotel_website">Website</label>
                                             <input type="text" id="hotel_website" name="hotel_website"
-                                                   class="form-control" placeholder="Website">
+                                                   class="form-control" placeholder="Nhập tên website"
+                                                   value="{{old('hotel_website')}}">
+                                            @error('hotel_website')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="hotel_image">Ảnh</label>
+                                            <label class="form-control-label" for="hotel_image">Ảnh*</label>
                                             <div style="margin: 10px 0px">
                                                 <span class="input-group-btn">
                                                  <a id="lfm" data-input="thumbnail" data-preview="holder"
                                                     class="btn btn-neutral lfm-btn">
-                                                   <i class="fa fa-picture-o"></i> Choose
+                                                   <i class="fa fa-picture-o"></i> Chọn
                                                  </a>
                                                </span>
                                             </div>
                                             <input id="thumbnail" class="form-control" type="text" name="hotel_image">
+                                            @error('hotel_image')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                             <img id="holder" style="margin-top:15px;max-height:150px;max-width:150px">
                                         </div>
+
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-control-label" for="description">Mô tả</label>
-                                            <textarea id="description" name="description" class="form-control mytinymce" rows="4" cols="50">
+                                            <textarea id="description" name="description" class="form-control mytinymce"
+                                                      rows="4" cols="50" data-value="{{old('description')}}">
                                             </textarea>
+                                            @error('description')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12 text-right">
-                                <button type="submit" class="btn btn-success">Save</button>
+                                <button type="submit" class="btn btn-success">Lưu</button>
                             </div>
                         </form>
                     </div>
@@ -180,35 +212,35 @@
     <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.lfm-btn').filemanager('image', {'prefix':'http://localhost:8080/hotel_management/public/laravel-filemanager'});
+            $('.lfm-btn').filemanager('image', {'prefix': 'http://localhost:8080/hotel_management/public/laravel-filemanager'});
 
 
             $('#plus-image').on('click', function (e) {
                 e.preventDefault();
 
                 var lfm_count = parseInt($('.lfm-btn').length);
-                var next = lfm_count+1;
+                var next = lfm_count + 1;
 
                 var html = '';
 
-                for(var i = 0; i < 1000; i++){
+                for (var i = 0; i < 1000; i++) {
 
-                    if ($('#lfm'+next).length < 1) {
+                    if ($('#lfm' + next).length < 1) {
 
                         html += '<div class="form-group">\n' +
-                            '                    <label for="focusedinput" class="col-sm-2 control-label">Images</label>\n' +
-                            '                    <div class="col-sm-8">\n' +
+                            '                    <label for="room_image" class="form-control-label">Ảnh* </label>\n' +
+                            '                    <div style="margin: 10px 0px">\n' +
                             '                        <span class="input-group-btn">\n' +
-                            '                         <a id="lfm'+next+'" data-input="thumbnail'+next+'" data-preview="holder'+next+'" class="lfm-btn btn btn-primary">\n' +
-                            '                           <i class="fa fa-picture-o"></i> Choose\n' +
+                            '                         <a id="lfm' + next + '" data-input="thumbnail' + next + '" data-preview="holder' + next + '" class="lfm-btn btn btn-neutral">\n' +
+                            '                           <i class="fa fa-picture-o"></i> Chọn\n' +
                             '                         </a>\n' +
-                            '                            <a class="btn btn-warning remove-image">\n' +
+                            '                            <a class="remove-image btn btn-warning ">\n' +
                             '                           <i class="fa fa-remove"></i> Xóa\n' +
                             '                         </a>\n' +
                             '                       </span>\n' +
-                            '                        <input id="thumbnail'+next+'" type="text" name="images[]" value="" class="form-control1" id="focusedinput" placeholder="Default Input">\n' +
-                            '                        <img id="holder'+next+'" style="margin-top:15px;max-height:100px;">\n' +
-                            '                    </div>\n' +
+                            '                     </div>\n' +
+                            '                     <input id="thumbnail' + next + '" type="text" name="hotel_image[]" value="" class="form-control" id="hotel_image" placeholder="">\n' +
+                            '                     <img id="holder' + next + '" style="margin-top:15px;max-height:100px;">\n' +
                             '                </div>';
 
 
@@ -222,19 +254,25 @@
 
                 var box = $(this).closest('.form-group');
 
-                $( html ).insertBefore( box );
+                $(html).insertBefore(box);
 
-                $('.lfm-btn').filemanager('image', {'prefix':'http://localhost:8080/shop_online/shop-online/public/laravel-filemanager'});
+                $('.lfm-btn').filemanager('image', {'prefix': 'http://localhost:8080/hotel_management/public/laravel-filemanager'});
 
             });
 
 
             $('body').on('click', '.remove-image', function (e) {
+                console.log(e);
                 e.preventDefault();
-
                 $(this).closest('.form-group').remove();
 
             });
+
+            // $('.remove-image').on('click', function (e) {
+            //     console.log(e);
+            //     e.preventDefault();
+            //     $(this).closest('.form-group').remove();
+            // });
 
 
         });

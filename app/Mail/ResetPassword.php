@@ -29,7 +29,7 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        $url = url('admin/forgot-password/token='.$this->random_token);
+        $url = url('admin/forgot_password/token='.$this->random_token);
         return $this->markdown('emails.reset-password', [
             'url'=>$url
         ]);

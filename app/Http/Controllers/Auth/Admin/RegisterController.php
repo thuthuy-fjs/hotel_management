@@ -8,6 +8,8 @@ use App\Models\Admin\AdminModel;
 use App\Repositories\Admin\AdminRepository;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -46,7 +48,13 @@ class RegisterController extends Controller
     public function store(RegisterRequest $request)
     {
         $data = $request->all();
-        $this->adminRepo->create($data);
+        $dataInsert = Arr::only($data, [
+            'user_name',
+            'email',
+
+        ]);
+        $dataInsert['password'] = Hash::make($data['password']);
+        $this->adminRepo->create($dataInsert);
         return redirect()->route('admin.auth.login');
     }
 }

@@ -7,51 +7,52 @@
         <div class="container-fluid">
             <div class="header-body">
                 <div class="row align-items-center py-4">
-                    <div class="col-lg-9">
+                    <div class="col-lg-6">
                     </div>
-                    <div class="col-lg-3 text-right">
+                    <div class="col-lg-6 text-right">
                         <a href="{{route('admin.guest.create')}}" class="btn btn-sm btn-neutral">Thêm mới</a>
-                        <div class="dropdown">
-                            <button class="btn btn-neutral btn-sm dropdown-toggle" type="button"
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Action
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" data-toggle="modal" data-target="#modal">Import</a>
-                                <a class="dropdown-item" href="{{route('admin.guest.export')}}">Export</a>
-                            </div>
+                        <a class="btn btn-sm btn-neutral" href="{{route('admin.guest.export')}}">Xuất excel</a>
+                        {{--<div class="dropdown">--}}
+                            {{--<button class="btn btn-neutral btn-sm dropdown-toggle" type="button"--}}
+                                    {{--id="dropdownMenuButton"--}}
+                                    {{--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                                {{--Action--}}
+                            {{--</button>--}}
+                            {{--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
+                                {{--<a class="dropdown-item" data-toggle="modal" data-target="#modal">Import</a>--}}
+                                {{--<a class="dropdown-item" href="{{route('admin.guest.export')}}">Export</a>--}}
+                            {{--</div>--}}
 
-                            <form action="{{route('admin.guest.import')}}" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <div class="modal fade" id="modal" tabindex="-1" role="dialog"
-                                     aria-labelledby="modalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="modalLabel">Upload file</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Chọn file:
-                                                <input type="file" class="custom-file-input" name="select_file"
-                                                       accept=".xlsx, .xls, .csv"/>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="submit" class="btn btn-primary">Upload</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                            {{--<form action="{{route('admin.guest.import')}}" method="post" enctype="multipart/form-data">--}}
+                                {{--@csrf--}}
+                                {{--<div class="modal fade" id="modal" tabindex="-1" role="dialog"--}}
+                                     {{--aria-labelledby="modalLabel" aria-hidden="true">--}}
+                                    {{--<div class="modal-dialog modal-dialog-centered" role="document">--}}
+                                        {{--<div class="modal-content">--}}
+                                            {{--<div class="modal-header">--}}
+                                                {{--<h5 class="modal-title" id="modalLabel">Upload file</h5>--}}
+                                                {{--<button type="button" class="close" data-dismiss="modal"--}}
+                                                        {{--aria-label="Close">--}}
+                                                    {{--<span aria-hidden="true">&times;</span>--}}
+                                                {{--</button>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="modal-body">--}}
+                                                {{--Chọn file:--}}
+                                                {{--<input type="file" class="custom-file-input" name="select_file"--}}
+                                                       {{--accept=".xlsx, .xls, .csv"/>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="modal-footer">--}}
+                                                {{--<button type="button" class="btn btn-secondary"--}}
+                                                        {{--data-dismiss="modal">--}}
+                                                    {{--Close--}}
+                                                {{--</button>--}}
+                                                {{--<button type="submit" class="btn btn-primary">Upload</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</form>--}}
+                        {{--</div>--}}
                     </div>
 
                 </div>
@@ -66,7 +67,7 @@
                     <div class="card-header border-0">
                         <div class="row">
                             <div class="col-lg-7">
-                                <h3 class="mb-0">Danh sách phòng</h3>
+                                <h3 class="mb-0">Danh sách người dùng</h3>
                             </div>
                         </div>
                     </div>
@@ -91,10 +92,10 @@
                                         {{$guest->id}}
                                     </td>
                                     <td>
-                                        {{$guest->email}}
+                                        <a href="{{route('admin.guest.star_rating', $guest->id)}}">{{$guest->email}}</a>
                                     </td>
                                     <td>
-                                        {{$guest->user_name}}
+                                        <a href="{{route('admin.guest.star_rating', $guest->id)}}">{{$guest->user_name}}</a>
                                     </td>
                                     <td>
                                         {{$guest->address}}
@@ -127,7 +128,8 @@
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="modal{{$guest->id}}Label">Xóa người dùng{{$guest->user_name}}</h5>
+                                                    <h5 class="modal-title" id="modal{{$guest->id}}Label">Xóa người dùng
+                                                        {{$guest->user_name}}</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
@@ -150,7 +152,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{--{{ $hotels->links() }}--}}
+                        {{ $guests->links() }}
                     </div>
                 </div>
             </div>

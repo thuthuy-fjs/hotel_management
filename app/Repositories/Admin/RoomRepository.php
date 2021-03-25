@@ -35,7 +35,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             $rooms = $this->model->where("room_name", "LIKE", "%$keyword%")
                 ->orWhereHas('hotel', function ($query) use ($keyword) {
                     $query->where('hotel_name', "LIKE", "%$keyword%");
-                })->get();
+                })->paginate(10);
         }
         return $rooms;
     }

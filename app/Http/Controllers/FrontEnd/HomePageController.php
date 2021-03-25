@@ -52,7 +52,7 @@ class HomePageController extends Controller
     {
         $provinces = $this->provinceRepo->getAll();
         $categories = $this->categoryRepo->getAll();
-        $countries = $this->countryRepo->getAll();
+        $countries = $this->countryRepo->paginate(5);
         return view('frontend.dashboard')
             ->with('provinces', $provinces)->with('categories', $categories)
             ->with('countries', $countries);
@@ -61,17 +61,27 @@ class HomePageController extends Controller
     /**
      * @param Request $request
      * @return mixed
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function search(Request $request)
     {
+        $this->validate($request,
+            [
+                'province' => 'required',
+            ],
+            [
+                'province.required' => 'Vui lòng chọn địa điểm',
+            ]
+
+        );
         $hotels = null;
         $province = $request->input('province');
         $check_in_date = Carbon::parse($request->input('check_in_date'))->toDateString();
         $check_out_date = Carbon::parse($request->input('check_out_date'))->toDateString();
         $person_number = $request->input('person_number');
-        if ($request->filled(['province', 'check_in_date', 'check_out_date', 'person_number'])) {
+        if ($request->filled(['province', 'person_number'])) {
             $times = [$check_in_date, $check_out_date,];
-            $hotels = $this->hotelRepo->getHotel($province, $times, $person_number);
+            $hotels = $this->hotelRepo->getHotel($province, $person_number, 10);
         }
         $provinces = $this->provinceRepo->getAll();
         return view('frontend.contents.search.index')

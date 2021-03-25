@@ -12,6 +12,8 @@ use App\Repositories\Admin\CountryRepository;
 use App\Repositories\Admin\HotelRepository;
 use App\Repositories\Admin\ProvinceRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
 class HotelController extends Controller
@@ -43,7 +45,7 @@ class HotelController extends Controller
     public function index()
     {
         $countries = $this->countryRepo->getAll();
-        $hotels = $this->hotelRepo->getAll();
+        $hotels = $this->hotelRepo->paginate(10);
         return view('admin.contents.hotel.index', ['countries' => $countries], ['hotels' => $hotels]);
     }
 
@@ -68,10 +70,16 @@ class HotelController extends Controller
     public function getHotelInProvince(Request $request)
     {
         $countries = $this->countryRepo->getAll();
-        $province = $this->provinceRepo->find($request->province);
-        $hotels = $province->hotels;
+        $hotels = $this->hotelRepo->findBy('province_id', $request->province, 10);
         return view('admin.contents.hotel.index', ['countries' => $countries], ['hotels' => $hotels]);
 
+    }
+
+    public function getHotels($id)
+    {
+        $countries = $this->countryRepo->getAll();
+        $hotels = $this->hotelRepo->findBy('province_id', $id, 10);
+        return view('admin.contents.hotel.index', ['countries' => $countries], ['hotels' => $hotels]);
     }
 
     /**
@@ -102,7 +110,19 @@ class HotelController extends Controller
     public function store(HotelRequest $request)
     {
         $data = $request->all();
-        $this->hotelRepo->create($data);
+        $dataInsert = Arr::only($data, [
+            'province_id',
+            'category_id',
+            'hotel_name',
+            'hotel_phone',
+            'hotel_email',
+            'hotel_website',
+            'hotel_website',
+            'description',
+            'is_active'
+        ]);
+        $dataInsert['hotel_image'] = $data['hotel_image'];
+        $this->hotelRepo->create($dataInsert);
         return redirect()->route('admin.hotel');
     }
 
@@ -114,7 +134,18 @@ class HotelController extends Controller
     public function update(HotelRequest $request, $id)
     {
         $data = $request->all();
-        $this->hotelRepo->update($id, $data);
+        $dataInsert = Arr::only($data, [
+            'province_id',
+            'category_id',
+            'hotel_name',
+            'hotel_phone',
+            'hotel_email',
+            'hotel_website',
+            'description',
+            'is_active'
+        ]);
+        $dataInsert['hotel_image'] = $data['hotel_image'];
+        $this->hotelRepo->update($id, $dataInsert);
         return redirect()->route('admin.hotel');
     }
 
@@ -146,16 +177,23 @@ class HotelController extends Controller
      */
     public function import(FileRequest $request)
     {
-        Excel::import(new HotelImport(), $request->file('select_file'));
-        return redirect()->route('admin.hotel');
+        $import_hotel = new HotelImport();
+        $import_hotel->import($request->file('select_file')->getRealPath());
+        config(['excel.import.startRow' => 2]);
+        if($import_hotel->failures()->isNotEmpty()){
+            $failures = $import_hotel->failures();
+            return redirect()->route('admin.hotel')->withFailures($failures);
+        }
+        return redirect()->route('admin.hotel')->with('success','Upload file thành công!');
     }
 
     /**
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function export()
+    public function export($id)
     {
-        return Excel::download(new HotelExport(), 'hotels.xlsx');
+        return Excel::download(new HotelExport($id), 'hotels.xlsx');
 
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ResetPasswordRequest;
 use App\Mail\ResetPassword;
 use App\Models\Admin\AdminModel;
 use App\Models\Admin\PasswordAdminReset;
@@ -25,9 +26,22 @@ class ForgotPasswordController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function sendEmail(Request $request)
     {
+        $this->validate($request,
+            [
+                'email' => 'required|email|exists:admins,email',
+            ],
+
+            [
+                'email.required' => 'Email là bắt buộc',
+                'email.email' => 'Email chưa đúng định dạng',
+                'email.exists' => 'Email không tồn tại',
+            ]
+
+        );
         $email = $request->email;
         $admin = AdminModel::where('email', $email)->firstOrFail();
         if (asset($admin)) {
@@ -49,29 +63,28 @@ class ForgotPasswordController extends Controller
      */
     public function getReset($token)
     {
-        return view('admin.auth.forgot_password', ['token' => $token]);
+        $data = PasswordAdminReset::where('token', $token)->firstOrFail();
+        if (isset($data)) {
+            return view('admin.auth.forgot_password', ['token' => $token]);
+        }
     }
 
     /**
-     * @param Request $request
+     * @param ResetPasswordRequest $request
      * @param $token
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function resetPassword(Request $request, $token)
+    public function resetPassword(ResetPasswordRequest $request, $token)
     {
-        $request->validate([
-            'password' => 'required|min:8',
-            'password_confirm' => 'required|same:password',
-        ]);
         $data = PasswordAdminReset::where('token', $token)->firstOrFail();
         if (Carbon::parse($data->updated_at)->addMinutes(720)->isPast()) {
             $data->delete();
-            return view('admin.auth.forgot_password', ['msg' => "Quá thời gian!"]);
-
+            return view('admin.auth.forgot_password', ['message' => "Link đặt lại mật khẩu này không hợp lệ!"]);
         }
         $admin = AdminModel::where('email', $data->email)->firstOrFail();
         $admin->update(['password' => Hash::make($request->password)]);
         $data->delete();
         return redirect()->route('admin.auth.login');
+
     }
 }

@@ -28,40 +28,39 @@
                             </div>
                         </div>
                     </div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <div class="card-body">
-                        <form action="{{ route('admin.country.store') }}" method="post">
-                            @csrf
+                    <form action="{{ route('admin.country.store') }}" method="post">
+                        @csrf
+                        <div class="card-body">
                             <h6 class="heading-small text-muted mb-4">Thông tin</h6>
                             <div class="pl-lg-4">
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-3">
+                                    </div>
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="hotel_name">Tên quốc gia</label>
                                             <input type="text" id="country_name" name="country_name"
-                                                   class="form-control"
-                                                   placeholder="Country name">
+                                                   class="form-control" value="{{old('country_name')}}"
+                                                   placeholder="Tên quốc gia">
+                                            @error('country_name')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
-                            <div class="col-sm-12 text-right">
-                                <button type="submit" class="btn btn-success">Save</button>
+
+                            <div class="col-lg-10 text-right">
+                                <button type="submit" class="btn btn-success">Lưu</button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 @section('js')

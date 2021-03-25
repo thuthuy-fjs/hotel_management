@@ -12,7 +12,7 @@
 */
 
 
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth:admin']], function () {
+Route::group(['prefix' => 'laravel-filemanager'], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
@@ -26,10 +26,10 @@ Route::post('login', 'Auth\Frontend\LoginController@store')->name('login.store')
 Route::get('register', 'Auth\Frontend\RegisterController@create')->name('register');
 Route::post('register', 'Auth\Frontend\RegisterController@store')->name('register.store');
 Route::get('logout', 'Auth\Frontend\LoginController@logout')->name('logout');
-Route::get('forgot-password', 'Auth\Frontend\ForgotPasswordController@getEmail')->name('forgot-password.getEmail');
-Route::post('forgot-password/send', 'Auth\Frontend\ForgotPasswordController@sendEmail')->name('forgot-password.sendEmail');
-Route::get('forgot-password/token={token}', 'Auth\Frontend\ForgotPasswordController@getReset')->name('forgot-password');
-Route::post('forgot-password/update/{token}', 'Auth\Frontend\ForgotPasswordController@resetPassword')->name('forgot-password.update');
+Route::get('forgot-password', 'Auth\Frontend\ForgotPasswordController@getEmail')->name('forgot_password.getEmail');
+Route::post('forgot-password/send', 'Auth\Frontend\ForgotPasswordController@sendEmail')->name('forgot_password.sendEmail');
+Route::get('forgot-password/token={token}', 'Auth\Frontend\ForgotPasswordController@getReset')->name('forgot_password');
+Route::post('forgot-password/update/{token}', 'Auth\Frontend\ForgotPasswordController@resetPassword')->name('forgot_password.update');
 
 Route::get('auth/{provider}', 'Auth\Frontend\LoginController@redirectToProvider')->name('provider');
 Route::get('auth/{provider}/callback', 'Auth\Frontend\LoginController@handleProviderCallback')->name('provider.callback');
@@ -37,9 +37,11 @@ Route::get('auth/{provider}/callback', 'Auth\Frontend\LoginController@handleProv
 Route::get('profile', 'Frontend\GuestManagerController@show')->name('profile');
 Route::get('profile/edit', 'Frontend\GuestManagerController@edit')->name('profile.edit');
 Route::post('profile/update', 'Frontend\GuestManagerController@update')->name('profile.update');
-Route::post('change-password/update', 'Frontend\GuestManagerController@updatePassword')->name('change-password.update');
 
-Route::get('provinces', 'Frontend\ProvinceController@index')->name('province');
+Route::get('change-password', 'Frontend\GuestManagerController@editPassword')->name('change_password.edit');
+Route::post('change-password/update', 'Frontend\GuestManagerController@updatePassword')->name('change_password.update');
+
+//Route::get('provinces', 'Frontend\ProvinceController@index')->name('province');
 
 Route::get('search/', 'Frontend\HomePageController@search')->name('search');
 Route::get('search/country/{id}', 'Frontend\SearchController@searchByCountry')->where('id', '[0-9]+')->name('search.country');
@@ -48,11 +50,17 @@ Route::get('search/category/{id}', 'Frontend\SearchController@searchByCategory')
 
 Route::get('hotel', 'Frontend\HotelController@hotel')->name('hotel');
 
-Route::get('booking', 'Frontend\HotelController@booking')->name('booking')->middleware('web');
+Route::get('booking', 'Frontend\HotelController@booking')->name('booking');
 Route::post('booking/store', 'Frontend\BookingController@store')->name('booking.store');
 
-Route::get('comment', 'Frontend\StarRatingController@comment')->name('comment');
+Route::get('booking/list', 'Frontend\BookingManagerController@getBooking')->name('booking.list');
 
+Route::get('comment', 'Frontend\StarRatingController@comment')->name('comment');
+Route::get('star-booking', 'Frontend\StarRatingController@index')->name('booking.star');
+
+Route::get('payment-vnpay', 'PaymentController@create')->name('payment-vnpay');
+Route::get('return-vnpay', 'PaymentController@returnUrl')->name('return-vnpay');
+Route::get('payment', 'PaymentController@payment')->name('payment');
 /**
  * Admin route
  */
@@ -64,20 +72,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('login', 'Auth\Admin\LoginController@login')->name('auth.login');
     Route::post('login', 'Auth\Admin\LoginController@loginAdmin')->name('auth.loginAdmin');
     Route::get('logout', 'Auth\Admin\LoginController@logout')->name('auth.logout');
-    Route::get('forgot-password', 'Auth\Admin\ForgotPasswordController@getEmail')->name('forgot-password.getEmail');
-    Route::post('forgot-password/send', 'Auth\Admin\ForgotPasswordController@sendEmail')->name('forgot-password.sendEmail');
-    Route::get('forgot-password/token={token}', 'Auth\Admin\ForgotPasswordController@getReset')->name('forgot-password');
-    Route::post('forgot-password/update/{token}', 'Auth\Admin\ForgotPasswordController@resetPassword')->name('forgot-password.update');
+    Route::get('forgot-password', 'Auth\Admin\ForgotPasswordController@getEmail')->name('forgot_password.getEmail');
+    Route::post('forgot-password/send', 'Auth\Admin\ForgotPasswordController@sendEmail')->name('forgot_password.sendEmail');
+    Route::get('forgot-password/token={token}', 'Auth\Admin\ForgotPasswordController@getReset')->name('forgot_password');
+    Route::post('forgot-password/update/{token}', 'Auth\Admin\ForgotPasswordController@resetPassword')->name('forgot_password.update');
 
     Route::group(['middleware' => 'auth:admin'], function () {
         Route::get('/', 'AdminController@index')->name('dashboard');
         Route::get('/dashboard', 'AdminController@index')->name('dashboard');
 
         Route::get('profile', 'Admin\AdminManagerController@show')->name('profile');
-        Route::get('profile/edit', 'Admin\AdminManagerController@edit')->name('profile.edit');
         Route::post('profile/update', 'Admin\AdminManagerController@update')->name('profile.update');
-        Route::get('change-password', 'Auth\Admin\ResetPasswordController@index')->name('change-password');
-        Route::post('change-password/update', 'Auth\Admin\ResetPasswordController@update')->name('change-password.update');
+        Route::get('change-password', 'Auth\Admin\ResetPasswordController@index')->name('change_password');
+        Route::post('change-password/update', 'Auth\Admin\ResetPasswordController@update')->name('change_password.update');
 
         Route::get('country', 'Admin\CountryController@index')->name('country');
         Route::get('country/create', 'Admin\CountryController@create')->name('country.create');
@@ -91,6 +98,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('province/search', 'Admin\ProvinceController@getProvinces')->name('province.search');
         Route::get('province/create', 'Admin\ProvinceController@create')->name('province.create');
         Route::get('province/edit/{id}', 'Admin\ProvinceController@edit')->where('id', '[0-9]+')->name('province.edit');
+        Route::get('province/{id}/hotels', 'Admin\HotelController@getHotels')->where('id', '[0-9]+')->name('province.hotel');
 
         Route::post('province', 'Admin\ProvinceController@store')->name('province.store');
         Route::post('province/{id}', 'Admin\ProvinceController@update')->where('id', '[0-9]+')->name('province.update');
@@ -102,7 +110,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('hotel/search', 'Admin\HotelController@search')->name('hotel.search');
         Route::get('hotel/create', 'Admin\HotelController@create')->name('hotel.create');
         Route::get('hotel/edit/{id}', 'Admin\HotelController@edit')->where('id', '[0-9]+')->name('hotel.edit');
-        Route::get('hotel/export', 'Admin\HotelController@export')->name('hotel.export');;
+        Route::get('hotel/export/{id}', 'Admin\HotelController@export')->name('hotel.export');
+        Route::get('hotel/{id}/rooms', 'Admin\RoomController@getRooms')->where('id', '[0-9]+')->name('hotel.room');
 
         Route::post('hotel', 'Admin\HotelController@store')->name('hotel.store');
         Route::post('hotel/{id}', 'Admin\HotelController@update')->where('id', '[0-9]+')->name('hotel.update');
@@ -112,12 +121,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('room/type', 'Admin\RoomTypeController@index')->name('room.type');
 
         Route::get('room/list', 'Admin\RoomController@index')->name('room.list');
+
         Route::get('room/show/{id}', 'Admin\RoomController@show')->where('id', '[0-9]+')->name('room.show');
         Route::get('room/list_rooms', 'Admin\RoomController@getRoomInHotel')->name('room.list_rooms');
         Route::get('room/search', 'Admin\RoomController@search')->name('room.search');
         Route::get('room/create', 'Admin\RoomController@create')->name('room.create');
         Route::get('room/edit/{id}', 'Admin\RoomController@edit')->where('id', '[0-9]+')->name('room.edit');
-        Route::get('room/export', 'Admin\RoomController@export')->name('room.export');
+        Route::get('room/export/{id}', 'Admin\RoomController@export')->name('room.export');
 
         Route::post('room', 'Admin\RoomController@store')->name('room.store');
         Route::post('room/{id}', 'Admin\RoomController@update')->where('id', '[0-9]+')->name('room.update');
@@ -126,7 +136,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
         Route::get('room/facility/create', 'Admin\RoomFacilityController@create')->name('room.facility.create');
         Route::post('room/facility', 'Admin\RoomFacilityController@store')->name('room.facility.store');
-        Route::post('room/facility/update', 'Admin\RoomFacilityController@update')->name('room.facility.update');
+        Route::post('room/facility/update/{id}', 'Admin\RoomFacilityController@update')->where('id', '[0-9]+')->name('room.facility.update');
 
         Route::get('room/detail', 'Admin\RoomDetailController@index')->name('room.detail');
         Route::get('room/list_hotels', 'Admin\RoomDetailController@getHotels')->name('room.list_hotels');
@@ -135,6 +145,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('guest', 'Admin\GuestController@index')->name('guest');
         Route::get('guest/create', 'Admin\GuestController@create')->name('guest.create');
         Route::get('guest/edit/{id}', 'Admin\GuestController@edit')->where('id', '[0-9]+')->name('guest.edit');
+        Route::get('guest/star-rating/{id}', 'Admin\GuestController@getStarRating')->where('id', '[0-9]+')->name('guest.star_rating');
         Route::get('guest/export', 'Admin\GuestController@export')->name('guest.export');;
 
         Route::post('guest', 'Admin\GuestController@store')->name('guest.store');
@@ -143,5 +154,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::post('guest/import', 'Admin\GuestController@import')->name('guest.import');
 
         Route::get('booking', 'Admin\BookingManagerController@index')->name('booking');
+
+        Route::get('star-rating', 'Admin\StarRatingController@index')->name('star_rating');
+        Route::post('star-rating/delete/{id}', 'Admin\StarRatingController@destroy')->where('id', '[0-9]+')->name('star_rating.destroy');
+
     });
 });

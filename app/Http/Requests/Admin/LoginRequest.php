@@ -29,12 +29,22 @@ class LoginRequest extends FormRequest
         ];
     }
 
+
+    public function attributes()
+    {
+        return [
+            'email' => 'Email',
+            'password' => 'Mật khẩu',
+        ];
+    }
+
     public function messages()
     {
         return [
-            'required' => ':attribute is required!',
-            'min' => ':attribute must be at least 8 character',
-            'email' => ':attribute must be email'
+            'required' => ':attribute là bắt buộc',
+            'min' => ':attribute tối thiểu 8 kí tự',
+            'email'=> ':attribute không đúng định dạng',
         ];
     }
+
 }

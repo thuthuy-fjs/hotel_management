@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active"><a href="{{route('home')}}" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="" class="nav-link">About</a></li>
+                {{--<li class="nav-item"><a href="" class="nav-link">About</a></li>--}}
                 <li class="nav-item"><a href="{{route('search.country', '1')}}" class="nav-link">Tỉnh/Thành phố</a></li>
                 <li class="nav-item">
                     @guest
@@ -21,7 +21,7 @@
                                 {{Auth::user()->user_name}}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{route('profile')}}">Tài khoản của bạn</a>
+                                <a class="dropdown-item" href="{{route('profile')}}">Tài khoản của tôi</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}">Đăng xuất</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                       style="display: none;">

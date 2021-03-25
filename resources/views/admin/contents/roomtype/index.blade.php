@@ -27,7 +27,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Loại phòng nghỉ</th>
-                                <th scope="col">Mô tả</th>
+                                <th scope="col">Số người</th>
                                 {{--<th scope="col"></th>--}}
                             </tr>
                             </thead>
@@ -42,7 +42,7 @@
                                     </td>
 
                                     <td>
-                                        {{$type->description}}
+                                        {{$type->person_number}} người
                                     </td>
 
                                     {{--<td class="text-right">--}}
@@ -91,7 +91,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{--{{ $rooms->links() }}--}}
+                        {{ $types->links() }}
                     </div>
                 </div>
             </div>

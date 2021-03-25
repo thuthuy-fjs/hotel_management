@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LoginRequest;
-use App\Models\Frontend\GuestModel;
 use App\Repositories\Frontend\GuestRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +12,7 @@ use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
-    protected $redirectTo = '/';
+//    protected $redirectTo = '/';
     protected $guestRepo;
 
     /**
@@ -40,14 +39,11 @@ class LoginController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $validated = $request->validated();
         if (Auth::guard('web')->attempt(
             ['email' => $request->email, 'password' => $request->password], $request->remember
         )) {
-            return redirect()->route('home');
-
+            return redirect()->back();
         }
-
         return redirect()->back()->withInput($request->only('email', 'remember'));
     }
 
@@ -69,7 +65,7 @@ class LoginController extends Controller
         $user = Socialite::driver($provider)->user();
         $guest = $this->findOrCreateUser($user, $provider);
         Auth::login($guest, true);
-        return redirect()->route('home');
+        return redirect()->back();
 
     }
 
@@ -80,7 +76,7 @@ class LoginController extends Controller
      */
     public function findOrCreateUser($user, $provider)
     {
-        $guest = GuestModel::where('email', $user->email)->first();
+        $guest = $this->guestRepo->where('email', $user->email);
         if ($guest) {
             return $guest;
         }

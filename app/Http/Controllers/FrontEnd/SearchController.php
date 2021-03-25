@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\HotelModel;
-use App\Models\Admin\RoomModel;
 use App\Repositories\Admin\CategoryRepository;
 use App\Repositories\Admin\CountryRepository;
 use App\Repositories\Admin\HotelRepository;
@@ -45,7 +43,9 @@ class SearchController extends Controller
     public function searchByCountry($id)
     {
         $country = $this->countryRepo->find($id);
-        return view('frontend.contents.search.searchbycountry', ['country' => $country]);
+        $provinces = $this->provinceRepo->findBy('country_id', $id, 9);
+        return view('frontend.contents.search.searchbycountry',
+            ['provinces' => $provinces], ['country' => $country]);
     }
 
     /**
@@ -56,6 +56,7 @@ class SearchController extends Controller
     public function searchByProvince(Request $request, $id)
     {
         $province_name = $this->provinceRepo->find($id);
+        $hotels = $this->hotelRepo->findBy('province_id', $id, 10);
         $provinces = $this->provinceRepo->getAll();
         $check_in_date = $request->input('check_in_date');
         $check_out_date = $request->input('check_out_date');
@@ -63,7 +64,7 @@ class SearchController extends Controller
 
         return view('frontend.contents.search.searchbyprovince')
             ->with('province_name', $province_name)->with('provinces', $provinces)
-            ->with('check_in_date', $check_in_date)
+            ->with('check_in_date', $check_in_date)->with('hotels', $hotels)
             ->with('check_out_date', $check_out_date)->with('person_number', $person_number);
     }
 
@@ -75,6 +76,7 @@ class SearchController extends Controller
     public function searchByCategory(Request $request, $id)
     {
         $category = $this->categoryRepo->find($id);
+        $hotels = $this->hotelRepo->findBy('category_id', $id, 10);
         $provinces = $this->provinceRepo->getAll();
         $province = $request->input('province');
         $province_name = $this->provinceRepo->find($province);
@@ -84,7 +86,7 @@ class SearchController extends Controller
         return view('frontend.contents.search.searchbycategory')
             ->with('category', $category)->with('provinces', $provinces)
             ->with('province_name', $province_name)->with('provinces', $provinces)
-            ->with('check_in_date', $check_in_date)
+            ->with('check_in_date', $check_in_date)->with('hotels', $hotels)
             ->with('check_out_date', $check_out_date)->with('person_number', $person_number);
     }
 
@@ -94,16 +96,17 @@ class SearchController extends Controller
      */
     public function search(Request $request)
     {
-        $hotels = null;
+        $hotels = [];
         $province = $request->input('province');
         $check_in_date = Carbon::parse($request->input('check_in_date'))->toDateString();
         $check_out_date = Carbon::parse($request->input('check_out_date'))->toDateString();
         $person_number = $request->input('person_number');
-        if ($request->filled(['province', 'check_in_date', 'check_out_date', 'person_number'])) {
+        if ($request->filled(['province', 'person_number'])) {
             $times = [$check_in_date, $check_out_date,];
-            $hotels = $this->hotelRepo->getHotel($province, $times, $person_number, true);
+            $hotels = $this->hotelRepo->getHotel($province, $person_number, 10);
         }
         $provinces = $this->provinceRepo->getAll();
+        dd($provinces);
         return view('frontend.contents.search.index')
             ->with('provinces', $provinces)->with('hotels', $hotels)
             ->with('province_name', $province)->with('check_in_date', $request->input('check_in_date'))

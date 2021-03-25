@@ -28,15 +28,6 @@
                             </div>
                         </div>
                     </div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <div class="card-body">
                         <form action="{{ route('admin.country.update', $country->id) }}" method="post">
                             @csrf
@@ -52,7 +43,9 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                @error('country_name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-sm-12 text-right">
                                 <button type="submit" class="btn btn-success">Save</button>

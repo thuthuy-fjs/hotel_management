@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'pacific.hotelmanager@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Pacific'),
     ],
 
     /*
@@ -97,6 +97,7 @@ return [
     | the path to where Sendmail lives on this server. A default path has
     | been provided here, which will work well on most of your systems.
     |
+    |
     */
 
     'sendmail' => '/usr/sbin/sendmail -bs',
@@ -132,5 +133,12 @@ return [
     */
 
     'log_channel' => env('MAIL_LOG_CHANNEL'),
+    'stream' => [
+        'ssl' => [
+            'allow_self_signed' => true,
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+        ],
+    ],
 
 ];

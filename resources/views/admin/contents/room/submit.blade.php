@@ -27,15 +27,6 @@
                             </div>
                         </div>
                     </div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <div class="card-body">
                         <form action="{{ route('admin.room.store') }}" method="post">
                             @csrf
@@ -44,7 +35,7 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="hotel_id">Khách sạn</label><br>
+                                            <label class="form-control-label" for="hotel_id">Khách sạn*</label><br>
                                             <select id="hotel_id" name="hotel_id"
                                                     class="form-control btn-sm btn-neutral">
                                                 <option value="" selected disabled>Khách sạn</option>
@@ -54,10 +45,13 @@
 
                                             </select>
                                         </div>
+                                        @error('hotel_id')
+                                        <span class="small text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="room_type_id">Loại phòng nghỉ</label><br>
+                                            <label class="form-control-label" for="room_type_id">Loại phòng nghỉ*</label><br>
                                             <select id="room_type_id" name="room_type_id"
                                                     class="form-control btn-sm btn-neutral">
                                                 <option value="" selected disabled>Loại phòng nghỉ</option>
@@ -65,22 +59,32 @@
                                                     <option value="{{$type->id}}">{{$type->room_type}}</option>
                                                 @endforeach
                                             </select>
+                                            @error('room_type_id')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="room_name">Số phòng</label>
+                                            <label class="form-control-label" for="room_name">Số phòng*</label>
                                             <input type="text" id="room_name" name="room_name" class="form-control"
-                                                   placeholder="Room name">
+                                                   placeholder="Nhập số phòng" value="{{old('room_name')}}">
+                                            @error('room_name')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
+
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="room_price">Giá tiền</label>
+                                            <label class="form-control-label" for="room_price">Giá phòng*</label>
                                             <input type="text" id="room_price" name="room_price" class="form-control"
-                                                   placeholder="Room price">
+                                                   placeholder="Nhập giá phòng" value="{{old('room_price')}}">
+                                            @error('room_price')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -91,12 +95,12 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label class="form-control-label" for="room_image">Ảnh</label>
+                                                <label class="form-control-label" for="room_image">Ảnh*</label>
                                                 <div style="margin: 10px 0px">
                                                 <span class="input-group-btn">
                                                  <a id="lfm1" data-input="thumbnail1" data-preview="holder1"
                                                     class="btn btn-neutral lfm-btn">
-                                                   <i class="fa fa-picture-o"></i> Choose
+                                                   <i class="fa fa-picture-o"></i> Chọn
                                                  </a>
                                                     <a class="remove-image btn btn-warning">
                                                    <i class="fa fa-remove"></i> Xóa
@@ -105,6 +109,9 @@
                                                 </div>
                                                 <input id="thumbnail1" class="form-control" type="text"
                                                        name="room_images[]">
+                                                @error('room_images')
+                                                <span class="small text-danger">{{ $message }}</span>
+                                                @enderror
                                                 <img id="holder1"
                                                      style="margin-top:15px;max-height:150px;max-width:150px">
                                             </div>
@@ -123,7 +130,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 text-right">
-                                        <button type="submit" class="btn btn-success">Save</button>
+                                        <button type="submit" class="btn btn-success">Tiếp theo</button>
                                     </div>
                                 </div>
                             </div>
@@ -159,7 +166,7 @@
                             '                    <div style="margin: 10px 0px">\n' +
                             '                        <span class="input-group-btn">\n' +
                             '                         <a id="lfm' + next + '" data-input="thumbnail' + next + '" data-preview="holder' + next + '" class="lfm-btn btn btn-neutral">\n' +
-                            '                           <i class="fa fa-picture-o"></i> Choose\n' +
+                            '                           <i class="fa fa-picture-o"></i> Chọn\n' +
                             '                         </a>\n' +
                             '                            <a class="remove-image btn btn-warning ">\n' +
                             '                           <i class="fa fa-remove"></i> Xóa\n' +

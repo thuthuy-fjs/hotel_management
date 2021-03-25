@@ -17,11 +17,6 @@ class RoomFacilityModel extends Model
         return $this->belongsTo(RoomModel::class, 'room_id');
     }
 
-    public function facility()
-    {
-        return $this->belongsTo(RoomFacilityModel::class, 'room_facility_id');
-    }
-
     public function room_facility()
     {
         return $this->belongsTo(FacilityModel::class, 'room_facility_id');

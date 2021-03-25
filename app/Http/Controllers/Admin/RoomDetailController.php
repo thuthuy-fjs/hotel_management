@@ -68,23 +68,6 @@ class RoomDetailController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getRoomInHotel(Request $request)
-    {
-        $countries = $this->countryRepo->getAll();
-        $hotels = $this->hotelRepo->getAll();
-        $hotel = $this->hotelRepo->find($request->hotel);
-        $rooms = $hotel->rooms;
-        return view('admin.contents.room.index',
-            ['hotels' => $hotels],
-            ['rooms' => $rooms])
-            ->with('countries', $countries);
-
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function getRooms(Request $request)
     {
         $countries = $this->countryRepo->getAll();

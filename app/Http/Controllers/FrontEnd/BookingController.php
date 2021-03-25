@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\BookingRequest;
 use App\Models\Frontend\BookingModel;
 use App\Repositories\Frontend\BookingRepository;
 use Carbon\Carbon;
@@ -24,24 +25,40 @@ class BookingController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param BookingRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(BookingRequest $request)
     {
         $input = $request->all();
         $dataInsert = Arr::only($input, [
             'guest_id',
             'room_id',
+            'name',
+            'email',
             'total_price',
             'booking_note',
+            'payment_id'
         ]);
-        $dataInsert['booking_date'] = Carbon::now()->format('Y-m-d H:i:s');
+        $dataInsert['booking_date'] = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d H:i:s');
         $dataInsert['check_in_date'] = Carbon::parse($input['check_in_date'])->format('Y-m-d H:i:s');
         $dataInsert['check_out_date'] = Carbon::parse($input['check_out_date'])->format('Y-m-d H:i:s');
-        $dataInsert['is_payment'] = isset($input['is_payment']) ? $input['is_payment'] : 0;
-
+        $dataInsert['is_payment'] = $input['payment_id'];
         $this->bookingRepo->create($dataInsert);
-        return redirect()->route('home');
+        if(Auth::check()){
+            if ($input['payment_id'] == 1) {
+                return redirect()->route('booking.list');
+            } elseif ($input['payment_id'] == 2) {
+                return redirect()->route('payment-vnpay', ['total_price' => $input['total_price']]);
+            }
+        } else {
+            if ($input['payment_id'] == 1) {
+                return redirect()->route('payment')->with('success', "Đặt phòng thành công!");
+            } elseif ($input['payment_id'] == 2) {
+                return redirect()->route('payment-vnpay', ['total_price' => $input['total_price']]);
+            }
+
+        }
+
     }
 }

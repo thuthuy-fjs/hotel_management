@@ -26,14 +26,18 @@ class ProvinceController extends Controller
     public function index()
     {
         $countries = $this->countryRepo->getAll();
-        $provinces = $this->provinceRepo->getAll();
+        $provinces = $this->provinceRepo->paginate(5);
         return view('admin.contents.province.index', ['countries' => $countries], ['provinces' => $provinces]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getProvinces(Request $request)
     {
         $countries = $this->countryRepo->getAll();
-        $provinces = $this->countryRepo->find($request->country)->provinces;
+        $provinces = $this->provinceRepo->findBy('country_id', $request->country, 5);
         return view('admin.contents.province.index', ['countries' => $countries], ['provinces' => $provinces]);
     }
 

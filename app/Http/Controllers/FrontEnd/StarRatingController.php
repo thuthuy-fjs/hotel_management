@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Frontend\StarRatingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class StarRatingController extends Controller
 {
@@ -18,6 +19,14 @@ class StarRatingController extends Controller
     public function __construct(StarRatingRepository $starRepo)
     {
         $this->starRepo = $starRepo;
+    }
+
+    public function index()
+    {
+        $guest = Auth::user();
+        $star_ratings = $this->starRepo->findBy('guest_id', Auth::id(), 10);
+        return view('frontend.contents.stars.index')
+            ->with('star_ratings', $star_ratings)->with('guest', $guest);
     }
 
     /**

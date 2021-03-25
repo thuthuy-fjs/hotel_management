@@ -44,6 +44,6 @@ class AdminManagerController extends Controller
     {
         $input = $request->all();
         $this->adminRepo->update(Auth::id(), $input);
-        return redirect()->route('admin.profile');
+        return redirect()->back();
     }
 }

@@ -21,7 +21,7 @@ class BookingManagerController extends Controller
      */
     public function index()
     {
-        $bookings = $this->bookingRepo->getAll();
+        $bookings = $this->bookingRepo->paginate(10);
         return view('admin.contents.booking.index')->with('bookings', $bookings);
     }
 }

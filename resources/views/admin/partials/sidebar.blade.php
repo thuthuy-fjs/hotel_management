@@ -39,17 +39,23 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-pills nav-fill flex-column flex-md-row" href="#collapse1"
-                           data-toggle="collapse" data-target="#collapse1" aria-expanded="true"
-                           aria-controls="collapse">
+                        <a class="nav-link" href="{{route('admin.hotel')}}">
                             <i class="ni ni-building text-yellow"></i>
-                            <span class="nav-link-text">Loại chỗ nghỉ</span>
+                            <span class="nav-link-text">Chỗ nghỉ</span>
                         </a>
-                        <div id="collapse1" class="collapse">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{route('admin.hotel')}}">Khách sạn</a>
-                                </li>
+                    </li>
+                    {{--<li class="nav-item">--}}
+                        {{--<a class="nav-link nav-pills nav-fill flex-column flex-md-row" href="#collapse1"--}}
+                           {{--data-toggle="collapse" data-target="#collapse1" aria-expanded="true"--}}
+                           {{--aria-controls="collapse">--}}
+                            {{--<i class="ni ni-building text-yellow"></i>--}}
+                            {{--<span class="nav-link-text">Loại chỗ nghỉ</span>--}}
+                        {{--</a>--}}
+                        {{--<div id="collapse1" class="collapse">--}}
+                            {{--<ul class="nav flex-column">--}}
+                                {{--<li class="nav-item">--}}
+                                    {{--<a class="nav-link" href="{{route('admin.hotel')}}">Khách sạn</a>--}}
+                                {{--</li>--}}
                                 {{--<li class="nav-item">--}}
                                     {{--<a class="nav-link" href="#">Căn hộ</a>--}}
                                 {{--</li>--}}
@@ -62,14 +68,14 @@
                                 {{--<li class="nav-item">--}}
                                     {{--<a class="nav-link" href="#">Nhà nghỉ</a>--}}
                                 {{--</li>--}}
-                            </ul>
-                        </div>
-                    </li>
+                            {{--</ul>--}}
+                        {{--</div>--}}
+                    {{--</li>--}}
                     <li class="nav-item">
                         <a class="nav-link nav-pills nav-fill flex-column flex-md-row" href="#collapse1"
                            data-toggle="collapse" data-target="#collapse2" aria-expanded="true"
                            aria-controls="collapse">
-                            <i class="ni ni-shop text-default"></i>
+                            <i class="ni ni-shop text-green"></i>
                             <span class="nav-link-text">Phòng</span>
                         </a>
                         <div id="collapse2" class="collapse">
@@ -97,17 +103,22 @@
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('admin.guest')}}">
-                            <i class="ni ni-single-02"></i>
+                            <i class="ni ni-single-02 text-dark"></i>
                             <span class="nav-link-text">Danh sách</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('admin.booking')}}">
-                            <i class="ni ni-collection"></i>
+                            <i class="ni ni-collection text-danger"></i>
                             <span class="nav-link-text">Phòng đã đặt</span>
                         </a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('admin.star_rating')}}">
+                            <i class="ni ni-chat-round text-blue"></i>
+                            <span class="nav-link-text">Đánh giá</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
 

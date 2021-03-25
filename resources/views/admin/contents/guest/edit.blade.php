@@ -29,15 +29,6 @@
                             </div>
                         </div>
                     </div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <div class="card-body">
                         <form action="{{ route('admin.guest.update', $guest->id) }}" method="post">
                             @csrf
@@ -46,19 +37,25 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-username">Tên đăng nhập*</label>
-                                            <input type="text" id="user_name" name="user_name" class="form-control"
-                                                   placeholder="Tên đăng nhập" value="{{$guest->user_name}}">
-                                            <input type="password" id="password" name="password" class="form-control"
-                                                   placeholder="Tên đăng nhập" value="{{$guest->password}}" hidden>
-
+                                            <label class="form-control-label" for="input-email">Email*</label>
+                                            <input id="email" name="email" class="form-control" placeholder="Nhập email"
+                                                   type="email" value="{{$guest->email}}">
+                                            @error('email')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="input-email">Email*</label>
-                                            <input id="email" name="email" class="form-control" placeholder="Email" type="email" value="{{$guest->email}}">
-
+                                            <label class="form-control-label" for="input-username">Tên đăng
+                                                nhập*</label>
+                                            <input type="text" id="user_name" name="user_name" class="form-control"
+                                                   placeholder="Nhâp tên đăng nhập" value="{{$guest->user_name}}">
+                                            <input type="password" id="password" name="password" class="form-control"
+                                                   placeholder="Tên đăng nhập" value="{{$guest->password}}" hidden>
+                                            @error('user_name')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -67,14 +64,20 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-first-name">Họ đệm</label>
                                             <input type="text" id="first_name" name="first_name" class="form-control"
-                                                   placeholder="First name" value="{{$guest->first_name}}">
+                                                   placeholder="Nhập họ đệm" value="{{$guest->first_name}}">
+                                            @error('first_name')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-last-name">Tên</label>
                                             <input type="text" id="last_name" name="last_name" class="form-control"
-                                                   placeholder="Last name" value="{{$guest->last_name}}">
+                                                   placeholder="Nhập tên" value="{{$guest->last_name}}">
+                                            @error('last_name')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -86,11 +89,14 @@
                                                 <span class="input-group-btn">
                                                  <a id="lfm" data-input="thumbnail" data-preview="holder"
                                                     class="btn btn-neutral lfm-btn">
-                                                   <i class="fa fa-picture-o"></i> Choose
+                                                   <i class="fa fa-picture-o"></i> Chọn
                                                  </a>
                                                </span>
                                             </div>
                                             <input id="thumbnail" class="form-control" type="text" name="image">
+                                            @error('image')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                             <img id="holder" style="margin-top:15px;max-height:150px;max-width:150px">
                                         </div>
                                     </div>
@@ -104,8 +110,12 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-address">Địa chỉ</label>
-                                            <input id="address" name="address" class="form-control" placeholder="Address"
+                                            <input id="address" name="address" class="form-control"
+                                                   placeholder="Nhập địa chỉ"
                                                    value="{{$guest->address}}" type="text">
+                                            @error('address')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -113,14 +123,18 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-city">Điện thoại</label>
-                                            <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" pattern="09|03|07|08|05)+([0-9]{8}"
+                                            <input type="text" id="phone" name="phone" class="form-control"
+                                                   placeholder="Nhập số điện thoại" pattern="09|03|07|08|05)+([0-9]{8}"
                                                    value="{{$guest->phone}}">
+                                            @error('phone')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-offset-2">
-                                <button type="submit" class="btn btn-success">Save</button>
+                            <div class="col-sm-12 text-right">
+                                <button type="submit" class="btn btn-success">Lưu</button>
                             </div>
                         </form>
                     </div>

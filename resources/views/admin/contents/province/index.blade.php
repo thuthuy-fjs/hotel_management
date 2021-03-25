@@ -98,7 +98,7 @@
                                         {{$province->id}}
                                     </td>
                                     <td>
-                                        {{$province->province_name}}
+                                        <a href="{{route('admin.province.hotel', $province->id)}}">{{$province->province_name}}</a>
                                     </td>
                                     <td>
                                         <img alt="Image placeholder" src="{{$province->province_image}}"
@@ -151,7 +151,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{--{{ $provinces->links() }}--}}
+                        {{ $provinces->links() }}
                     </div>
                 </div>
             </div>

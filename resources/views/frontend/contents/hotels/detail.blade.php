@@ -23,15 +23,18 @@
                                             @endif
                                         @endforeach
                                     </select>
+                                    @error('province')
+                                    <span class="small text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <input type="text" id="check_in_date" name="check_in_date"
-                                           class="form-control"
+                                           class="form-control" autocomplete="off"
                                            placeholder="Nhận phòng" value="{{$check_in_date}}">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" id="check_out_date" name="check_out_date"
-                                           class="form-control"
+                                           class="form-control" autocomplete="off"
                                            placeholder="Trả phòng" value="{{$check_out_date}}">
                                 </div>
                                 <div class="form-group">
@@ -69,11 +72,6 @@
                                                         class="ni ni-cloud-upload-96 mr-2"></i>Thông tin</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link mb-sm-3 mb-md-0" id="facility-tab" href="#facility"
-                                               role="tab" aria-controls="facility" aria-selected="false"><i
-                                                        class="ni ni-bell-55 mr-2"></i>Tiện nghi</a>
-                                        </li>
-                                        <li class="nav-item">
                                             <a class="nav-link mb-sm-3 mb-md-0" id="rule-tab" href="#rule"
                                                role="tab" aria-controls="rule" aria-selected="false"><i
                                                         class="ni ni-calendar-grid-58 mr-2"></i>Quy tắc chung</a>
@@ -89,40 +87,14 @@
                             <div class="row">
                                 <div class="col-md-12 ftco-animate justify-content-center">
                                     <h2 class="mb-4">Khách sạn {{$hotel->hotel_name}}</h2>
-                                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                        <ol class="carousel-indicators">
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="0"
-                                                class="active"></li>
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                                        </ol>
-                                        <div class="carousel-inner">
-                                            <div class="carousel-item active">
-                                                <img class="d-block w-100" src="{{ asset($hotel->hotel_image) }}"
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <img src="{{ $hotel->hotel_image }}"
                                                      alt="First slide"
-                                                     style="height: 300px; width: 60%">
-                                            </div>
-                                            <div class="carousel-item">
-                                                <img class="d-block w-100" src="{{ asset($hotel->hotel_image) }}"
-                                                     alt="First slide"
-                                                     style="height: 300px; width: 60%">
-                                            </div>
-                                            <div class="carousel-item">
-                                                <img class="d-block w-100" src="{{ asset($hotel->hotel_image) }}"
-                                                     alt="First slide"
-                                                     style="height: 300px; width: 60%">
+                                                     style="height: 350px; width: 100%">
                                             </div>
                                         </div>
-                                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                                           data-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                                           data-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
                                     </div>
                                 </div>
                                 <div class="col-md-12 room-single mt-4 mb-5 ftco-animate" id="info">
@@ -146,6 +118,7 @@
                                         <tr class="bg-info">
                                             <th scope="col">Loại chỗ nghỉ</th>
                                             <th scope="col">Phù hợp cho</th>
+                                            <th scope="col">Tiện nghi</th>
                                             <th scope="col">Giá</th>
                                             <th scope="col"></th>
                                         </tr>
@@ -155,6 +128,22 @@
                                             <tr>
                                                 <td>{{$room->type->room_type}}</td>
                                                 <td>{{$room->type->person_number}} người</td>
+                                                <td>
+                                                    <?php
+                                                    $room_facility = \App\Models\Admin\RoomFacilityModel::where('room_id',
+                                                        $room->id)->first();
+                                                    $room_facilities = $room_facility->room_facility_id ?
+                                                        json_decode($room_facility->room_facility_id) : array();
+                                                    ?>
+                                                    @foreach($facilities as $facility)
+                                                        @foreach($room_facilities as $room_facility)
+                                                            @if($facility->id == $room_facility)
+                                                                <i class="bi bi-check2"></i>{{$facility->facility}}</br>
+                                                            @endif
+                                                        @endforeach
+                                                    @endforeach
+
+                                                </td>
                                                 <td>{{$room->room_price}} <span class="per">vnd</span></td>
                                                 <td>
                                                     <a href="#" class="btn btn-success" id="dynamic{{$room->id}}"
@@ -172,28 +161,6 @@
                                     {{--'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date,--}}
                                     {{--'person_number='.$person_number])}}"--}}
                                     {{--class="btn btn-danger">Đặt</a></div>--}}
-                                </div>
-                                <div class="col-md-12 room-single ftco-animate mb-5 mt-4" id="facility">
-                                    <h3 class="mb-4">Tiện nghi</h3>
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <ul class="list-unstyled list-group-flush clearfix"
-                                                    style="display: list-item;text-align: -webkit-match-parent;">
-                                                    @foreach($rooms as $room)
-                                                        @foreach($room->facilities as $facility)
-                                                            @if($facility)
-                                                                <p class="list-group-item h-25 w-25 p-3"
-                                                                   style="padding: 0 5px 0 0;margin: 10px 10px;list-style: none; float: left">
-                                                                    <i class="bi bi-check2"></i>{{$facility->room_facility->facility}}
-                                                                </p>
-                                                            @endif
-                                                        @endforeach
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div class="col-md-12 room-single ftco-animate mb-5 mt-4" id="rule">
@@ -249,33 +216,40 @@
                                 <div class="col-md-12 properties-single ftco-animate mb-5 mt-4" id="evaluate">
                                     <h4 class="mb-4">Đánh giá</h4>
                                     @foreach($star_ratings as $star_rating)
-                                        <div class="card">
-                                            <div class="row d-flex">
-                                                <div class="">
-                                                    <img class="profile-pic" src="{{asset('images/user.png')}}">
-                                                </div>
-                                                <div class="d-flex flex-column">
-                                                    <h3 class="mt-2 mb-0">{{$star_rating->guest->user_name}}</h3>
-                                                    <div>
-                                                        <p class="text-left">
-                                                            @for($i = 1; $i < 6; $i++)
-                                                                @if($i <= $star_rating->level)
-                                                                    <span class="fa fa-star star-active"></span>
-                                                                @else
-                                                                    <span class="fa fa-star star-inactive"></span>
-                                                                @endif
-                                                            @endfor
-                                                        </p>
+                                        @foreach($hotel->rooms as $room)
+                                            @foreach($room->bookings as $booking)
+                                                @if($booking->id == $star_rating->booking_id)
+                                                    <div class="card">
+                                                        <div class="row d-flex">
+                                                            <div class="">
+                                                                <img class="profile-pic"
+                                                                     src="{{isset(Auth::user()->image) ? 'uploads/'. Auth::user()->image: asset('images/user.png')}}">
+                                                            </div>
+                                                            <div class="d-flex flex-column">
+                                                                <h3 class="mt-2 mb-0">{{$star_rating->guest->user_name}}</h3>
+                                                                <div>
+                                                                    <p class="text-left">
+                                                                        @for($i = 1; $i < 6; $i++)
+                                                                            @if($i <= $star_rating->level)
+                                                                                <span class="fa fa-star star-active"></span>
+                                                                            @else
+                                                                                <span class="fa fa-star star-inactive"></span>
+                                                                            @endif
+                                                                        @endfor
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ml-auto">
+                                                                <p class="text-muted pt-5 pt-sm-3">{{\Carbon\Carbon::parse($star_rating->create_at)->format('d/m/y')}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row text-left">
+                                                            <p class="content">{{$star_rating->description}}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="ml-auto">
-                                                    <p class="text-muted pt-5 pt-sm-3">{{\Carbon\Carbon::parse($star_rating->create_at)->format('d/m/y')}}</p>
-                                                </div>
-                                            </div>
-                                            <div class="row text-left">
-                                                <p class="content">{{$star_rating->description}}</p>
-                                            </div>
-                                        </div>
+                                                @endif
+                                            @endforeach
+                                        @endforeach
                                     @endforeach
                                     {{$star_ratings->links()}}
                                 </div>
@@ -562,9 +536,6 @@
     </style>
 @endsection
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $("#check_in_date").datepicker({

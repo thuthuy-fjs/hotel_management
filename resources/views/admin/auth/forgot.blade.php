@@ -15,14 +15,15 @@
                             <section class='alert alert-success'>{{session('message')}}</section>
                         @endif 
 
-                        <form action="{{route('admin.forgot-password.sendEmail')}}" method="post">
+                        <form action="{{route('admin.forgot_password.sendEmail')}}" method="post">
                             @csrf
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-merge input-group-alternative">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Email" type="email" name="email" id="email">
+                                    <input class="form-control" placeholder="Email" type="email" name="email"
+                                           id="email">
                                 </div>
                             </div>
                             <div class="text-center">
@@ -33,10 +34,14 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        <a href="{{route('admin.auth.login')}}" class="text-light"><small>Login</small></a>
+                        <a href="{{route('admin.forgot_password.getEmail')}}" class="text-light">
+                            <small>Quên mật khẩu</small>
+                        </a>
                     </div>
                     <div class="col-6 text-right">
-                        <a href="{{ route('admin.register') }}" class="text-light"><small>Create new account</small></a>
+                        <a href="{{ route('admin.register') }}" class="text-light">
+                            <small>Tạo tài khoản mới</small>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -14,3 +14,4 @@
 <script src="{{asset('frontend_assets/js/google-map.js')}}"></script>
 <script src="{{asset('frontend_assets/js/main.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.10.0/js/lightgallery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>

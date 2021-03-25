@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-    Khách sạn
+    Chỗ nghỉ
 @endsection
 @section('content')
     <div class="header bg-primary pb-6">
@@ -47,8 +47,17 @@
                                 Action
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item"  data-toggle="modal" data-target="#modal">Import</a>
-                                <a class="dropdown-item" href="{{route('admin.hotel.export')}}">Export</a>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#modal">Import</a>
+                                @if(isset(request()->province))
+                                    <a class="dropdown-item"
+                                       href="{{route('admin.hotel.export', request()->province)}}">Export</a>
+                                @elseif(isset(request()->search))
+                                    <a class="dropdown-item"
+                                       href="{{route('admin.hotel.export', request()->search)}}">Export</a>
+                                @else
+                                    <a class="dropdown-item"
+                                       href="{{route('admin.hotel.export', 'all')}}">Export</a>
+                                @endif
                             </div>
 
                             <form action="{{route('admin.hotel.import')}}" method="post" enctype="multipart/form-data">
@@ -66,12 +75,16 @@
                                             </div>
                                             <div class="modal-body">
                                                 Chọn file:
-                                                <input type="file" class="custom-file-input" name="select_file" accept=".xlsx, .xls, .csv"/>
+                                                <input type="file" class="custom-file-input" name="select_file"
+                                                       accept=".xlsx, .xls, .csv"/>
+                                                @error('file')
+                                                <span class="small text-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">
-                                                    Close
+                                                    Đóng
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">Upload</button>
                                             </div>
@@ -94,18 +107,57 @@
                     <div class="card-header border-0">
                         <div class="row">
                             <div class="col-lg-7">
-                                <h3 class="mb-0">Khách sạn</h3>
+                                <h3 class="mb-0">Chỗ nghỉ</h3>
                             </div>
                         </div>
                     </div>
-                    <!-- Light table -->
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (isset($errors) && $errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger" role="alert">
+                                {{ $error }}
+                            </div>
+                        @endforeach
+                    @endif
+                    @if (session()->has('failures'))
+
+                        <table class="table table-danger">
+                            <tr>
+                                <th>Row</th>
+                                <th>Attribute</th>
+                                <th>Errors</th>
+                                <th>Value</th>
+                            </tr>
+
+                            @foreach (session()->get('failures') as $validation)
+                                <tr>
+                                    <td>{{ $validation->row() }}</td>
+                                    <td>{{ $validation->attribute() }}</td>
+                                    <td>
+                                        @foreach ($validation->errors() as $e)
+                                            {{ $e }}
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        {{ $validation->values()[$validation->attribute()] }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+
+                    @endif
 
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Tên khách sạn</th>
+                                <th scope="col">Tên chỗ nghỉ</th>
+                                <th scope="col">Loại chỗ nghỉ</th>
                                 <th scope="col">Điện thoại</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Website</th>
@@ -121,14 +173,19 @@
                                     </td>
                                     <th scope="row">
                                         <div class="media align-items-center">
-                                            <a href="#" class="avatar rounded-circle mr-3">
+                                            <a href="{{route('admin.hotel.room', $hotel->id)}}"
+                                               class="avatar rounded-circle mr-3">
                                                 <img alt="Image placeholder" src="{{$hotel->hotel_image}}">
                                             </a>
                                             <div class="media-body">
-                                                <span class="name mb-0 text-sm">{{$hotel->hotel_name}}</span>
+                                                <a href="{{route('admin.hotel.room', $hotel->id)}}"><span
+                                                            class="name mb-0 text-sm">{{$hotel->hotel_name}}</span></a>
                                             </div>
                                         </div>
                                     </th>
+                                    <td>
+                                        {{$hotel->category->category_name}}
+                                    </td>
                                     <td>
                                         {{$hotel->hotel_phone}}
                                     </td>
@@ -142,11 +199,11 @@
                                     </td>
 
                                     {{--<td>--}}
-                                        {{--<label class="custom-toggle">--}}
-                                            {{--<input type="checkbox" value="" checked>--}}
-                                            {{--<span class="custom-toggle-slider rounded-circle" data-label-off="Ẩn" data-label-on="Hiện"></span>--}}
-                                        {{--</label>--}}
-                                        {{--{{$hotel->is_active}}--}}
+                                    {{--<label class="custom-toggle">--}}
+                                    {{--<input type="checkbox" value="" checked>--}}
+                                    {{--<span class="custom-toggle-slider rounded-circle" data-label-off="Ẩn" data-label-on="Hiện"></span>--}}
+                                    {{--</label>--}}
+                                    {{--{{$hotel->is_active}}--}}
                                     {{--</td>--}}
                                     <td class="text-right">
                                         <div class="dropdown">
@@ -179,7 +236,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Bạn có chắc chắn xóa khách sạn {{$hotel->hotel_name}} ?
+                                                    Bạn có chắc chắn xóa chỗ nghỉ {{$hotel->hotel_name}} ?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -195,7 +252,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{--{{ $hotels->links() }}--}}
+                        {{ $hotels->links() }}
                     </div>
                 </div>
             </div>

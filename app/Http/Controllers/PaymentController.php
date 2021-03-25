@@ -3,21 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
     public function create(Request $request)
     {
-        session(['cost_id' => $request->id]);
-        session(['url_prev' => url()->previous()]);
+        session(['cost_id' => Auth::id()]);
+        session(['url' => route('booking.list')]);
         $vnp_TmnCode = "I6FSGNZG";
         $vnp_HashSecret = "OBOMXCJARZELJLOKHYGVBVAHAXXVHAWN";
-        $vnp_Url = "https://sandbox.vnpayment.vn/merchantv2/vpcpay.html";
-        $vnp_Returnurl = "http://localhost:8000/hotel_management/public/return-vnpay";
+        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+        $vnp_Returnurl = "http://localhost:8080/hotel_management/public/return-vnpay";
         $vnp_TxnRef = date("YmdHis");
         $vnp_OrderInfo = "Thanh toán hóa đơn";
         $vnp_OrderType = 'billpayment';
-        $vnp_Amount = $request->input('amount') * 100;
+        // $vnp_Amount = 10000 * 100;
+        $vnp_Amount = $request->total_price * 100;
         $vnp_Locale = 'vn';
         $vnp_IpAddr = request()->ip();
 
@@ -64,12 +66,24 @@ class PaymentController extends Controller
 
     public function returnUrl(Request $request)
     {
-        $url = session('url_prev','/');
-        if($request->vnp_ResponseCode == "00") {
-            $this->apSer->thanhtoanonline(session('cost_id'));
-            return redirect($url)->with('success' ,'Đã thanh toán phí dịch vụ');
+        if (Auth::check()) {
+            $url = session('url', '/');
+            if ($request->vnp_ResponseCode == "00") {
+                return redirect($url);
+            }
+            session()->forget('url');
+            return redirect()->route('booking')->with('errors', 'Lỗi trong quá trình thanh toán phí dịch vụ');
+        } else {
+            if ($request->vnp_ResponseCode == "00") {
+                return redirect()->route('payment')->with('success', "Đặt phòng thành công!");
+            }
+            session()->forget('url');
+            return redirect()->route('booking')->with('errors', 'Lỗi trong quá trình thanh toán phí dịch vụ');
         }
-        session()->forget('url_prev');
-        return redirect($url)->with('errors' ,'Lỗi trong quá trình thanh toán phí dịch vụ');
+    }
+
+    public function payment()
+    {
+        return view('frontend.contents.booking.payment');
     }
 }

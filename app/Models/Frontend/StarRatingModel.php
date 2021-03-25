@@ -14,11 +14,11 @@ class StarRatingModel extends Model
 
     public function guest()
     {
-        return $this->belongsTo('App\Models\Frontend\GuestModel', 'guest_id');
+        return $this->belongsTo(GuestModel::class, 'guest_id');
     }
 
     public function booking()
     {
-        return $this->belongsTo('App\Models\Frontend\BookingModel', 'booking_id');
+        return $this->belongsTo(BookingModel::class, 'booking_id');
     }
 }

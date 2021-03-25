@@ -29,4 +29,23 @@ class ChangePasswordRequest extends FormRequest
             'confirm_password' => 'required|same:new_password',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'current_password' => 'Mật khẩu hiện tại',
+            'new_password' => 'Mật khẩu mới',
+            'confirm_password' => 'Mật khẩu xác nhận',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => ':attribute là bắt buộc',
+            'min' => ':attribute tối thiểu 8 kí tự',
+            'same'=> ':attribute không chính xác'
+        ];
+    }
 }
+

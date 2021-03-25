@@ -36,6 +36,9 @@
                                                                 @endforeach
                                                             </select>
                                                         </div>
+                                                        @error('province')
+                                                        <span class="small text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md d-flex">
@@ -44,7 +47,7 @@
                                                         <div class="form-field">
                                                             <div class="icon"><span class="fa fa-calendar"></span></div>
                                                             <input type="text" class="form-control"
-                                                                   name="check_in_date" id="check_in_date"
+                                                                   name="check_in_date" id="check_in_date" autocomplete="off"
                                                                    placeholder="Check In">
                                                         </div>
                                                     </div>
@@ -54,7 +57,7 @@
                                                         <label for="#">Trả phòng</label>
                                                         <div class="form-field">
                                                             <div class="icon"><span class="fa fa-calendar"></span></div>
-                                                            <input type="text" class="form-control"
+                                                            <input type="text" class="form-control" autocomplete="off"
                                                                    name="check_out_date" id="check_out_date"
                                                                    placeholder="Check Out">
                                                         </div>
@@ -116,7 +119,7 @@
                             <div class="services services-1 color-1 d-block img"
                                  style="background-image: url({{asset('images/services-3.jpg')}});">
                                 <div class="icon d-flex align-items-center justify-content-center"><span
-                                            class="flaticon-paragliding"></span></div>
+                                            class="bi bi-award"></span></div>
                                 <div class="media-body">
                                     <h3 class="heading mb-3">Di tích</h3>
                                     <p>Tính đến năm 2020, Việt Nam có hơn 41.000 di tích, thắng cảnh</p>
@@ -127,7 +130,7 @@
                             <div class="services services-1 color-2 d-block img"
                                  style="background-image: url({{asset('images/services-1.jpg')}});">
                                 <div class="icon d-flex align-items-center justify-content-center"><span
-                                            class="flaticon-route"></span></div>
+                                            class="bi bi-bezier2"></span></div>
                                 <div class="media-body">
                                     <h3 class="heading mb-3">Danh thắng</h3>
                                     <p>Việt Nam đứng thứ 27 trong số 156 quốc gia có biển trên thế giới với 125 bãi tắm
@@ -139,7 +142,7 @@
                             <div class="services services-1 color-3 d-block img"
                                  style="background-image: url({{asset('images/anh1.jpg')}});">
                                 <div class="icon d-flex align-items-center justify-content-center"><span
-                                            class="flaticon-tour-guide"></span></div>
+                                            class="bi bi-person"></span></div>
                                 <div class="media-body">
                                     <h3 class="heading mb-3">Lễ hội Việt Nam</h3>
                                     <p>Theo thống kê vào 2009, hiện cả nước Việt Nam có 7.966 lễ hội</p>
@@ -150,7 +153,7 @@
                             <div class="services services-1 color-4 d-block img"
                                  style="background-image: url({{asset('images/anh2.png')}});">
                                 <div class="icon d-flex align-items-center justify-content-center"><span
-                                            class="flaticon-map"></span></div>
+                                            class="bi bi-book"></span></div>
                                 <div class="media-body">
                                     <h3 class="heading mb-3">Văn hóa</h3>
                                     <p>Ngành du lịch và các địa phương Việt Nam đã nỗ lực xây dựng được một số điểm du
@@ -184,6 +187,7 @@
                                        style="background-image: url({{asset($province->province_image)}});">
                                         <div class="text">
                                             <h3>{{$province->province_name}}</h3>
+                                            <span>{{count($province->hotels)}} chỗ nghỉ</span>
                                         </div>
                                     </a>
                                 </div>
@@ -215,6 +219,18 @@
                                        style="background-image: url({{asset($category->category_image)}});">
                                         <div class="text">
                                             <h3>{{$category->category_name}}</h3>
+                                            @if($category->id == 1)
+                                                <span>{{count($category->hotels)}} khách sạn</span>
+                                            @elseif($category->id == 2)
+                                                <span>{{count($category->hotels)}} căn hộ</span>
+                                            @elseif($category->id == 3)
+                                                <span>{{count($category->hotels)}} resort</span>
+                                            @elseif($category->id == 4)
+                                                <span>{{count($category->hotels)}} biệt thự</span>
+                                            @elseif($category->id == 5)
+                                                <span>{{count($category->hotels)}} nhà nghỉ</span>
+                                            @endif
+
                                         </div>
                                     </a>
                                 </div>
@@ -244,6 +260,7 @@
                                style="padding: 0 5px 0 0;margin: 10px 0 0;list-style: none; float: left">{{$country->country_name}}</a>
                         @endforeach
                     </ul>
+                    {{$countries->links()}}
                 </div>
             </div>
         </div>
@@ -286,9 +303,6 @@
 
 @endsection
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $("#check_in_date").datepicker({

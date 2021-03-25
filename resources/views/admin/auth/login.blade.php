@@ -18,19 +18,29 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Email" type="email" name="email" id="email">
+                                    <input class="form-control" placeholder="Nhập email" type="email"
+                                           name="email" id="email" value="{{old('email')}}">
                                 </div>
+                                @error('email')
+                                <span class="small text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <div class="input-group input-group-merge input-group-alternative">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Password" type="password" name="password" id="password">
+                                    <input class="form-control" placeholder="Nhập mật khẩu" type="password"
+                                           name="password" id="password">
                                 </div>
+                                @error('password')
+                                <span class="small text-danger">{{ $message }}</span>
+                                @enderror
+
                             </div>
                             <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id=" customCheckLogin" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <input class="custom-control-input" id=" customCheckLogin" type="checkbox"
+                                       name="remember" {{ old('remember') ? 'checked' : '' }}>
                                 <label class="custom-control-label" for=" customCheckLogin">
                                     <span class="text-muted">Remember me</span>
                                 </label>
@@ -43,10 +53,14 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        <a href="{{route('admin.forgot-password.getEmail')}}" class="text-light"><small>Forgot password?</small></a>
+                        <a href="{{route('admin.forgot_password.getEmail')}}" class="text-light">
+                            <small>Quên mật khẩu</small>
+                        </a>
                     </div>
                     <div class="col-6 text-right">
-                        <a href="{{ route('admin.register') }}" class="text-light"><small>Create new account</small></a>
+                        <a href="{{ route('admin.register') }}" class="text-light">
+                            <small>Tạo tài khoản mới</small>
+                        </a>
                     </div>
                 </div>
             </div>

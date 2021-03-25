@@ -13,8 +13,9 @@ class RoomFacilityRepository extends BaseRepository
         return RoomFacilityModel::class;
     }
 
-    public function findByRoom($room_id){
-        $data = $this->model->where('room_id', $room_id)->get();
+    public function findByRoom($room_id)
+    {
+        $data = $this->model->where('room_id', $room_id)->first();
         return $data;
     }
 }

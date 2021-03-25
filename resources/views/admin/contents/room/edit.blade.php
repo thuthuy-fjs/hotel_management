@@ -28,15 +28,7 @@
                             </div>
                         </div>
                     </div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+
                     <div class="card-body">
                         <form action="{{ route('admin.room.update', $room->id) }}" method="post">
                             @csrf
@@ -58,24 +50,33 @@
                                                     @endif
                                                 @endforeach
                                             </select>
+                                            @error('room_type_id')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="room_name">Số phòng</label>
+                                            <label class="form-control-label" for="room_name">Số phòng*</label>
                                             <input type="text" id="room_name" name="room_name" class="form-control"
                                                    value="{{$room->room_name}}"
-                                                   placeholder="Room name">
+                                                   placeholder="Nhập tên phòng">
+                                            @error('room_name')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="room_price">Giá tiền</label>
+                                            <label class="form-control-label" for="room_price">Giá phòng*</label>
                                             <input type="text" id="room_price" name="room_price" class="form-control"
                                                    value="{{$room->room_price}}"
-                                                   placeholder="Room price">
+                                                   placeholder="Nhập giá phòng">
+                                            @error('room_price')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -85,20 +86,20 @@
                                 ?>
 
                                 <hr class="my-4"/>
-                                <h6 class="heading-small text-muted mb-4">Ảnh</h6>
+                                <h6 class="heading-small text-muted mb-4">Ảnh*</h6>
                                 <div class="pl-lg-4">
                                     <div class="row">
                                         <div class="col-md-12">
                                             @foreach($images as $image)
                                                 <?php $i++ ?>
                                                 <div class="form-group">
-                                                    <label class="form-control-label" for="room_image">Ảnh</label>
+                                                    <label class="form-control-label" for="room_image">Ảnh*</label>
                                                     <div style="margin: 10px 0px">
                                                 <span class="input-group-btn">
                                                  <a id="lfm{{ $i }}" data-input="thumbnail{{ $i }}"
                                                     data-preview="holder{{ $i }}"
                                                     class="btn btn-neutral lfm-btn">
-                                                   <i class="fa fa-picture-o"></i> Choose
+                                                   <i class="fa fa-picture-o"></i> Chọn
                                                  </a>
                                                     <a class="remove-image btn btn-warning">
                                                    <i class="fa fa-remove"></i> Xóa
@@ -106,12 +107,15 @@
                                                </span>
                                                     </div>
                                                     <input id="thumbnail{{ $i }}" class="form-control" type="text"
-                                                           value="{{$image}}"
-                                                           name="room_images[]">
+                                                           value="{{$image}}" name="room_images[]">
+                                                    @error('room_images')
+                                                    <span class="small text-danger">{{ $message }}</span>
+                                                    @enderror
                                                     <img id="holder{{ $i }}" src="{{ asset($image) }}"
                                                          style="margin-top:15px;max-height:150px;max-width:150px">
                                                 </div>
                                             @endforeach
+
                                         </div>
                                     </div>
 
@@ -128,7 +132,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 text-right">
-                                        <button type="submit" class="btn btn-success">Next</button>
+                                        <button type="submit" class="btn btn-success">Tiếp theo</button>
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +167,7 @@
                             '                    <div style="margin: 10px 0px">\n' +
                             '                        <span class="input-group-btn">\n' +
                             '                         <a id="lfm' + next + '" data-input="thumbnail' + next + '" data-preview="holder' + next + '" class="lfm-btn btn btn-neutral">\n' +
-                            '                           <i class="fa fa-picture-o"></i> Choose\n' +
+                            '                           <i class="fa fa-picture-o"></i> Chọn\n' +
                             '                         </a>\n' +
                             '                            <a class="remove-image btn btn-warning ">\n' +
                             '                           <i class="fa fa-remove"></i> Xóa\n' +

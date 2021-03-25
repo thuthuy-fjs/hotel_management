@@ -60,15 +60,19 @@ abstract class BaseRepository implements RepositoryInterface
         $result = $this->find($id);
         if ($result) {
             $result->delete();
-
             return true;
         }
 
         return false;
     }
 
-    public function where()
+    public function findBy($attribute, $value, $limit)
     {
+        return $this->model->where($attribute, '=', $value)->paginate($limit);
+    }
 
+    public function where($attribute, $value)
+    {
+        return $this->model->where($attribute, '=', $value)->first();
     }
 }

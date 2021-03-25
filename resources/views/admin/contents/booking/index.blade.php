@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-    Danh sách người đăng kí
+    Danh sách phòng đã được đặt
 @endsection
 @section('content')
     <div class="header bg-primary pb-6">
@@ -52,7 +52,7 @@
                                         {{$booking->id}}
                                     </td>
                                     <td>
-                                        {{$booking->guest->user_name}}
+                                        {{$booking->name}}
                                     </td>
                                     <td>
                                         {{$booking->room->hotel->hotel_name}}
@@ -117,7 +117,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{--{{ $hotels->links() }}--}}
+                        {{ $bookings->links() }}
                     </div>
                 </div>
             </div>

@@ -22,7 +22,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        $countries = $this->countryRepo->getAll();
+        $countries = $this->countryRepo->paginate(10);
         return view('admin.contents.country.index', ['countries' => $countries]);
     }
 

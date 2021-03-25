@@ -52,7 +52,16 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" data-toggle="modal" data-target="#modal">Import</a>
-                                <a class="dropdown-item" href="{{route('admin.room.export')}}">Export</a>
+                                @if(isset(request()->hotel))
+                                    <a class="dropdown-item"
+                                       href="{{route('admin.room.export', request()->hotel)}}">Export</a>
+                                @elseif(isset(request()->search))
+                                    <a class="dropdown-item"
+                                       href="{{route('admin.room.export', request()->search)}}">Export</a>
+                                @else
+                                    <a class="dropdown-item"
+                                       href="{{route('admin.room.export', 'all')}}">Export</a>
+                                @endif
                             </div>
 
                             <form action="{{route('admin.room.import')}}" method="post" enctype="multipart/form-data">
@@ -103,7 +112,45 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Light table -->
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (isset($errors) && $errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger" role="alert">
+                                {{ $error }}
+                            </div>
+                        @endforeach
+                    @endif
+                    @if (session()->has('failures'))
+
+                        <table class="table table-danger">
+                            <tr>
+                                <th>Row</th>
+                                <th>Attribute</th>
+                                <th>Errors</th>
+                                <th>Value</th>
+                            </tr>
+
+                            @foreach (session()->get('failures') as $validation)
+                                <tr>
+                                    <td>{{ $validation->row() }}</td>
+                                    <td>{{ $validation->attribute() }}</td>
+                                    <td>
+                                        @foreach ($validation->errors() as $e)
+                                            {{ $e }}
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        {{ $validation->values()[$validation->attribute()] }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+
+                    @endif
 
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
@@ -186,7 +233,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{--{{ $hotels->links() }}--}}
+                        {{ $rooms->links() }}
                     </div>
                 </div>
             </div>

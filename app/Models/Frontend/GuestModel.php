@@ -28,12 +28,13 @@ class GuestModel extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function bookings(){
-        return $this->hasMany('App\Models\Frontend\BookingModel', 'guest_id');
+    public function bookings()
+    {
+        return $this->hasMany(BookingModel::class, 'guest_id');
     }
 
     public function star_rating()
     {
-        return $this->hasMany('App\Models\Frontend\StarRatingModel', 'guest_id');
+        return $this->hasMany(StarRatingModel::class, 'guest_id');
     }
 }

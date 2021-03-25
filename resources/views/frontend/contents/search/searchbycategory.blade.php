@@ -18,14 +18,17 @@
                                             <option value="{{ $province->id }}">{{ $province->province_name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('province')
+                                    <span class="small text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <input type="text" id="check_in_date" name="check_in_date" class="form-control"
-                                           placeholder="Nhận phòng">
+                                           placeholder="Nhận phòng" autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" id="check_out_date" name="check_out_date" class="form-control"
-                                           placeholder="Trả phòng">
+                                           placeholder="Trả phòng" autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                     <div class="select-wrap one-third">
@@ -134,7 +137,7 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="row">
-                        @foreach($category->hotels as $hotel)
+                        @foreach($hotels as $hotel)
                             <div class="col-md-6 ftco-animate">
                                 <div class="project-wrap hotel">
                                     <a href="{{route('hotel', ['id='.$hotel->id,'province='.$province_name, 'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date, 'person_number='.$person_number])}}"
@@ -157,6 +160,7 @@
                             </div>
                         @endforeach
                     </div>
+                    {{$hotels->links()}}
                 </div>
 
             </div>
@@ -166,9 +170,6 @@
 
 @endsection
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $("#check_in_date").datepicker({

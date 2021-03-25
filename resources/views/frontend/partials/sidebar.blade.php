@@ -1,116 +1,38 @@
 <div class="col-sm-3 sidebar">
-    <div class="sidebar-wrap bg-light ftco-animate">
-        <h3 class="heading mb-4">Tìm kiếm</h3>
-        <form action="#">
-            <div class="fields">
-                <div class="form-group">
-                    <input type="text" id="location" class="form-control location" placeholder="Địa điểm">
+    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
+        <ul class="list-group">
+            <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-user fa-fw mr-3 text-info"></span>
+                    <span class="menu-collapsed">Tài khoản của tôi</span>
+                    <span class="submenu-icon ml-auto"></span>
                 </div>
-                <div class="form-group">
-                    <input type="text" id="check_in_date" class="form-control checkin_date" placeholder="Nhận phòng">
+            </a>
+            <!-- Submenu content -->
+            <div id='submenu1' class="collapse sidebar-submenu">
+                <a href="{{route('profile')}}" class="list-group-item list-group-item-action bg-default text-dark">
+                    <span class="menu-collapsed">Hồ sơ</span>
+                </a>
+                <a href="{{route('change_password.edit')}}" class="list-group-item list-group-item-action
+                    bg-default text-dark">
+                    <span class="menu-collapsed">Đổi mật khẩu</span>
+                </a>
+            </div>
+            <hr class="my-1">
+            <a href="{{route('booking.list')}}" class="bg-light list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-list fa-fw mr-3 text-danger"></span>
+                    <span class="menu-collapsed">Đơn đặt phòng</span>
                 </div>
-                <div class="form-group">
-                    <input type="text" id="check_out_date" class="form-control checkout_date" placeholder="Trả phòng">
+            </a>
+            <hr class="my-1">
+            <a href="{{route('booking.star')}}" class="bg-light list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class=" fa fa-star fa-fw mr-3" style="color: #FBC02D;"></span>
+                    <span class="menu-collapsed">Đánh giá</span>
                 </div>
-                <div class="form-group">
-                    <div class="select-wrap one-third">
-                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                        <select name="" id="" class="form-control">
-                            <option value="">1 người</option>
-                            <option value="">2 người</option>
-                            <option value="">3 người</option>
-                            <option value="">4 người</option>
-                            <option value="">5 người</option>
-                            <option value="">6 người</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
-                </div>
-            </div>
-        </form>
-    </div>
-    <hr>
-    <div class="sidebar-wrap bg-light ftco-animate">
-        <h3 class="heading mb-4">Các bộ lọc phổ biến</h3>
-        <form method="post" class="star-rating">
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate"><span>Khách sạn</span></p>
-                </label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate"><span>Căn hộ</span></p>
-                </label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate"><span>Resort</span></p>
-                </label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate"><span>Nhà nghỉ</span></p>
-                </label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate"><span>Biệt thự</span></p>
-                </label>
-            </div>
-        </form>
-    </div>
-    <hr>
-    <div class="sidebar-wrap bg-light ftco-animate">
-        <h3 class="heading mb-4">Xếp hạng sao</h3>
-        <form method="post" class="star-rating">
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span></p>
-                </label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i class="bi bi-star"></i></span></p>
-                </label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star-fill"></i><i
-                                    class="bi bi-star"></i><i class="bi bi-star"></i></span></p>
-                </label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
-                                    class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                    class="bi bi-star"></i></span></p>
-                </label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">
-                    <p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i
-                                    class="bi bi-star"></i><i class="bi bi-star"></i><i
-                                    class="bi bi-star"></i></span></p>
-                </label>
-            </div>
-        </form>
-    </div>
+            </a>
+
+        </ul><!-- List Group END-->
+    </div><!-- sidebar-container END -->
 </div>
