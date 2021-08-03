@@ -35,22 +35,18 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Người dùng</th>
                                 <th scope="col">Khách sạn</th>
-                                <th scope="col">Phòng</th>
+                                <th scope="col">Loại phòng</th>
                                 <th scope="col">Ngày nhận phòng</th>
                                 <th scope="col">Ngày trả phòng</th>
                                 <th scope="col">Ghi chú</th>
-                                <th scope="col"></th>
+                                {{--<th scope="col"></th>--}}
                             </tr>
                             </thead>
                             <tbody class="list">
                             @foreach($bookings as $booking)
                                 <tr>
-                                    <td>
-                                        {{$booking->id}}
-                                    </td>
                                     <td>
                                         {{$booking->name}}
                                     </td>
@@ -58,7 +54,7 @@
                                         {{$booking->room->hotel->hotel_name}}
                                     </td>
                                     <td>
-                                        {{$booking->room->room_name}}
+                                        {{$booking->room->type->room_type}}
                                     </td>
                                     <td>
                                         {{\Carbon\Carbon::parse($booking->check_in_date)->format('d-m-Y')}}

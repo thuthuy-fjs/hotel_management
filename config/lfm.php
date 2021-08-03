@@ -16,9 +16,6 @@ return [
      */
 
     'use_package_routes'       => true,
-    'middleware' => ['web', 'auth:admin'],
-    'url_prefix' => 'laravel-filemanager',
-
 
     /*
     |--------------------------------------------------------------------------

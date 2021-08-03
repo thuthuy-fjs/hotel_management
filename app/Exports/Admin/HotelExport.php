@@ -38,11 +38,12 @@ class HotelExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             'STT',
+            'Quốc gia',
+            'Tình thành',
             'Tên khách sạn',
             "Điện thoại",
             "Email",
             "Website",
-            "Mô tả",
         ];
     }
 
@@ -50,11 +51,12 @@ class HotelExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             $hotel->id,
+            $hotel->province->country->country_name,
+            $hotel->province->province_name,
             $hotel->hotel_name,
             $hotel->hotel_phone,
             $hotel->hotel_email,
             $hotel->hotel_website,
-            $hotel->description
         ];
     }
 }

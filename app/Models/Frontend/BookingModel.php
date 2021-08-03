@@ -18,6 +18,7 @@ class BookingModel extends Model
         'check_in_date',
         'check_out_date',
         'total_price',
+        'number_room',
         'booking_note',
         'payment_id',
         'is_payment'

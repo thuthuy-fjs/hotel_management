@@ -10,21 +10,27 @@
 
                     <div class="col-lg-6">
                         <form action="{{route('admin.room.list_rooms')}}" method="get">
-                            <select id="country" name="country" class="btn btn-sm btn-neutral">
-                                <option value="" selected disabled>Quốc gia</option>
-                                @foreach($countries as $country)
-                                    <option value="{{$country->id}}">{{$country->country_name}}</option>
-                                @endforeach
+                            <div class="container">
+                                <div class="row">
+                                    <select id="country" name="country" class="btn btn-sm btn-neutral">
+                                        <option value="" selected disabled>Quốc gia</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{$country->id}}">{{$country->country_name}}</option>
+                                        @endforeach
 
-                            </select>
-                            <select id="province" name="province" class="btn btn-sm btn-neutral">
-                                <option value="" selected disabled>Tỉnh/Thành</option>
-                            </select>
+                                    </select>
+                                    <select id="province" name="province" class="btn btn-sm btn-neutral">
+                                        <option value="" selected disabled>Tỉnh/Thành</option>
+                                    </select>
 
-                            <select id="hotel" name="hotel" class="btn btn-sm btn-neutral">
-                                <option value="" selected disabled>Khách sạn</option>
-                            </select>
-                            <input type="submit" class="btn btn-sm btn-neutral" value="Tìm kiếm">
+                                    <select id="hotel" name="hotel" class="btn btn-sm btn-neutral">
+                                        <option value="" selected disabled>Khách sạn</option>
+                                    </select>
+                                </div>
+                                <div class="row" style="margin-top: 5px">
+                                    <input type="submit" class="btn btn-sm btn-neutral" value="Tìm kiếm">
+                                </div>
+                            </div>
                         </form>
 
                     </div>
@@ -117,49 +123,23 @@
                             {{ session('success') }}
                         </div>
                     @endif
-                    @if (isset($errors) && $errors->any())
-                        @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger" role="alert">
-                                {{ $error }}
-                            </div>
-                        @endforeach
-                    @endif
                     @if (session()->has('failures'))
-
-                        <table class="table table-danger">
-                            <tr>
-                                <th>Row</th>
-                                <th>Attribute</th>
-                                <th>Errors</th>
-                                <th>Value</th>
-                            </tr>
-
-                            @foreach (session()->get('failures') as $validation)
-                                <tr>
-                                    <td>{{ $validation->row() }}</td>
-                                    <td>{{ $validation->attribute() }}</td>
-                                    <td>
-                                        @foreach ($validation->errors() as $e)
-                                            {{ $e }}
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        {{ $validation->values()[$validation->attribute()] }}
-                                    </td>
-                                </tr>
+                        @foreach (session()->get('failures') as $validation)
+                            @foreach ($validation->errors() as $e)
+                                <div class="alert alert-danger">
+                                    {{  "Hàng ". $validation->row() . " ". $e }}
+                                </div>
                             @endforeach
-                        </table>
-
+                        @endforeach
                     @endif
 
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Tên khách sạn</th>
                                 <th scope="col">Loại phòng nghỉ</th>
-                                <th scope="col">Số phòng</th>
+                                <th scope="col">Số lượng</th>
                                 <th scope="col">Giá tiền</th>
                                 <th scope="col"></th>
                             </tr>
@@ -168,9 +148,6 @@
                             @foreach($rooms as $room)
                                 <tr>
                                     <td>
-                                        {{$room->id}}
-                                    </td>
-                                    <td>
                                         {{$room->hotel->hotel_name}}
                                     </td>
 
@@ -178,7 +155,7 @@
                                         {{$room->type->room_type}}
                                     </td>
                                     <td>
-                                        {{$room->room_name}}
+                                        {{$room->room_number}}
                                     </td>
                                     <td>
                                         {{$room->room_price}}
@@ -209,14 +186,14 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="modal{{$room->id}}Label">Xóa
-                                                        phòng {{$room->room_name}}</h5>
+                                                        phòng {{$room->type->room_type}}</h5>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Bạn có chắc chắn xóa phòng {{$room->room_name}} khách
+                                                    Bạn có chắc chắn xóa phòng {{$room->type->room_type}} khách
                                                     sạn {{$room->hotel->hotel_name}} ?
                                                 </div>
                                                 <div class="modal-footer">

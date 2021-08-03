@@ -123,13 +123,13 @@
                                                  </a>
                                                </span>
                                             </div>
-
                                             <input id="thumbnail" class="form-control" type="text" value="{{$hotel->hotel_image}}"
                                                    name="hotel_image">
                                             @error('hotel_image')
                                             <span class="small text-danger">{{ $message }}</span>
                                             @enderror
-                                            <img id="holder" src="{{asset($hotel->hotel_image)}}" style="margin-top:15px;max-height:150px;max-width:150px">
+                                            <img id="holder" src="{{asset($hotel->hotel_image)}}"
+                                                 style="margin-top:15px;max-height:150px;max-width:150px">
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +208,7 @@
                     if ($('#lfm' + next).length < 1) {
 
                         html += '<div class="form-group">\n' +
-                            '                    <label for="room_image" class="form-control-label">Ảnh* </label>\n' +
+                            '                    <label for="room_image" class="form-control-label">Ảnh </label>\n' +
                             '                    <div style="margin: 10px 0px">\n' +
                             '                        <span class="input-group-btn">\n' +
                             '                         <a id="lfm' + next + '" data-input="thumbnail' + next + '" data-preview="holder' + next + '" class="lfm-btn btn btn-neutral">\n' +
@@ -219,7 +219,7 @@
                             '                         </a>\n' +
                             '                       </span>\n' +
                             '                     </div>\n' +
-                            '                     <input id="thumbnail' + next + '" type="text" name="hotel_image[]" value="" class="form-control" id="hotel_image" placeholder="">\n' +
+                            '                     <input id="thumbnail' + next + '" type="text" name="hotel_image" value="" class="form-control" placeholder="">\n' +
                             '                     <img id="holder' + next + '" style="margin-top:15px;max-height:100px;">\n' +
                             '                </div>';
 
@@ -248,14 +248,24 @@
 
             });
 
-            // $('.remove-image').on('click', function (e) {
-            //     console.log(e);
-            //     e.preventDefault();
-            //     $(this).closest('.form-group').remove();
+            // function readURL(input) {
+            //     if (input.files && input.files[0]) {
+            //         var reader = new FileReader();
+            //
+            //         reader.onload = function(e) {
+            //             $('#holder').attr('src', e.target.result);
+            //         }
+            //
+            //         reader.readAsDataURL(input.files[0]); // convert to base64 string
+            //     }
+            // }
+            //
+            // $("#hotel_image").change(function() {
+            //     readURL(this);
             // });
-
 
         });
 
     </script>
+
 @endsection

@@ -46,7 +46,8 @@ class LoginController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->withInput($request->only('email', 'remember'))
+            ->with('error', 'Mật khẩu không trùng khớp');
     }
 
     /**

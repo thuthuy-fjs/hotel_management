@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => 'required|email',
-            'password' => 'required|min:8'
+            'password' => 'required'
         ];
     }
 
@@ -42,7 +42,6 @@ class LoginRequest extends FormRequest
     {
         return [
             'required' => ':attribute là bắt buộc',
-            'min' => ':attribute tối thiểu 8 kí tự',
             'email'=> ':attribute không đúng định dạng',
         ];
     }

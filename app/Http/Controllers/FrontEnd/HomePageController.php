@@ -75,14 +75,15 @@ class HomePageController extends Controller
 
         );
         $hotels = null;
-        $province = $request->input('province');
+        $province = $this->provinceRepo->find($request->input('province'));
         $check_in_date = Carbon::parse($request->input('check_in_date'))->toDateString();
         $check_out_date = Carbon::parse($request->input('check_out_date'))->toDateString();
         $person_number = $request->input('person_number');
         if ($request->filled(['province', 'person_number'])) {
             $times = [$check_in_date, $check_out_date,];
-            $hotels = $this->hotelRepo->getHotel($province, $person_number, 10);
+            $hotels = $this->hotelRepo->getHotel($province->id, $person_number, 10);
         }
+//        dd($hotels);
         $provinces = $this->provinceRepo->getAll();
         return view('frontend.contents.search.index')
             ->with('provinces', $provinces)->with('hotels', $hotels)

@@ -31,22 +31,19 @@
                                             <thead>
                                             <tr>
                                                 <th>Khách sạn</th>
-                                                <th>Phòng</th>
+                                                <th>Loại phòng</th>
+                                                <th>Số lượng</th>
                                                 <th>Thanh toán</th>
                                                 <th>Trạng thái</th>
-                                                @foreach($bookings as $booking)
-                                                    @if(\Carbon\Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d') >
-                                                       (\Carbon\Carbon::parse($booking->check_out_date)->format('Y-m-d')))
-                                                        <th>Đánh giá</th>
-                                                    @endif
-                                                @endforeach
+                                                <th>Đánh giá</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             @foreach($bookings as $booking)
                                                 <tr>
                                                     <td><a href="#">{{$booking->room->hotel->hotel_name}}</a></td>
-                                                    <td>{{$booking->room->room_name}}</td>
+                                                    <td>{{$booking->room->type->room_type}}</td>
+                                                    <td>{{$booking->number_room}}</td>
                                                     <td>{{$booking->payment->payment_method}}</td>
 
                                                     @if(\Carbon\Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d') >
@@ -57,36 +54,26 @@
                                                     @endif
                                                     @if(\Carbon\Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d') >
                                                    (\Carbon\Carbon::parse($booking->check_out_date)->format('Y-m-d')))
-                                                        @if(count($star_ratings) > 0)
-                                                            @foreach($star_ratings as $star_rating)
-                                                                @if($star_rating->booking_id == $booking->id)
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-primary"
-                                                                                data-toggle="modal"
-                                                                                data-target="#modal{{$booking->id}}"
-                                                                                disabled>
-                                                                            Đã đánh giá
-                                                                        </button>
-                                                                    </td>
-                                                                @else
-                                                                    <td>
-                                                                        <button type="button" class="btn btn-primary"
-                                                                                data-toggle="modal"
-                                                                                data-target="#modal{{$booking->id}}">
-                                                                            Đánh giá
-                                                                        </button>
-                                                                    </td>
-                                                                @endif
-                                                            @endforeach
-                                                        @else
-                                                            <td>
-                                                                <button type="button" class="btn btn-primary"
-                                                                        data-toggle="modal"
-                                                                        data-target="#modal{{$booking->id}}">
-                                                                    Đánh giá
-                                                                </button>
-                                                            </td>
-                                                        @endif
+                                                        @foreach($star_ratings as $star_rating)
+                                                            @if($star_rating->booking_id == $booking->id)
+                                                                <td>
+                                                                    <button type="button" class="btn btn-primary"
+                                                                            data-toggle="modal"
+                                                                            data-target="#modal{{$booking->id}}"
+                                                                            disabled>
+                                                                        Đã đánh giá
+                                                                    </button>
+                                                                </td>
+                                                            @else
+                                                                <td>
+                                                                    <button type="button" class="btn btn-primary"
+                                                                            data-toggle="modal"
+                                                                            data-target="#modal{{$booking->id}}">
+                                                                        Đánh giá
+                                                                    </button>
+                                                                </td>
+                                                            @endif
+                                                        @endforeach
 
                                                     @endif
                                                 </tr>
@@ -192,7 +179,8 @@
                                             <thead>
                                             <tr>
                                                 <th>Khách sạn</th>
-                                                <th>Phòng</th>
+                                                <th>Loại phòng</th>
+                                                <th>Số lượng</th>
                                                 <th>Thanh toán</th>
                                                 <th>Trạng thái</th>
                                             </tr>
@@ -201,7 +189,8 @@
                                             @foreach($incomplete_bookings as $booking)
                                                 <tr>
                                                     <td><a href="#">{{$booking->room->hotel->hotel_name}}</a></td>
-                                                    <td>{{$booking->room->room_name}}</td>
+                                                    <td>{{$booking->room->type->room_type}}</td>
+                                                    <td>{{$booking->number_room}}</td>
                                                     <td>{{$booking->payment->payment_method}}</td>
                                                     <td>Chưa hoàn thành</td>
                                                 </tr>
@@ -213,7 +202,8 @@
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-sm-12 text-center" style="margin-top: 15px">
-                                                    <section class='alert alert-success'>Bạn không có đơn đặt phòng chưa hoàn thành!
+                                                    <section class='alert alert-success'>Bạn không có đơn đặt phòng chưa
+                                                        hoàn thành!
                                                     </section>
                                                 </div>
                                             </div>
@@ -226,7 +216,8 @@
                                             <thead>
                                             <tr>
                                                 <th>Khách sạn</th>
-                                                <th>Phòng</th>
+                                                <th>Loại phòng</th>
+                                                <th>Số lượng</th>
                                                 <th>Thanh toán</th>
                                                 <th>Trạng thái</th>
                                                 {{--<th>Đánh giá</th>--}}
@@ -237,38 +228,39 @@
                                             @foreach($complete_bookings as $booking)
                                                 <tr>
                                                     <td><a href="#">{{$booking->room->hotel->hotel_name}}</a></td>
-                                                    <td>{{$booking->room->room_name}}</td>
+                                                    <td>{{$booking->room->type->room_type}}</td>
+                                                    <td>{{$booking->number_room}}</td>
                                                     <td>{{$booking->payment->payment_method}}</td>
                                                     <td>Đã hoàn thành</td>
                                                     {{--@if(count($star_ratings) > 0)--}}
-                                                        {{--@foreach($star_ratings as $star_rating)--}}
-                                                            {{--@if($star_rating->booking_id == $booking->id)--}}
-                                                                {{--<td>--}}
-                                                                    {{--<button type="button" class="btn btn-primary"--}}
-                                                                            {{--data-toggle="modal"--}}
-                                                                            {{--data-target="#modal{{$booking->id}}"--}}
-                                                                            {{--disabled>--}}
-                                                                        {{--Đã đánh giá--}}
-                                                                    {{--</button>--}}
-                                                                {{--</td>--}}
-                                                            {{--@else--}}
-                                                                {{--<td>--}}
-                                                                    {{--<button type="button" class="btn btn-primary"--}}
-                                                                            {{--data-toggle="modal"--}}
-                                                                            {{--data-target="#modal1{{$booking->id}}">--}}
-                                                                        {{--Đánh giá--}}
-                                                                    {{--</button>--}}
-                                                                {{--</td>--}}
-                                                            {{--@endif--}}
-                                                        {{--@endforeach--}}
+                                                    {{--@foreach($star_ratings as $star_rating)--}}
+                                                    {{--@if($star_rating->booking_id == $booking->id)--}}
+                                                    {{--<td>--}}
+                                                    {{--<button type="button" class="btn btn-primary"--}}
+                                                    {{--data-toggle="modal"--}}
+                                                    {{--data-target="#modal{{$booking->id}}"--}}
+                                                    {{--disabled>--}}
+                                                    {{--Đã đánh giá--}}
+                                                    {{--</button>--}}
+                                                    {{--</td>--}}
                                                     {{--@else--}}
-                                                        {{--<td>--}}
-                                                            {{--<button type="button" class="btn btn-primary"--}}
-                                                                    {{--data-toggle="modal"--}}
-                                                                    {{--data-target="#modal1{{$booking->id}}">--}}
-                                                                {{--Đánh giá--}}
-                                                            {{--</button>--}}
-                                                        {{--</td>--}}
+                                                    {{--<td>--}}
+                                                    {{--<button type="button" class="btn btn-primary"--}}
+                                                    {{--data-toggle="modal"--}}
+                                                    {{--data-target="#modal1{{$booking->id}}">--}}
+                                                    {{--Đánh giá--}}
+                                                    {{--</button>--}}
+                                                    {{--</td>--}}
+                                                    {{--@endif--}}
+                                                    {{--@endforeach--}}
+                                                    {{--@else--}}
+                                                    {{--<td>--}}
+                                                    {{--<button type="button" class="btn btn-primary"--}}
+                                                    {{--data-toggle="modal"--}}
+                                                    {{--data-target="#modal1{{$booking->id}}">--}}
+                                                    {{--Đánh giá--}}
+                                                    {{--</button>--}}
+                                                    {{--</td>--}}
                                                     {{--@endif--}}
                                                 </tr>
                                                 <div class="modal fade" id="modal1{{$booking->id}}" tabindex="-1"
@@ -360,7 +352,8 @@
                                         <div class="container">
                                             <div class="row">
                                                 <div class="col-sm-12 text-center" style="margin-top: 15px">
-                                                    <section class='alert alert-success'>Bạn chưa có đơn đặt phòng đã hoàn thành!
+                                                    <section class='alert alert-success'>Bạn chưa có đơn đặt phòng đã
+                                                        hoàn thành!
                                                     </section>
                                                 </div>
                                             </div>

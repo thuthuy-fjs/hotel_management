@@ -27,7 +27,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Loại phòng nghỉ</th>
-                                <th scope="col">Số người</th>
+                                <th scope="col">Phù hợp cho</th>
                                 {{--<th scope="col"></th>--}}
                             </tr>
                             </thead>

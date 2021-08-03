@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'pacific.hotelmanager@gmail.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'laravelprojectweb@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Pacific'),
     ],
 

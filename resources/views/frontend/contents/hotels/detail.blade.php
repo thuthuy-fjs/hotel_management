@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('title')
-    Khách sạn {{ $hotel->hotel_name }}
+    {{ $hotel->hotel_name }}
 @endsection
 @section('content')
     <section class="ftco-section bg-light">
@@ -86,7 +86,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 ftco-animate justify-content-center">
-                                    <h2 class="mb-4">Khách sạn {{$hotel->hotel_name}}</h2>
+                                    <h2 class="mb-4">{{$hotel->hotel_name}}</h2>
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-sm-12">
@@ -115,54 +115,122 @@
                                     <h3 class="mb-4">Phòng trống</h3>
                                     <table class="table table-bordered ">
                                         <thead>
-                                        <tr class="bg-info">
+                                        <tr class="position-relative bg-info">
                                             <th scope="col">Loại chỗ nghỉ</th>
                                             <th scope="col">Phù hợp cho</th>
                                             <th scope="col">Tiện nghi</th>
                                             <th scope="col">Giá</th>
-                                            <th scope="col"></th>
+                                            <th scope="col">Số phòng</th>
+                                            <th scope="col">Ảnh</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($rooms as $room)
-                                            <tr>
-                                                <td>{{$room->type->room_type}}</td>
-                                                <td>{{$room->type->person_number}} người</td>
-                                                <td>
-                                                    <?php
-                                                    $room_facility = \App\Models\Admin\RoomFacilityModel::where('room_id',
-                                                        $room->id)->first();
-                                                    $room_facilities = $room_facility->room_facility_id ?
-                                                        json_decode($room_facility->room_facility_id) : array();
-                                                    ?>
-                                                    @foreach($facilities as $facility)
-                                                        @foreach($room_facilities as $room_facility)
-                                                            @if($facility->id == $room_facility)
-                                                                <i class="bi bi-check2"></i>{{$facility->facility}}</br>
-                                                            @endif
-                                                        @endforeach
-                                                    @endforeach
 
-                                                </td>
-                                                <td>{{$room->room_price}} <span class="per">vnd</span></td>
-                                                <td>
-                                                    <a href="#" class="btn btn-success" id="dynamic{{$room->id}}"
-                                                       name="dynamic{{$room->id}}">Ảnh</a>
-                                                    <a href="{{route('booking', ['id='.$room->id, 'province='.$province_name,
-                                                    'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date,
-                                                    'person_number='.$person_number])}}"
-                                                       class="btn btn-danger">Đặt</a>
-                                                </td>
-                                            </tr>
+                                        @foreach($rooms as $room)
+                                            <?php
+                                            $number_room = $room->room_number;
+                                            foreach ($bookings as $booking) {
+                                                if ($room->id == $booking->room_id) {
+                                                    $number_room -= $booking->number_room;
+                                                }
+                                            }
+                                            ?>
+                                            @if($number_room > 0)
+                                                <tr>
+                                                    <td>{{$room->type->room_type}}</td>
+                                                    <td>{{$room->type->person_number}} người</td>
+                                                    <td>
+                                                        <?php
+                                                        $room_facility = \App\Models\Admin\RoomFacilityModel::where('room_id',
+                                                            $room->id)->first();
+                                                        $room_facilities = $room_facility->room_facility_id ?
+                                                            json_decode($room_facility->room_facility_id) : array();
+                                                        ?>
+                                                        @foreach($facilities as $facility)
+                                                            @foreach($room_facilities as $room_facility)
+                                                                @if($facility->id == $room_facility)
+                                                                    <i class="bi bi-check2"></i>{{$facility->facility}}</br>
+                                                                @endif
+                                                            @endforeach
+                                                        @endforeach
+
+                                                    </td>
+                                                    <td>{{$room->room_price}} <span class="per">vnd</span></td>
+                                                    <td>
+
+                                                        <select class="form-select" name="room_number" id="room_number">
+                                                            @for($i = 0; $i<= $number_room;$i++)
+                                                                <option value="{{$i}}">{{$i}}</option>
+                                                            @endfor
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-success" id="dynamic{{$room->id}}"
+                                                           name="dynamic{{$room->id}}">Ảnh</a>
+                                                        {{--<a href="{{route('booking', ['id='.$room->id, 'province='.$province_name,--}}
+                                                        {{--'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date,--}}
+                                                        {{--'person_number='.$person_number])}}"--}}
+                                                        {{--class="btn btn-danger">Đặt</a>--}}
+                                                    </td>
+                                                    <input name="id[]" value="{{$room->id}}" hidden>
+                                                    <input name="room_type[]" id="room_type"
+                                                           value="{{$room->type->room_type}}" hidden>
+                                                    <input name="room_price[]" id="room_price"
+                                                           value="{{$room->room_price}}" hidden>
+                                                </tr>
+                                            @endif
                                         @endforeach
                                         </tbody>
                                     </table>
-                                    {{--<div id="booking"><a href="{{route('booking', ['id='.$room->id, 'province='.$province_name,--}}
-                                    {{--'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date,--}}
-                                    {{--'person_number='.$person_number])}}"--}}
-                                    {{--class="btn btn-danger">Đặt</a></div>--}}
-                                </div>
 
+                                </div>
+                                <div class="icon-bar">
+                                    <div class="col-xs-9">
+                                        <button type="button" class="btn btn-lg btn-primary" data-toggle="collapse"
+                                                data-target="#booking">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                      d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"></path>
+                                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"></path>
+                                            </svg>
+                                            Đặt
+                                        </button>
+                                        <div id="booking"
+                                             class="card border-left-primary shadow h-100 py-2 collapse in">
+                                            <div class="card-body" style="max-width: 500px;">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                            {{$hotel->hotel_name}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row" id="bookingRoom">
+
+                                                </div>
+                                                <form action="{{route('booking')}}" method="get">
+                                                    <input name="room_id" id="room_id" hidden>
+                                                    <input name="province" id="province"
+                                                           value="{{$province_name}}" hidden>
+                                                    <input name="check_in_date" id="check_in_date"
+                                                           value="{{$check_in_date}}" hidden>
+                                                    <input name="number_room" id="number_room" hidden>
+                                                    <input name="check_out_date" id="check_in_date"
+                                                           value="{{$check_out_date}}" hidden>
+                                                    <input name="person_number" id="person_number"
+                                                           value="{{$person_number}}" hidden>
+                                                    <input name="total_price" id="total_price" hidden>
+
+                                                    <div class="col-sm-12 text-right buttonBooking" id="buttonBooking">
+                                                        <button type="submit" class="btn btn-primary">Đặt phòng
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-12 room-single ftco-animate mb-5 mt-4" id="rule">
                                     <h3 class="mb-4">Quy tắc chung</h3>
                                     <div class="container">
@@ -337,10 +405,6 @@
             -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1)
         }
 
-        .comment-box {
-            padding: 5px
-        }
-
         .comment-area textarea {
             resize: none;
             border: 1px solid #ad9f9f
@@ -352,26 +416,6 @@
             border-color: #ffffff;
             outline: 0;
             box-shadow: 0 0 0 1px rgb(255, 0, 0) !important
-        }
-
-        .send {
-            color: #fff;
-            background-color: #ff0000;
-            border-color: #ff0000
-        }
-
-        .send:hover {
-            color: #fff;
-            background-color: #f50202;
-            border-color: #f50202
-        }
-
-        .rating {
-            display: flex;
-            margin-top: -10px;
-            flex-direction: row-reverse;
-            margin-left: -4px;
-            float: left
         }
 
         .rating > input {
@@ -424,70 +468,6 @@
             padding-bottom: 30px
         }
 
-        .rating-box {
-            width: 130px;
-            height: 130px;
-            margin-right: auto;
-            margin-left: auto;
-            background-color: #FBC02D;
-            color: #fff
-        }
-
-        .rating-label {
-            font-weight: bold
-        }
-
-        .rating-bar {
-            width: 300px;
-            padding: 8px;
-            border-radius: 5px
-        }
-
-        .bar-container {
-            width: 100%;
-            background-color: #f1f1f1;
-            text-align: center;
-            color: white;
-            border-radius: 20px;
-            cursor: pointer;
-            margin-bottom: 5px
-        }
-
-        .bar-5 {
-            width: 70%;
-            height: 13px;
-            background-color: #FBC02D;
-            border-radius: 20px
-        }
-
-        .bar-4 {
-            width: 30%;
-            height: 13px;
-            background-color: #FBC02D;
-            border-radius: 20px
-        }
-
-        .bar-3 {
-            width: 20%;
-            height: 13px;
-            background-color: #FBC02D;
-            border-radius: 20px
-        }
-
-        .bar-2 {
-            width: 10%;
-            height: 13px;
-            background-color: #FBC02D;
-            border-radius: 20px
-        }
-
-        .bar-1 {
-            width: 0%;
-            height: 13px;
-            background-color: #FBC02D;
-            border-radius: 20px
-        }
-
         td {
             padding-bottom: 10px
         }
@@ -509,10 +489,6 @@
             margin-bottom: 10px
         }
 
-        .blue-text {
-            color: #0091EA
-        }
-
         .content {
             font-size: 18px
         }
@@ -524,14 +500,14 @@
             margin-right: 30px
         }
 
-        .pic {
-            width: 80px;
-            height: 80px;
-            margin-right: 10px
-        }
-
-        .vote {
-            cursor: pointer
+        .icon-bar {
+            z-index: 999;
+            position: fixed;
+            right: 0%;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
         }
     </style>
 @endsection
@@ -551,6 +527,58 @@
         });
     </script>
     <script>
+        $("#buttonBooking").hide();
+        $(document).on('change', 'select[name="room_number"]', function () {
+            var room_id = [];
+            var room_number = [];
+            var room_type = [];
+            var room_price = [];
+            $('select[name="room_number"]').each(function () {
+                room_number.push($(this).val());
+            });
+            $("input[name='room_type[]']").each(function () {
+                room_type.push($(this).val());
+            });
+            $("input[name='room_price[]']").each(function () {
+                room_price.push($(this).val());
+            });
+
+            $("input[name='id[]']").each(function () {
+                room_id.push($(this).val());
+            });
+
+            console.log(room_number);
+            var i;
+            var text = '';
+            var total_price = 0;
+            for (i = 0; i < room_number.length; i++) {
+                if (room_number[i] > 0) {
+                    total_price += (room_number[i] * room_price[i]);
+                    text += '<div class="col-md-12">' +
+                        '<b style="margin-right: 10px;">Loại phòng: </b>' + room_type[i] + '<br>' +
+                        '<b style="margin-right: 10px;">Số lượng: </b>' + room_number[i] + '<hr>' +
+                        '</div>';
+
+                }
+
+            }
+            if (total_price > 0) {
+                text += '<b style="margin-right: 10px;">Tổng giá: </b>' + total_price;
+                $("#bookingRoom").html(text);
+                $("#buttonBooking").show();
+            } else {
+                $("#bookingRoom").html('');
+                $("#buttonBooking").hide();
+            }
+
+            $('#total_price').val(total_price);
+            $('#room_id').val(room_id.join(", "));
+            $('#number_room').val(room_number.join(", "));
+
+        });
+    </script>
+    <script>
+
         function modifyOffset() {
             var el, newPoint, newPlace, offset, siblings, k;
             width = this.offsetWidth;

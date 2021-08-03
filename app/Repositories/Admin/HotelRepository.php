@@ -15,17 +15,19 @@ class HotelRepository extends BaseRepository implements HotelRepositoryInterface
         return HotelModel::class;
     }
 
+
     public function getHotel($province_id, $person_number, $limit)
     {
         $data = $this->model->where('province_id', $province_id)
             ->whereHas('rooms', function ($query) use ($person_number) {
-                $query->where('room_type_id', function ($query) use ($person_number) {
+                $query->wherein('room_type_id', function ($query) use ($person_number) {
                     $query->from("room_types")
                         ->where('person_number', '>=', $person_number)
                         ->select("id");
                 });
             })->paginate($limit);
         return $data;
+
     }
 
     public function search($keyword)

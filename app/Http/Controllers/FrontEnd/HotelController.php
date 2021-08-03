@@ -9,6 +9,7 @@ use App\Repositories\Admin\FacilityRepository;
 use App\Repositories\Admin\HotelRepository;
 use App\Repositories\Admin\ProvinceRepository;
 use App\Repositories\Admin\RoomRepository;
+use App\Repositories\Frontend\BookingRepository;
 use App\Repositories\Frontend\PaymentRepository;
 use App\Repositories\Frontend\StarRatingRepository;
 use Carbon\Carbon;
@@ -25,6 +26,7 @@ class HotelController extends Controller
     protected $starRepo;
     protected $provinceRepo;
     protected $facilityRepo;
+    protected $bookingRepo;
 
     /**
      * HotelController constructor.
@@ -36,6 +38,7 @@ class HotelController extends Controller
      * @param ProvinceRepository $provinceRepo
      * @param StarRatingRepository $starRepo
      * @param FacilityRepository $facilityRepo
+     * @param BookingRepository $bookingRepo
      */
     public function __construct(
         RoomRepository $roomRepo,
@@ -45,7 +48,8 @@ class HotelController extends Controller
         CountryRepository $countryRepo,
         ProvinceRepository $provinceRepo,
         StarRatingRepository $starRepo,
-        FacilityRepository $facilityRepo)
+        FacilityRepository $facilityRepo,
+        BookingRepository $bookingRepo)
     {
         $this->roomRepo = $roomRepo;
         $this->hotelRepo = $hotelRepo;
@@ -55,6 +59,7 @@ class HotelController extends Controller
         $this->provinceRepo = $provinceRepo;
         $this->starRepo = $starRepo;
         $this->facilityRepo = $facilityRepo;
+        $this->bookingRepo = $bookingRepo;
     }
 
     /**
@@ -76,8 +81,10 @@ class HotelController extends Controller
         $times = [Carbon::parse($check_in_date)->format('Y-m-d'),
             Carbon::parse($check_out_date)->format('Y-m-d'),];
         $rooms = [];
+        $bookings = [];
         if ($request->filled(['province', 'check_in_date', 'check_out_date', 'person_number'])) {
             $rooms = $this->roomRepo->getRoom($id, $person_number, $times);
+            $bookings = $this->bookingRepo->getBooking($times);
         }
 
         return view('frontend.contents.hotels.detail')
@@ -85,7 +92,8 @@ class HotelController extends Controller
             ->with('province_name', $province)->with('check_in_date', $check_in_date)
             ->with('check_out_date', $check_out_date)->with('person_number', $person_number)
             ->with('star_ratings', $star_ratings)->with('guest', $guest)
-            ->with('rooms', $rooms)->with('facilities', $facilities);
+            ->with('rooms', $rooms)->with('facilities', $facilities)
+            ->with('bookings', $bookings);
     }
 
     /**
@@ -94,15 +102,23 @@ class HotelController extends Controller
      */
     public function booking(Request $request)
     {
-        $id = $request->id;
-        $room = $this->roomRepo->find($id);
-        $check_in_date = $request->check_in_date;
-        $check_out_date = $request->check_out_date;
-        $person_number = $request->person_number;
+        $input = $request->all();
+        $ids = $input['room_id'];
+        $room_ids = explode(', ', $ids);
+        $number_room = explode(', ', $input['number_room']);
+        $total_price = $input['total_price'];
+        $check_in_date = $input['check_in_date'];
+        $check_out_date = $input['check_out_date'];
+        $person_number = $input['person_number'];
+        $rooms = [];
+        foreach ($room_ids as $key => $id) {
+            $rooms[$key] = $this->roomRepo->find($id);
+        }
         $payments = $this->paymentRepo->getAll();
         return view('frontend.contents.booking.index')
-            ->with('room', $room)->with('check_in_date', $check_in_date)
+            ->with('rooms', $rooms)->with('check_in_date', $check_in_date)
             ->with('check_out_date', $check_out_date)->with('person_number', $person_number)
-            ->with('payments', $payments);
+            ->with('payments', $payments)->with('total_price', $total_price)
+            ->with('number_room', $number_room);
     }
 }

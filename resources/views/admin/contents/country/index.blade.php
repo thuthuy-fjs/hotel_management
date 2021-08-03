@@ -8,8 +8,8 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-12 text-right">
-                        <a href="{{route('admin.country.create')}}" class="btn btn-sm btn-neutral">Thêm mới</a>
-                        <div class="dropdown">
+                        {{--<a href="{{route('admin.country.create')}}" class="btn btn-sm btn-neutral">Thêm mới</a>--}}
+                        {{--<div class="dropdown">--}}
                             {{--<button class="btn btn-neutral btn-sm dropdown-toggle" type="button"--}}
                                     {{--id="dropdownMenuButton"--}}
                                     {{--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
@@ -48,7 +48,7 @@
                                     {{--</div>--}}
                                 {{--</div>--}}
                             {{--</form>--}}
-                        </div>
+                        {{--</div>--}}
                     </div>
 
                 </div>
@@ -89,7 +89,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Quốc gia</th>
-                                <th scope="col"></th>
+                                {{--<th scope="col"></th>--}}
                             </tr>
                             </thead>
                             <tbody class="list">
@@ -101,21 +101,21 @@
                                     <th scope="row">
                                         {{$country->country_name}}
                                     </th>
-                                    <td class="text-right">
-                                        <div class="dropdown">
-                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <a class="dropdown-item"
-                                                   href="{{route('admin.country.edit', $country->id)}}">Edit</a>
-                                                <a class="dropdown-item" data-toggle="modal"
-                                                   data-target="#modal{{$country->id}}">Delete</a>
-                                            </div>
-                                        </div>
+                                    {{--<td class="text-right">--}}
+                                        {{--<div class="dropdown">--}}
+                                            {{--<a class="btn btn-sm btn-icon-only text-light" href="#" role="button"--}}
+                                               {{--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                                                {{--<i class="fas fa-ellipsis-v"></i>--}}
+                                            {{--</a>--}}
+                                            {{--<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">--}}
+                                                {{--<a class="dropdown-item"--}}
+                                                   {{--href="{{route('admin.country.edit', $country->id)}}">Edit</a>--}}
+                                                {{--<a class="dropdown-item" data-toggle="modal"--}}
+                                                   {{--data-target="#modal{{$country->id}}">Delete</a>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
 
-                                    </td>
+                                    {{--</td>--}}
                                 </tr>
                                 <form action="{{route('admin.country.destroy', $country->id)}}" method="post">
                                     @csrf

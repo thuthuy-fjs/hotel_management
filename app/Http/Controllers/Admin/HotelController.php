@@ -13,6 +13,7 @@ use App\Repositories\Admin\HotelRepository;
 use App\Repositories\Admin\ProvinceRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -178,12 +179,13 @@ class HotelController extends Controller
     public function import(FileRequest $request)
     {
         $import_hotel = new HotelImport();
-        $import_hotel->import($request->file('select_file')->getRealPath());
-        config(['excel.import.startRow' => 2]);
+        DB::beginTransaction();
+        $import_hotel->import($request->file('select_file'));
         if($import_hotel->failures()->isNotEmpty()){
-            $failures = $import_hotel->failures();
-            return redirect()->route('admin.hotel')->withFailures($failures);
+            DB::rollback();
+            return redirect()->route('admin.hotel')->withFailures($import_hotel->failures());
         }
+        DB::commit();
         return redirect()->route('admin.hotel')->with('success','Upload file thành công!');
     }
 

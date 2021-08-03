@@ -77,7 +77,7 @@ class RoomDetailController extends Controller
         foreach ($rooms as $room) {
             foreach ($room->bookings as $booking) {
                 $events[] = Calendar::event(
-                    $booking->guest->user_name,
+                    $booking->name,
                     true,
                     Carbon::parse($booking->check_in_date)->format('d-m-Y'),
                     Carbon::parse($booking->check_out_date)->format('d-m-Y'),

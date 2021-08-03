@@ -53,86 +53,86 @@
                     </div>
                     {{--<hr>--}}
                     {{--<div class="sidebar-wrap bg-light ftco-animate">--}}
-                        {{--<h3 class="heading mb-4">Các bộ lọc phổ biến</h3>--}}
-                        {{--<form method="post" class="star-rating">--}}
-                            {{--<div class="form-check">--}}
-                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
-                                {{--<label class="form-check-label" for="exampleCheck1">--}}
-                                    {{--<p class="rate"><span>Khách sạn</span></p>--}}
-                                {{--</label>--}}
-                            {{--</div>--}}
-                            {{--<div class="form-check">--}}
-                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
-                                {{--<label class="form-check-label" for="exampleCheck1">--}}
-                                    {{--<p class="rate"><span>Căn hộ</span></p>--}}
-                                {{--</label>--}}
-                            {{--</div>--}}
-                            {{--<div class="form-check">--}}
-                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
-                                {{--<label class="form-check-label" for="exampleCheck1">--}}
-                                    {{--<p class="rate"><span>Resort</span></p>--}}
-                                {{--</label>--}}
-                            {{--</div>--}}
-                            {{--<div class="form-check">--}}
-                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
-                                {{--<label class="form-check-label" for="exampleCheck1">--}}
-                                    {{--<p class="rate"><span>Nhà nghỉ</span></p>--}}
-                                {{--</label>--}}
-                            {{--</div>--}}
-                            {{--<div class="form-check">--}}
-                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
-                                {{--<label class="form-check-label" for="exampleCheck1">--}}
-                                    {{--<p class="rate"><span>Biệt thự</span></p>--}}
-                                {{--</label>--}}
-                            {{--</div>--}}
-                        {{--</form>--}}
+                    {{--<h3 class="heading mb-4">Các bộ lọc phổ biến</h3>--}}
+                    {{--<form method="post" class="star-rating">--}}
+                    {{--<div class="form-check">--}}
+                    {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                    {{--<label class="form-check-label" for="exampleCheck1">--}}
+                    {{--<p class="rate"><span>Khách sạn</span></p>--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+                    {{--<div class="form-check">--}}
+                    {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                    {{--<label class="form-check-label" for="exampleCheck1">--}}
+                    {{--<p class="rate"><span>Căn hộ</span></p>--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+                    {{--<div class="form-check">--}}
+                    {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                    {{--<label class="form-check-label" for="exampleCheck1">--}}
+                    {{--<p class="rate"><span>Resort</span></p>--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+                    {{--<div class="form-check">--}}
+                    {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                    {{--<label class="form-check-label" for="exampleCheck1">--}}
+                    {{--<p class="rate"><span>Nhà nghỉ</span></p>--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+                    {{--<div class="form-check">--}}
+                    {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                    {{--<label class="form-check-label" for="exampleCheck1">--}}
+                    {{--<p class="rate"><span>Biệt thự</span></p>--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+                    {{--</form>--}}
                     {{--</div>--}}
                     {{--<hr>--}}
                     {{--<div class="sidebar-wrap bg-light ftco-animate">--}}
-                        {{--<h3 class="heading mb-4">Xếp hạng sao</h3>--}}
-                        {{--<form method="post" class="star-rating">--}}
-                            {{--<div class="form-check">--}}
-                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
-                                {{--<label class="form-check-label" for="exampleCheck1">--}}
-                                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i--}}
-                                                    {{--class="bi bi-star-fill"></i><i--}}
-                                                    {{--class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>--}}
-                                    {{--</p>--}}
-                                {{--</label>--}}
-                            {{--</div>--}}
-                            {{--<div class="form-check">--}}
-                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
-                                {{--<label class="form-check-label" for="exampleCheck1">--}}
-                                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i--}}
-                                                    {{--class="bi bi-star-fill"></i><i--}}
-                                                    {{--class="bi bi-star-fill"></i><i class="bi bi-star"></i></span></p>--}}
-                                {{--</label>--}}
-                            {{--</div>--}}
-                            {{--<div class="form-check">--}}
-                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
-                                {{--<label class="form-check-label" for="exampleCheck1">--}}
-                                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i--}}
-                                                    {{--class="bi bi-star-fill"></i><i--}}
-                                                    {{--class="bi bi-star"></i><i class="bi bi-star"></i></span></p>--}}
-                                {{--</label>--}}
-                            {{--</div>--}}
-                            {{--<div class="form-check">--}}
-                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
-                                {{--<label class="form-check-label" for="exampleCheck1">--}}
-                                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i--}}
-                                                    {{--class="bi bi-star"></i><i class="bi bi-star"></i><i--}}
-                                                    {{--class="bi bi-star"></i></span></p>--}}
-                                {{--</label>--}}
-                            {{--</div>--}}
-                            {{--<div class="form-check">--}}
-                                {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
-                                {{--<label class="form-check-label" for="exampleCheck1">--}}
-                                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i--}}
-                                                    {{--class="bi bi-star"></i><i class="bi bi-star"></i><i--}}
-                                                    {{--class="bi bi-star"></i></span></p>--}}
-                                {{--</label>--}}
-                            {{--</div>--}}
-                        {{--</form>--}}
+                    {{--<h3 class="heading mb-4">Xếp hạng sao</h3>--}}
+                    {{--<form method="post" class="star-rating">--}}
+                    {{--<div class="form-check">--}}
+                    {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                    {{--<label class="form-check-label" for="exampleCheck1">--}}
+                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i--}}
+                    {{--class="bi bi-star-fill"></i><i--}}
+                    {{--class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>--}}
+                    {{--</p>--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+                    {{--<div class="form-check">--}}
+                    {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                    {{--<label class="form-check-label" for="exampleCheck1">--}}
+                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i--}}
+                    {{--class="bi bi-star-fill"></i><i--}}
+                    {{--class="bi bi-star-fill"></i><i class="bi bi-star"></i></span></p>--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+                    {{--<div class="form-check">--}}
+                    {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                    {{--<label class="form-check-label" for="exampleCheck1">--}}
+                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i--}}
+                    {{--class="bi bi-star-fill"></i><i--}}
+                    {{--class="bi bi-star"></i><i class="bi bi-star"></i></span></p>--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+                    {{--<div class="form-check">--}}
+                    {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                    {{--<label class="form-check-label" for="exampleCheck1">--}}
+                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i--}}
+                    {{--class="bi bi-star"></i><i class="bi bi-star"></i><i--}}
+                    {{--class="bi bi-star"></i></span></p>--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+                    {{--<div class="form-check">--}}
+                    {{--<input type="checkbox" class="form-check-input" id="exampleCheck1">--}}
+                    {{--<label class="form-check-label" for="exampleCheck1">--}}
+                    {{--<p class="rate"><span><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i--}}
+                    {{--class="bi bi-star"></i><i class="bi bi-star"></i><i--}}
+                    {{--class="bi bi-star"></i></span></p>--}}
+                    {{--</label>--}}
+                    {{--</div>--}}
+                    {{--</form>--}}
                     {{--</div>--}}
                 </div>
                 <div class="col-lg-9">
@@ -147,12 +147,14 @@
                                     </a>
                                     <div class="text p-4" style="height: 230px;">
                                         <h3>
-                                            <a href="{{route('hotel', ['id='.$hotel->id,'province='.$province_name, 'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date, 'person_number='.$person_number])}}">Khách
-                                                sạn {{$hotel->hotel_name}}</a>
+                                            <a href="{{route('hotel', ['id='.$hotel->id,'province='.$province_name, 'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date, 'person_number='.$person_number])}}">{{$hotel->hotel_name}}</a>
                                         </h3>
-                                        <p class="location"><span class="fa fa-map-marker"></span> {{$hotel->province->province_name}}</p>
+                                        <p class="location"><span
+                                                    class="fa fa-map-marker"></span> {{$hotel->province->province_name}}
+                                        </p>
                                         <ul>
-                                            <li>{{$hotel->hotel_email}}</li><br>
+                                            <li>{{$hotel->hotel_email}}</li>
+                                            <br>
                                             <li>{{$hotel->hotel_phone}}</li>
                                         </ul>
                                     </div>

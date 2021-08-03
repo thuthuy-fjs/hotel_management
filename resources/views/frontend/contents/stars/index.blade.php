@@ -21,7 +21,7 @@
                                     <thead>
                                     <tr>
                                         <th>Khách sạn</th>
-                                        <th>Phòng</th>
+                                        <th>Loại phòng</th>
                                         <th>Đánh giá</th>
                                         <th>Mô tả</th>
                                     </tr>
@@ -30,7 +30,7 @@
                                     @foreach($star_ratings as $star_rating)
                                         <tr>
                                             <td>{{$star_rating->booking->room->hotel->hotel_name}}</td>
-                                            <td>{{$star_rating->booking->room->room_name}}</td>
+                                            <td>{{$star_rating->booking->room->type->room_type}}</td>
                                             <td>
                                                 <div>
                                                     <p class="text-left">

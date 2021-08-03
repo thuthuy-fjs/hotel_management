@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('title')
-    Chỗ nghỉ thuộc {{$hotels[0]->province->province_name}}
+    Chỗ nghỉ thuộc {{$province_name->province_name}}
 @endsection
 @section('content')
     <section class="ftco-section bg-light">
@@ -16,7 +16,7 @@
                                         <option value="" selected disabled>Địa điểm</option>
                                         @foreach($provinces as $province)
                                             @if(isset($province_name))
-                                                @if ($province->id == $province_name)
+                                                @if ($province->id == $province_name->id)
                                                     <option value="{{ $province->id }}"
                                                             selected>{{ $province->province_name }}</option>
                                                 @else
@@ -149,11 +149,11 @@
 
                 <div class="col-lg-9">
                     <div class="row">
-                        @if(isset($hotels))
+                        @if(count($hotels) > 0)
                             @foreach($hotels as $hotel)
                                 <div class="col-md-6 ftco-animate">
                                     <div class="project-wrap hotel">
-                                        <a href="{{route('hotel', ['id='.$hotel->id,'province='.$province_name,
+                                        <a href="{{route('hotel', ['id='.$hotel->id,'province='.$province_name->id,
                                         'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date,
                                         'person_number='.$person_number])}}"
                                            class="img"
@@ -162,10 +162,9 @@
                                         </a>
                                         <div class="text p-4" style="height: 230px;">
                                             <h3>
-                                                <a href="{{route('hotel', ['id='.$hotel->id,'province='.$province_name,
+                                                <a href="{{route('hotel', ['id='.$hotel->id,'province='.$province_name->id,
                                                 'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date,
-                                                'person_number='.$person_number])}}">Khách
-                                                    sạn {{$hotel->hotel_name}}</a>
+                                                'person_number='.$person_number])}}">{{$hotel->hotel_name}}</a>
                                             </h3>
                                             <p class="location"><span
                                                         class="fa fa-map-marker"></span> {{$hotel->province->province_name}}
@@ -183,7 +182,7 @@
                         @else
                             <div class="col-md-6 ftco-animate">
                                 <div class="project-wrap hotel">
-                                    <h4>Không có khách sạn phù hợp</h4>
+                                    <h4>Không có chỗ nghỉ phù hợp</h4>
                                 </div>
                             </div>
                         @endif

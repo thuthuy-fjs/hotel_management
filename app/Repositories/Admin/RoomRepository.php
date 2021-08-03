@@ -15,15 +15,22 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
     public function getRoom($hotel_id, $person_number, $times = [])
     {
+//        $data = $this->model->where('hotel_id', $hotel_id)
+//            ->where('room_number', '>', 0)
+//            ->whereDoesntHave('bookings', function ($query) use ($times) {
+//                $query->whereBetween('check_in_date', $times)
+//                    ->orWhereBetween('check_out_date', $times)
+//                    ->orWhere(function ($query) use ($times) {
+//                        $query->where('check_in_date', '<', $times[0])
+//                            ->where('check_out_date', '>', $times[1]);
+//                    });
+//            })->whereHas('type', function ($query) use ($person_number) {
+//                $query->where('person_number', '>=', $person_number);
+//            })->get();
+//        return $data;
         $data = $this->model->where('hotel_id', $hotel_id)
-            ->whereDoesntHave('bookings', function ($query) use ($times) {
-                $query->whereBetween('check_in_date', $times)
-                    ->orWhereBetween('check_out_date', $times)
-                    ->orWhere(function ($query) use ($times) {
-                        $query->where('check_in_date', '<', $times[0])
-                            ->where('check_out_date', '>', $times[1]);
-                    });
-            })->whereHas('type', function ($query) use ($person_number) {
+            ->where('room_number', '>', 0)
+            ->whereHas('type', function ($query) use ($person_number) {
                 $query->where('person_number', '>=', $person_number);
             })->get();
         return $data;

@@ -154,8 +154,7 @@
                                     </a>
                                     <div class="text p-4" style="height: 230px;">
                                         <h3>
-                                            <a href="{{route('hotel', ['id='.$hotel->id,'province='.$province_name->id, 'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date, 'person_number='.$person_number])}}">Khách
-                                                sạn {{$hotel->hotel_name}}</a>
+                                            <a href="{{route('hotel', ['id='.$hotel->id,'province='.$province_name->id, 'check_in_date='.$check_in_date, 'check_out_date='.$check_out_date, 'person_number='.$person_number])}}">{{$hotel->hotel_name}}</a>
                                         </h3>
                                         <p class="location"><span
                                                     class="fa fa-map-marker"></span> {{$hotel->province->province_name}}

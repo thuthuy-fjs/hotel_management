@@ -32,7 +32,7 @@ class HotelRequest extends FormRequest
                 'max:255',
                 Rule::unique('hotels')->ignore($this->id),
             ],
-            'hotel_phone' => 'required|numeric',
+            'hotel_phone' => 'required|numeric|regex:/^([0-9\s\-\+\(\)]*)$/',
             'hotel_email' => 'required|email',
             'hotel_image' => 'required',
         ];
@@ -57,6 +57,7 @@ class HotelRequest extends FormRequest
             'max' => ':attribute không quá 255 kí tự',
             'email'=> ':attribute không đúng định dạng',
             'numeric' => ':attribute phải là số',
+            'regex' => ':attribute không đúng định dạng',
             'unique'=> ':attribute đã tồn tại. Vui lòng nhập tên khác'
         ];
     }

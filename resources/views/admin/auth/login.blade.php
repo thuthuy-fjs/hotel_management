@@ -36,6 +36,9 @@
                                 @error('password')
                                 <span class="small text-danger">{{ $message }}</span>
                                 @enderror
+                                @if (session('error'))
+                                    <span class="small text-danger">{{ session('error') }}</span>
+                                @endif
 
                             </div>
                             <div class="custom-control custom-control-alternative custom-checkbox">

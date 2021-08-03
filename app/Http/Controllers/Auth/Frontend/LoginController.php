@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\LoginRequest;
+use App\Http\Requests\Frontend\LoginRequest;
 use App\Repositories\Frontend\GuestRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -44,7 +44,8 @@ class LoginController extends Controller
         )) {
             return redirect()->back();
         }
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        return redirect()->back()->withInput($request->only('email', 'remember'))
+            ->with('error', 'Mật khẩu không trùng khớp');
     }
 
     /**

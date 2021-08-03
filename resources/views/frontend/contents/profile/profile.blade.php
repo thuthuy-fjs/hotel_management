@@ -110,10 +110,10 @@
                                     <div class="col-sm-4">
                                         <div class="profile-img">
                                             <img src="{{ isset($guest->image) ? 'uploads/'. $guest->image: asset('images/admin.jpg')}}"
-                                                 alt="Image"/>
+                                                 id="show" alt="Image" style="width: 80%; max-height: 300px"/>
                                             <div class="file btn btn-lg btn-primary">
                                                 Chọn ảnh
-                                                <input name="image" type="file">
+                                                <input name="image" type="file" id="user_image" accept="image/*">
                                                 <input id="image" name="image" class="form-control"
                                                        value="{{$guest->image}}" type="text" hidden>
                                             </div>
@@ -169,5 +169,22 @@
                 showUpload: false
             });
         });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#show').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#user_image").change(function () {
+            readURL(this);
+        });
     </script>
+
 @endsection

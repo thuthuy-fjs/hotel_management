@@ -41,7 +41,7 @@ class RoomExport implements FromCollection, WithHeadings, WithMapping
             'Tỉnh/Thành phố',
             'Khách sạn',
             "Loại phòng",
-            "Tên phòng",
+            "Số lượng",
             "Giá",
         ];
     }
@@ -54,7 +54,7 @@ class RoomExport implements FromCollection, WithHeadings, WithMapping
             $room->hotel->province->province_name,
             $room->hotel->hotel_name,
             $room->type->room_type,
-            $room->room_name,
+            $room->room_number,
             $room->room_price,
         ];
     }

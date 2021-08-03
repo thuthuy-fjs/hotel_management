@@ -36,7 +36,7 @@
                             <div class="col-lg-3 order-lg-2">
                                 <div class="card-profile-image">
                                     <img src="{{ isset($admin->image) ? $admin->image: asset('admin_assets/img/theme/admin.jpg')}}"
-                                         class="rounded-circle">
+                                         class="rounded-circle" id="holder">
                                 </div>
 
                             </div>

@@ -13,7 +13,7 @@
                             <select id="country" name="country" class="btn btn-sm btn-neutral">
                                 <option value="" selected disabled>Quốc gia</option>
                                 @foreach($countries as $country)
-                                    <option value="{{$country->id}}">{{$country->country_name}}</option>
+                                    <option value="{{$country->id}}">{{$country->province_id_name}}</option>
                                 @endforeach
 
                             </select>
@@ -116,46 +116,20 @@
                             {{ session('success') }}
                         </div>
                     @endif
-                    @if (isset($errors) && $errors->any())
-                        @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger" role="alert">
-                                {{ $error }}
-                            </div>
-                        @endforeach
-                    @endif
                     @if (session()->has('failures'))
-
-                        <table class="table table-danger">
-                            <tr>
-                                <th>Row</th>
-                                <th>Attribute</th>
-                                <th>Errors</th>
-                                <th>Value</th>
-                            </tr>
-
-                            @foreach (session()->get('failures') as $validation)
-                                <tr>
-                                    <td>{{ $validation->row() }}</td>
-                                    <td>{{ $validation->attribute() }}</td>
-                                    <td>
-                                        @foreach ($validation->errors() as $e)
-                                            {{ $e }}
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        {{ $validation->values()[$validation->attribute()] }}
-                                    </td>
-                                </tr>
+                        @foreach (session()->get('failures') as $validation)
+                            @foreach ($validation->errors() as $e)
+                                <div class="alert alert-danger">
+                                    {{  "Hàng ". $validation->row() . " ". $e }}
+                                </div>
                             @endforeach
-                        </table>
-
+                        @endforeach
                     @endif
 
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Tên chỗ nghỉ</th>
                                 <th scope="col">Loại chỗ nghỉ</th>
                                 <th scope="col">Điện thoại</th>
@@ -168,9 +142,6 @@
                             <tbody class="list">
                             @foreach($hotels as $hotel)
                                 <tr>
-                                    <td>
-                                        {{$hotel->id}}
-                                    </td>
                                     <th scope="row">
                                         <div class="media align-items-center">
                                             <a href="{{route('admin.hotel.room', $hotel->id)}}"

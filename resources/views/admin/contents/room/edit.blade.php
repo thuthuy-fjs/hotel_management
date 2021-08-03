@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-    Chỉnh sửa thông tin phòng {{$room->room_name}}
+    Chỉnh sửa thông tin phòng {{$room->type->room_type}}
 @endsection
 @section('content')
     <div class="header bg-primary pb-6">
@@ -22,8 +22,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row align-items-center">
-                            <div class="col-8">
-                                <h3 class="mb-0">Chỉnh sửa thông tin phòng {{$room->room_name}} của khách
+                            <div class="col-12">
+                                <h3 class="mb-0">Chỉnh sửa thông tin phòng {{$room->type->room_type}} của khách
                                     sạn {{$room->hotel->hotel_name}} </h3>
                             </div>
                         </div>
@@ -59,11 +59,11 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="room_name">Số phòng*</label>
-                                            <input type="text" id="room_name" name="room_name" class="form-control"
-                                                   value="{{$room->room_name}}"
-                                                   placeholder="Nhập tên phòng">
-                                            @error('room_name')
+                                            <label class="form-control-label" for="room_number">Số lượng*</label>
+                                            <input type="text" id="room_number" name="room_number" class="form-control"
+                                                   value="{{$room->room_number}}"
+                                                   placeholder="Nhập số lượng phòng">
+                                            @error('room_number')
                                             <span class="small text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -174,7 +174,7 @@
                             '                         </a>\n' +
                             '                       </span>\n' +
                             '                     </div>\n' +
-                            '                     <input id="thumbnail' + next + '" type="text" name="room_image[]" value="" class="form-control" id="room_image" placeholder="">\n' +
+                            '                     <input id="thumbnail' + next + '" type="text" name="room_image[]" value="" class="form-control" placeholder="">\n' +
                             '                     <img id="holder' + next + '" style="margin-top:15px;max-height:100px;">\n' +
                             '                </div>';
 

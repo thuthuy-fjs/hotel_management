@@ -29,7 +29,7 @@ class UserResetPassword extends Mailable
     public function build()
     {
         $url = url('forgot-password/token='.$this->random_token);
-        return $this->markdown('emails.reset-password', [
+        return $this->subject('Đặt lại mật khẩu người dùng')->markdown('emails.reset-password', [
             'url'=>$url
         ]);
     }

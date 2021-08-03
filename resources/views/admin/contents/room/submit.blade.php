@@ -33,22 +33,48 @@
                             <h6 class="heading-small text-muted mb-4">Thông tin phòng</h6>
                             <div class="pl-lg-4">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="hotel_id">Khách sạn*</label><br>
-                                            <select id="hotel_id" name="hotel_id"
-                                                    class="form-control btn-sm btn-neutral">
-                                                <option value="" selected disabled>Khách sạn</option>
-                                                @foreach($hotels as $hotel)
-                                                    <option value="{{$hotel->id}}">{{$hotel->hotel_name}}</option>
+                                            <label class="form-control-label" for="country_id">Quốc gia*</label><br>
+                                            <select id="country" name="country" class="form-control btn-sm btn-neutral">
+                                                <option value="" selected disabled>Quốc gia</option>
+                                                @foreach($countries as $country)
+                                                    <option value="{{$country->id}}">{{$country->country_name}}</option>
                                                 @endforeach
 
+                                            </select>
+                                            @error('country')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="province_id">Tỉnh/Thành
+                                                phố*</label><br>
+                                            <select id="province" name="province" class="form-control btn-sm btn-neutral">
+                                                <option value="" selected disabled>Tỉnh/Thành</option>
+                                            </select>
+                                            @error('province')
+                                            <span class="small text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label" for="hotel_id">Khách sạn*</label><br>
+                                            <select id="hotel_id" name="hotel_id" class="form-control btn-sm btn-neutral">
+                                                <option value="" selected disabled>Khách sạn</option>
                                             </select>
                                         </div>
                                         @error('hotel_id')
                                         <span class="small text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="room_type_id">Loại phòng nghỉ*</label><br>
@@ -65,13 +91,14 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-control-label" for="room_name">Số phòng*</label>
-                                            <input type="text" id="room_name" name="room_name" class="form-control"
-                                                   placeholder="Nhập số phòng" value="{{old('room_name')}}">
-                                            @error('room_name')
+                                            <label class="form-control-label" for="room_number">Số lượng*</label>
+                                            <input type="text" id="room_number" name="room_number" class="form-control"
+                                                   placeholder="Nhập số lượng phòng" value="{{old('room_number')}}">
+                                            @error('room_number')
                                             <span class="small text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -88,7 +115,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <hr class="my-4"/>
                                 <h6 class="heading-small text-muted mb-4">Ảnh</h6>
                                 <div class="pl-lg-4">
@@ -143,6 +169,61 @@
 @endsection
 
 @section('js')
+    <script type="text/javascript">
+        $('#country').change(function () {
+            var country_id = $(this).val();
+            if (country_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('admin.hotel.list_provinces')}}?country_id=" + country_id,
+                    success: function (res) {
+                        if (res) {
+                            $('#province').html('');
+                            $('#province').append('<option value="" selected disabled>Tỉnh thành</option>');
+                            console.log(res);
+                            $.each(res, function (key, value) {
+                                console.log(value.province_name);
+                                $('#province').append('<option value="' + value.id + '">' + value.province_name + '</option>');
+                            });
+
+                        } else {
+                            $('#province').html('');
+                        }
+                    }
+                });
+            } else {
+                $('#province').html('');
+                $('#city').html('');
+            }
+        });
+        $('#province').change(function () {
+            var province_id = $(this).val();
+            console.log(province_id);
+            if (province_id) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('admin.room.list_hotels')}}?province_id=" + province_id,
+                    success: function (res) {
+                        if (res) {
+                            $('#hotel_id').html('');
+                            $('#hotel_id').append('<option value="" selected disabled>Khách sạn</option>');
+                            console.log(res);
+                            $.each(res, function (key, value) {
+                                console.log(value.hotel_name);
+                                $('#hotel_id').append('<option value="' + value.id + '">' + value.hotel_name + '</option>');
+                            });
+
+                        } else {
+                            $('#hotel_id').html('');
+                        }
+                    }
+                });
+            } else {
+                $('#hotel_id').html('');
+            }
+        });
+    </script>
+
     <script src="{{ asset('/vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -173,7 +254,7 @@
                             '                         </a>\n' +
                             '                       </span>\n' +
                             '                     </div>\n' +
-                            '                     <input id="thumbnail' + next + '" type="text" name="room_images[]" value="" class="form-control" id="room_image" placeholder="">\n' +
+                            '                     <input id="thumbnail' + next + '" type="text" name="room_images[]" value="" class="form-control" placeholder="">\n' +
                             '                     <img id="holder' + next + '" style="margin-top:15px;max-height:100px;">\n' +
                             '                </div>';
 

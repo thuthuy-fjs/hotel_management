@@ -41,7 +41,7 @@
                             <tr>
                                 <td>Tổng tiền:</td>
                                 <td><span>VND</span>
-                                    <p>{{$room->room_price}}</p></td>
+                                    <p>{{$total_price}}</p></td>
                             </tr>
                             </tbody>
                         </table>
@@ -51,18 +51,25 @@
                 <div class="col-lg-8">
 
                     <div class="form-group">
-                        <h4><b>{{$room->hotel->hotel_name}}</b></h4>
+                        <h4><b>{{$rooms[0]->hotel->hotel_name}}</b></h4>
                     </div>
                     <div class="form-group">
                         <h5>Thông tin của bạn</h5>
                         @if(Auth::check())
                             <input name="guest_id" value="{{Auth::id()}}" hidden>
                         @endif
-                        <input name="room_id" value="{{$room->id}}" hidden>
+                        @foreach($rooms as $room)
+                            <input name="room_id[]" value="{{$room->id}}" hidden>
+                            <input name="total_price[]" value="{{$room->room_price}}" hidden>
+                            <input name="total_price[]" value="{{$room->room_price}}" hidden>
+                        @endforeach
+                        @foreach($number_room as $value)
+                            <input name="number_room[]" value="{{$value}}" hidden>
+                        @endforeach
+                        <input name="hotel_name" value="{{$room->hotel->hotel_name}}" hidden>
+                        <input name="total" value="{{$total_price}}" hidden>
                         <input name="check_in_date" value="{{$check_in_date}}" hidden>
                         <input name="check_out_date" value="{{$check_out_date}}" hidden>
-                        <input name="total_price" value="{{$room->room_price}}" hidden>
-                        <input name="payment_code" value="250000" hidden>
                         <input name="is_payment" value="0" hidden>
 
                         <div class="row">

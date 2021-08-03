@@ -17,6 +17,7 @@ use App\Repositories\Admin\RoomRepository;
 use App\Repositories\Admin\RoomTypeRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class RoomController extends Controller
@@ -62,6 +63,31 @@ class RoomController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getProvinces(Request $request)
+    {
+        if ($request->ajax()) {
+            $country = $this->countryRepo->find($request->country_id);
+            $provinces = $country->provinces;
+            return response()->json($provinces);
+        }
+
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getHotelInProvince(Request $request)
+    {
+        $countries = $this->countryRepo->getAll();
+        $hotels = $this->hotelRepo->findBy('province_id', $request->province, 10);
+        return view('admin.contents.hotel.index', ['countries' => $countries], ['hotels' => $hotels]);
+
+    }
+    /**
      * show information of rooms
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -106,7 +132,10 @@ class RoomController extends Controller
     {
         $hotels = $this->hotelRepo->getAll();
         $types = $this->roomtypeRepo->getAll();
-        return view('admin.contents.room.submit')->with('hotels', $hotels)->with('types', $types);
+        $countries = $this->countryRepo->getAll();
+        return view('admin.contents.room.submit')
+            ->with('hotels', $hotels)->with('types', $types)
+            ->with('countries', $countries);
     }
 
     /**
@@ -132,9 +161,10 @@ class RoomController extends Controller
         $dataInsert = Arr::only($input, [
             'hotel_id',
             'room_type_id',
-            'room_name',
             'room_price'
         ]);
+        //dd((int)$input['room_number']);
+        $dataInsert['room_number'] = (int)$input['room_number'];
         $dataInsert['room_images'] = json_encode($input['room_images']);
         $room = $this->roomRepo->create($dataInsert);
         $facilities = $this->facilityRepo->getAll();
@@ -154,9 +184,9 @@ class RoomController extends Controller
         $dataInsert = Arr::only($input, [
             'hotel_id',
             'room_type_id',
-            'room_name',
             'room_price'
         ]);
+        $dataInsert['room_number'] = (int)$input['room_number'];
         $dataInsert['room_images'] = json_encode($input['room_images']);
         $room = $this->roomRepo->update($id, $dataInsert);
         $room_facility = $this->roomFacilityRepo->findByRoom($id);
@@ -213,11 +243,13 @@ class RoomController extends Controller
     public function import(FileRequest $request)
     {
         $import_room = new RoomImport();
+        DB::beginTransaction();
         $import_room->import($request->file('select_file'));
         if ($import_room->failures()->isNotEmpty()) {
-            $failures = $import_room->failures();
-            return redirect()->route('admin.room.list')->withFailures($failures);
+            DB::rollback();
+            return redirect()->route('admin.room.list')->withFailures($import_room->failures());
         }
+        DB::commit();
         return redirect()->route('admin.room.list')->with('success', 'Upload file thành công!');
     }
 
