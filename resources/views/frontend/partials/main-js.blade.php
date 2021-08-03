@@ -1,0 +1,17 @@
+<script src="{{asset('frontend_assets/js/jquery.min.js')}}"></script>
+<script src="{{asset('frontend_assets/js/jquery-migrate-3.0.1.min.js')}}"></script>
+<script src="{{asset('frontend_assets/js/popper.min.js')}}"></script>
+<script src="{{asset('frontend_assets/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('frontend_assets/js/jquery.easing.1.3.js')}}"></script>
+<script src="{{asset('frontend_assets/js/jquery.waypoints.min.js')}}"></script>
+<script src="{{asset('frontend_assets/js/jquery.stellar.min.js')}}"></script>
+<script src="{{asset('frontend_assets/js/owl.carousel.min.js')}}"></script>
+<script src="{{asset('frontend_assets/js/jquery.magnific-popup.min.js')}}"></script>
+<script src="{{asset('frontend_assets/js/jquery.animateNumber.min.js')}}"></script>
+<script src="{{asset('frontend_assets/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('frontend_assets/js/scrollax.min.js')}}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="{{asset('frontend_assets/js/google-map.js')}}"></script>
+<script src="{{asset('frontend_assets/js/main.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.10.0/js/lightgallery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
